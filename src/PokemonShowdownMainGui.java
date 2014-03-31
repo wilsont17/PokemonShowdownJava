@@ -10,7 +10,7 @@ public class PokemonShowdownMainGui
 	
 	
 	//Mechanics
-	
+	/*
 	if (!p1switch && !p2switch)
 	{
 		if (p1pokemon.getSpeed() > p2pokemon.getSpeed())
@@ -26,4 +26,6 @@ public class PokemonShowdownMainGui
 			
 		}
 	}
+	*/
 }
+
