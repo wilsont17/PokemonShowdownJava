@@ -5,10 +5,7 @@ public class PokemonShowdownMainGui
 {
 	ArrayList<Pokemon> p1pokemon = new ArrayList<Pokemon>();
 	ArrayList<Pokemon> p2pokemon = new ArrayList<Pokemon>();
-	
-	
-	
-	
+
 	
 	
 	
