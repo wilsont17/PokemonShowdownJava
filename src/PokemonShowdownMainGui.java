@@ -34,13 +34,15 @@ public class PokemonShowdownMainGui
 		
 		for (int x = 0; x < 6; x ++)
 		{
-		  
-		  //p1Pokemon.add();
-		  //p2Pokemon.add();
+		  p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
+		  p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
+		  System.out.println(p1Pokemon.get(x));
+		  System.out.println(p2Pokemon.get(x));
 		}
 		
-		//p1Active = p1Pokemon.get(0);
-		//p2Active = p2Pokemon.get(0);
+		
+		p1Active = p1Pokemon.get(0);
+		p2Active = p2Pokemon.get(0);
 		
 		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 8; gbc.gridy = 0;
@@ -107,9 +109,6 @@ public class PokemonShowdownMainGui
 	      pokemonPool.add(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
 	      //System.out.println(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
 	   }
-	  System.out.println("finished");
-	  
-	  
 	}
 	
 
