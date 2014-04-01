@@ -3,8 +3,8 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui 
 {
-	ArrayList<Pokemon> p1pokemon = new ArrayList<Pokemon>();
-	ArrayList<Pokemon> p2pokemon = new ArrayList<Pokemon>();
+	Pokemon p1active, p2active;
+	ArrayList<Pokemon> p1pokemon, p2pokemon, currentPokemonMoves, pokemonPool;
 
 	PokemonShowdownMainGui()
 	{
@@ -13,22 +13,27 @@ public class PokemonShowdownMainGui
 	
 	
 	//Mechanics
-	/*
-	if (!p1switch && !p2switch)
+	
+	public void turnMove()
 	{
-		if (p1pokemon.getSpeed() > p2pokemon.getSpeed())
+		
+		if (!p1switch && !p2switch)
 		{
-			
-		}
-		else if (p1pokemon.getSpeed() == p2pokemon.getSpeed())
-		{
-			
-		}
-		else
-		{
-			
+			if (p1active.getSpeed() > p2active.getSpeed())
+			{
+				
+			}
+			else if (p1active.getSpeed() == p2active.getSpeed())
+			{
+				
+			}
+			else
+			{
+				
+			}
 		}
 	}
-	*/
+	
+
 }
 
