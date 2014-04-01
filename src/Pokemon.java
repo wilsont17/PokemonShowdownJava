@@ -101,7 +101,6 @@ public class Pokemon
 	{
 	  String temp = "";
 	  temp+=name;
-	  
 	  return temp;
 	}
 }

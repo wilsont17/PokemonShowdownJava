@@ -26,23 +26,25 @@ public class PokemonShowdownMainGui
 		gbc = new GridBagConstraints();
 		jfrm.setLayout(gb);
 		jfrm.setSize(1280,720);
+		//create the arraylists
 		pokemonPool = new ArrayList<Pokemon>();
+		p1Pokemon = new ArrayList<Pokemon>();
+		p2Pokemon = new ArrayList<Pokemon>();
+		
 		loadPokemonDB();
 		jfrm.setVisible(true);
-		System.out.println(pokemonPool.size());
-		
 		
 		for (int x = 0; x < 6; x ++)
 		{
-		  p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
-		  p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
-		  System.out.println(p1Pokemon.get(x));
-		  System.out.println(p2Pokemon.get(x));
+			p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
+			p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
+			System.out.println(p1Pokemon.get(x));
+			System.out.println(p2Pokemon.get(x));
 		}
 		
 		
-		p1Active = p1Pokemon.get(0);
-		p2Active = p2Pokemon.get(0);
+		//p1Active = p1Pokemon.get(0);
+		//p2Active = p2Pokemon.get(0);
 		
 		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 8; gbc.gridy = 0;
@@ -86,7 +88,7 @@ public class PokemonShowdownMainGui
 	public void loadPokemonDB() throws FileNotFoundException
 	{
 	  File inFile = new File("resources/pokemonstats.txt");
-    Scanner inScan = new Scanner(inFile);
+	  Scanner inScan = new Scanner(inFile);
     
 	  /* Order of input
 	  inScan.nextLine();//HP
