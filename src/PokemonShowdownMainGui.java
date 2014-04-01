@@ -6,9 +6,13 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui 
 {
-	boolean p1switch, p2switch;
-	Pokemon p1active, p2active;
-	ArrayList<Pokemon> p1pokemon, p2pokemon, currentPokemonMoves, pokemonPool;
+	boolean p1Switch, p2Switch;
+	Pokemon p1Active, p2Active;
+	JLabel p1AndAllPokemon, p2AndAllPokemon, p1ActiveImg, p2ActiveImg,
+	  p1StatusEffects, p2StatusEffects, previousMovesLog, currentTurnEvents;
+	JProgressBar p1PokemonHP, p2PokemonHP;
+	JScrollBar movesLogScroll;
+	ArrayList<Pokemon> p1Pokemon, p2Pokemon, currentPokemonMoves, pokemonPool;
 
 	JFrame jfrm;
 	GridBagLayout gb;
@@ -24,6 +28,19 @@ public class PokemonShowdownMainGui
 		jfrm.setSize(1280,720);
 		loadPokemonDB();
 		jfrm.setVisible(true);
+		
+		for (int x = 0; x < 6; x ++)
+		{
+		  
+		}
+		
+		
+		previousMovesLog = new JLabel("<html>");
+		gbc.gridx = 8; gbc.gridy = 0;
+		gbc.gridheight = 9; gbc.gridwidth = 3;
+		jfrm.add(previousMovesLog, gbc);
+		
+		
 	}
 	
 	
