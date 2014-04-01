@@ -5,9 +5,11 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui 
 {
-	boolean p1switch, p2switch;
-	Pokemon p1active, p2active;
-	ArrayList<Pokemon> p1pokemon, p2pokemon, currentPokemonMoves, pokemonPool;
+	boolean p1Switch, p2Switch;
+	Pokemon p1Active, p2Active;
+	JLabel p1AndAllPokemon, p2AndAllPokemon, p1ActiveImg, p2ActiveImg,
+	  p1StatusEffects, p2StatusEffects, previousMovesLog, currentTurnEvents;
+	ArrayList<Pokemon> p1Pokemon, p2Pokemon, currentPokemonMoves, pokemonPool;
 
 	JFrame jfrm;
 	GridBagLayout gb;
