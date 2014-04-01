@@ -83,14 +83,14 @@ public class PokemonShowdownMainGui
 	{
 	  File inFile = new File("resources/pokemonstats.txt");
     Scanner inScan = new Scanner(inFile);
-	  inScan.nextLine();//pokemon
+	  /* Order of input
 	  inScan.nextLine();//HP
 	  inScan.nextLine();//attack
 	  inScan.nextLine();//defense
 	  inScan.nextLine();//spattack
 	  inScan.nextLine();//spdefense
 	  inScan.nextLine();//speed
-
+	   */
 	  while(inScan.hasNextLine())
 	  {
 	    
