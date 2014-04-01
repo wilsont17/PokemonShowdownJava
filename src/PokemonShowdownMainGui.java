@@ -43,8 +43,8 @@ public class PokemonShowdownMainGui
 		}
 		
 		
-		//p1Active = p1Pokemon.get(0);
-		//p2Active = p2Pokemon.get(0);
+		p1Active = p1Pokemon.get(0);
+		p2Active = p2Pokemon.get(0);
 		
 		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 8; gbc.gridy = 0;
