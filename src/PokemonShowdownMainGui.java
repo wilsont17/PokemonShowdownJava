@@ -85,6 +85,7 @@ public class PokemonShowdownMainGui
 	{
 	  File inFile = new File("resources/pokemonstats.txt");
     Scanner inScan = new Scanner(inFile);
+    
 	  /* Order of input
 	  inScan.nextLine();//HP
 	  inScan.nextLine();//attack
@@ -103,8 +104,8 @@ public class PokemonShowdownMainGui
 	      int tempSpAttack = Integer.parseInt(inScan.nextLine().trim());
 	      int tempSpDefense = Integer.parseInt(inScan.nextLine().trim());
 	      int tempSpeed = Integer.parseInt(inScan.nextLine().trim());
-	      
-	      System.out.println(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
+	      pokemonPool.add(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
+	      //System.out.println(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
 	   }
 	  System.out.println("finished");
 	  
