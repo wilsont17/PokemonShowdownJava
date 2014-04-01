@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -14,14 +15,14 @@ public class PokemonShowdownMainGui
 	GridBagConstraints gbc;
 	
 	
-	PokemonShowdownMainGui()
+	PokemonShowdownMainGui() throws FileNotFoundException
 	{
 		jfrm = new JFrame("Pokemon Showdown");
 		gb = new GridBagLayout();
 		gbc = new GridBagConstraints();
 		jfrm.setLayout(gb);
 		jfrm.setSize(1280,720);
-		
+		loadPokemonDB();
 		jfrm.setVisible(true);
 	}
 	
@@ -53,6 +54,37 @@ public class PokemonShowdownMainGui
 				
 			}
 		}
+	}
+	
+	
+	public void loadPokemonDB() throws FileNotFoundException
+	{
+	  File inFile = new File("resources/pokemonstats.txt");
+    Scanner inScan = new Scanner(inFile);
+	  inScan.nextLine();//pokemon
+	  inScan.nextLine();//HP
+	  inScan.nextLine();//attack
+	  inScan.nextLine();//defense
+	  inScan.nextLine();//spattack
+	  inScan.nextLine();//spdefense
+	  inScan.nextLine();//speed
+
+	  while(inScan.hasNextLine())
+	  {
+	    
+	      String tempName = inScan.nextLine();
+	      int tempHP = Integer.parseInt(inScan.nextLine().trim());
+	      int tempAttack = Integer.parseInt(inScan.nextLine().trim());
+	      int tempDefense = Integer.parseInt(inScan.nextLine().trim());
+	      int tempSpAttack = Integer.parseInt(inScan.nextLine().trim());
+	      int tempSpDefense = Integer.parseInt(inScan.nextLine().trim());
+	      int tempSpeed = Integer.parseInt(inScan.nextLine().trim());
+	      
+	      System.out.println(new Pokemon(tempName , tempHP, tempAttack, tempDefense, tempSpAttack, tempSpDefense, tempSpeed));
+	   }
+	  System.out.println("finished");
+	  
+	  
 	}
 	
 

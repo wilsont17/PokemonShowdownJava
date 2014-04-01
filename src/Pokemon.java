@@ -87,4 +87,13 @@ public class Pokemon
 	{
 		return this.speed;
 	}
+	
+	
+	public String toString()
+	{
+	  String temp = "";
+	  temp+=name;
+	  
+	  return temp;
+	}
 }

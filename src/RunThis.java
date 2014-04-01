@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 import javax.swing.*;
 
 public class RunThis 
@@ -7,7 +9,14 @@ public class RunThis
 	{
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new PokemonShowdownMainGui();
+                try
+                {
+                  new PokemonShowdownMainGui();
+                }
+                catch (FileNotFoundException e)
+                {
+                  e.printStackTrace();
+                }
             }
         });
 	}	
