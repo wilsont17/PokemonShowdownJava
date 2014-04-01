@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class Pokemon 
 {
@@ -10,6 +12,8 @@ public class Pokemon
 	private int speed;
 	
 	private String name;
+	
+	ArrayList<Move> possibleMoves;
 	
 	Pokemon(String name, int hp, int attack, int defense, int spAttack, int spDefense, int speed)
 	{
@@ -88,6 +92,10 @@ public class Pokemon
 		return this.speed;
 	}
 	
+	public void setMoves()
+	{
+	  //TODO get 4 random moves and add it to the pokemon
+	}
 	
 	public String toString()
 	{
