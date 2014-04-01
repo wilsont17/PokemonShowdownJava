@@ -1,4 +1,6 @@
+import java.awt.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class PokemonShowdownMainGui 
@@ -6,9 +8,17 @@ public class PokemonShowdownMainGui
 	Pokemon p1active, p2active;
 	ArrayList<Pokemon> p1pokemon, p2pokemon, currentPokemonMoves, pokemonPool;
 
+	JFrame jfrm;
+	GridBagLayout gb;
+	GridBagConstraints gbc;
+	
+	
 	PokemonShowdownMainGui()
 	{
-		
+		jfrm = new JFrame("Pokemon Showdown");
+		gb = new GridBagLayout();
+		gbc = new GridBagConstraints();
+		jfrm.setLayout(gb);
 	}
 	
 	
