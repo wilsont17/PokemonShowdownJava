@@ -19,6 +19,9 @@ public class PokemonShowdownMainGui
 		gb = new GridBagLayout();
 		gbc = new GridBagConstraints();
 		jfrm.setLayout(gb);
+		jfrm.setSize(1280,720);
+		
+		jfrm.setVisible(true);
 	}
 	
 	
