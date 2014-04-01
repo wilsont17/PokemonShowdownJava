@@ -12,7 +12,7 @@ public class PokemonShowdownMainGui
 	  p1StatusEffects, p2StatusEffects, previousMovesLog, currentTurnEvents;
 	JProgressBar p1PokemonHP, p2PokemonHP;
 	JScrollBar movesLogScroll;
-	ArrayList<Pokemon> p1Pokemon, p2Pokemon, currentPokemonMoves, pokemonPool;
+	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
 
 	JFrame jfrm;
 	GridBagLayout gb;
@@ -26,19 +26,21 @@ public class PokemonShowdownMainGui
 		gbc = new GridBagConstraints();
 		jfrm.setLayout(gb);
 		jfrm.setSize(1280,720);
+		pokemonPool = new ArrayList<Pokemon>();
 		loadPokemonDB();
 		jfrm.setVisible(true);
+		System.out.println(pokemonPool.size());
 		
 		
 		for (int x = 0; x < 6; x ++)
 		{
 		  
-		  p1Pokemon.add();
-		  p2Pokemon.add();
+		  //p1Pokemon.add();
+		  //p2Pokemon.add();
 		}
 		
-		p1Active = p1Pokemon.get(0);
-		p2Active = p2Pokemon.get(0);
+		//p1Active = p1Pokemon.get(0);
+		//p2Active = p2Pokemon.get(0);
 		
 		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 8; gbc.gridy = 0;
