@@ -6,6 +6,7 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui 
 {
+	String p1Name, p2Name;
 	boolean p1Switch, p2Switch, p1Moved, p2Moved;
 	Pokemon p1Active, p2Active;
 	JLabel p1AndAllPokemon, p2AndAllPokemon, p1ActiveImg, p2ActiveImg,
@@ -34,28 +35,42 @@ public class PokemonShowdownMainGui
 		loadPokemonDB();
 		jfrm.setVisible(true);
 		
-		for (int x = 0; x < 6; x ++)
-		{
-			p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
-			p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772) + 1));
-			System.out.println(p1Pokemon.get(x));
-			System.out.println(p2Pokemon.get(x));
-		}
-		
-		
-		p1Active = p1Pokemon.get(0);
-		p2Active = p2Pokemon.get(0);
-		
 		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 8; gbc.gridy = 0;
 		gbc.gridheight = 9; gbc.gridwidth = 3;
 		jfrm.add(previousMovesLog, gbc);
 		
+		new SetupGui(this);
+		
 		
 	}
 	
-	
 	//Mechanics
+	
+	public void createOneVsOne()
+	{
+		p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+		p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+		p1Active = p1Pokemon.get(0);
+		p2Active = p2Pokemon.get(0);
+	}
+	
+	public void createSixVsSix()
+	{
+		for (int x = 0; x < 6; x ++)
+		{
+			p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+			p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+			p1Active = p1Pokemon.get(0);
+			p2Active = p2Pokemon.get(0);
+		}
+	}
+	
+	public void addNames(String p1n, String p2n)
+	{
+		p1Name = p1n; 
+		p2Name = p2n;
+	}
 	
 	public void turnMove()
 	{
