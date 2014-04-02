@@ -55,8 +55,8 @@ public class PokemonShowdownMainGui
 	
 	public void createOneVsOne()
 	{
-		p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
-		p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+		p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+		p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 		p1Active = p1Pokemon.get(0);
 		p2Active = p2Pokemon.get(0);
 	}
@@ -65,8 +65,8 @@ public class PokemonShowdownMainGui
 	{
 		for (int x = 0; x < 6; x ++)
 		{
-			p1Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
-			p2Pokemon.add(pokemonPool.get((int)(Math.random()* 772)));
+			p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+			p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 			p1Active = p1Pokemon.get(0);
 			p2Active = p2Pokemon.get(0);
 		}
