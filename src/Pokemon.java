@@ -10,7 +10,7 @@ public class Pokemon
 	private int spAttack;
 	private int spDefense;
 	private int speed;
-	
+	private int ID;
 	private String name;
 	
 	ArrayList<Move> possibleMoves;

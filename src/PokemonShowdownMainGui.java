@@ -136,8 +136,20 @@ public class PokemonShowdownMainGui
 	
 	public void experimentalPokemonDBLoader()
 	{
+		
+		String tempName;
+		int tempHP;
+		int tempAttack;
+		int tempDefense;
+		int tempSpAttack;
+		int tempSpDefense;
+		int tempSpeed;
+		int tempID;
+		
 		Statement stmt;
-		ResultSet res;
+		ResultSet resName;
+		ResultSet resStats;
+
 		Connection con;
 		// this segment of code loads the driver that handles the databse
 		try
@@ -145,16 +157,32 @@ public class PokemonShowdownMainGui
 			Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
 			DriverManager.registerDriver(d);
 			
-			 String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
-			 con = DriverManager.getConnection(url);
+			String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+			con = DriverManager.getConnection(url);
 			
-			String sql = "SELECT name, sql FROM sqlite_master WHERE type='table'";
+			String query_pokemon = "select * from pokemon";
+			String query_pokemonStats = "select * from pokemon_stats";
 			stmt = con.createStatement();
-			res = stmt.executeQuery(sql);
-			while(res.next())
+			
+			resName = stmt.executeQuery(query_pokemon);
+			//
+			
+			while(resName.next())
             {
-				System.out.println(res.getString("name"));
+				System.out.println(resName.getString("id")); // gets pokemon ID
+				System.out.println(resName.getString("identifier")); //gets pokemon name
+			
             }
+			
+			resStats = stmt.executeQuery(query_pokemonStats);
+			
+			while(resStats.next())
+            {
+				System.out.println(resStats.getString("stat_id")); //1 = hp, 2 = attack, 3 = defense, 4 = sp attack, 5 = sp defense, 6=speed, 
+ 				System.out.println(resStats.getString("base_stat")); // 7 = accuracy, 8 = evasion
+				System.out.println(resStats.getString("effort"));
+            }
+			
 		}
 		catch(Exception e)
 		{
