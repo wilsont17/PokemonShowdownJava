@@ -1,5 +1,11 @@
 import java.awt.*;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import javax.swing.*;
@@ -30,7 +36,7 @@ public class PokemonShowdownMainGui
 		pokemonPool = new ArrayList<Pokemon>();
 		p1Pokemon = new ArrayList<Pokemon>();
 		p2Pokemon = new ArrayList<Pokemon>();
-		
+		//experimentalPokemonDBLoader();
 		loadPokemonDB();
 		jfrm.setVisible(true);
 		
@@ -113,6 +119,36 @@ public class PokemonShowdownMainGui
 	   }
 	}
 	
+	public void experimentalPokemonDBLoader()
+	{
+		Statement stmt;
+		ResultSet res;
+		Connection con;
+		// this segment of code loads the driver that handles the databse
+		try
+		{
+			Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
+			DriverManager.registerDriver(d);
+			
+			 String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+			 con = DriverManager.getConnection(url);
+			
+			String sql = "SELECT name, sql FROM sqlite_master WHERE type='table'";
+			stmt = con.createStatement();
+			res = stmt.executeQuery(sql);
+			while(res.next())
+            {
+				System.out.println(res.getString("name"));
+            }
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		    
+	}
+		
 
 }
 
