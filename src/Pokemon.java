@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 
 public class Pokemon 
 {
@@ -12,6 +14,8 @@ public class Pokemon
 	private int speed;
 	private int ID;
 	private String name;
+	private ArrayList<String> statusEffects;
+	private ArrayList<Move> moves;
 	
 	ArrayList<Move> possibleMoves;
 	
@@ -25,6 +29,8 @@ public class Pokemon
 		this.spAttack = spAttack;
 		this.spDefense = spDefense;
 		this.speed = speed;
+		statusEffects = new ArrayList<String>();
+		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 	}
 	
 	public void modifyHP(int amount)
@@ -90,6 +96,21 @@ public class Pokemon
 	public int getSpeed()
 	{
 		return this.speed;
+	}
+	
+	public ArrayList<String> getStatusEffects()
+	{
+	  return statusEffects;
+	}
+	
+	public ArrayList<Move> getMoveSet ()
+	{
+	  return moves;
+	}
+	
+	public ImageIcon getImg ()
+	{
+	  //TODO return the img of the pokemon
 	}
 	
 	public void setMoves()

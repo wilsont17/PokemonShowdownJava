@@ -8,7 +8,7 @@ public class SetupGui implements ActionListener
 	JFrame j;
 	JLabel p1NameDesc, p2NameDesc;
 	JButton start;
-	JComboBox gameModes;
+	JComboBox<String> gameModes;
 	JTextField p1NameInput, p2NameInput;
 	PokemonShowdownMainGui h;
 	
@@ -17,7 +17,7 @@ public class SetupGui implements ActionListener
 		h = host;
 		j = new JFrame("Setup Game");
 		j.setLayout(new GridLayout(0, 1));
-		j.setSize(600,400);
+		j.setSize(250,350);
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.setVisible(true);
 		
@@ -30,10 +30,9 @@ public class SetupGui implements ActionListener
 		j.add(p2NameDesc);
 		j.add(p2NameInput);
 		
-		//gameModes = new JComboBox();
-		//String onevsone = "1 vs 1";
-		//gameModes.addItem(onevsone);
-		//j.add(gameModes);
+		String[] gameOptions = {"1v1", "6v6"};
+		gameModes = new JComboBox<String>(gameOptions);
+		j.add(gameModes);
 		
 		start = new JButton("Start Game");
 		start.addActionListener(this);
@@ -45,18 +44,15 @@ public class SetupGui implements ActionListener
 	{
 		if (ae.getSource() == start)
 		{
-			System.out.println(p1NameInput.getText());
-			h.addNames(p1NameInput.getText(), p2NameInput.getText());
-			/*
-			if ()  //JComboBox selects 1v1
+		  h.addNames(p1NameInput.getText(), p2NameInput.getText());
+			if (gameModes.getSelectedIndex() == 0)  //JComboBox selects 1v1
 			{
 				h.createOneVsOne();
 			}
-			else if ()  //JComboBox selects 6v6
+			else if (gameModes.getSelectedIndex() == 1)  //JComboBox selects 6v6
 			{
 				h.createSixVsSix();
 			}
-			*/
 			j.dispose();
 		}
 		

@@ -13,13 +13,15 @@ import javax.swing.*;
 public class PokemonShowdownMainGui 
 {
 	String p1Name, p2Name;
-	boolean p1Switch, p2Switch, p1Moved, p2Moved;
+	boolean p1Switch, p2Switch, battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
 	Pokemon p1Active, p2Active;
-	JLabel p1AndAllPokemon, p2AndAllPokemon, p1ActiveImg, p2ActiveImg,
-	  p1StatusEffects, p2StatusEffects, previousMovesLog, currentTurnEvents;
-	JProgressBar p1PokemonHP, p2PokemonHP;
+	int p1ActiveIndex, p2ActiveIndex;
+	JLabel currPlayerAndAllPokemon, opPlayerAndAllPokemon, currPlayerActiveImg, opPlayerActiveImg,
+	  currPlayerPokemonStatusEffects, opPlayerPokemonStatusEffects, previousMovesLog, currentTurnEvents;
+	JProgressBar currPlayerPokemonHP, opPlayerPokemonHP;
 	JScrollBar movesLogScroll;
 	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
+	ArrayList<JButton> currPokemonMoves, currSwitchablePokemon;
 
 	JFrame jfrm;
 	GridBagLayout gb;
@@ -41,14 +43,56 @@ public class PokemonShowdownMainGui
 		loadPokemonDB();
 		jfrm.setVisible(true);
 		
-		previousMovesLog = new JLabel("<html>");
-		gbc.gridx = 8; gbc.gridy = 0;
-		gbc.gridheight = 9; gbc.gridwidth = 3;
+		previousMovesLog = new JLabel("<html>HELLLOOO");
+		gbc.gridx = 7; gbc.gridy = 0;
+		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(previousMovesLog, gbc);
 		
+		currPokemonMoves = new ArrayList<JButton>();
+		currSwitchablePokemon = new ArrayList<JButton>();
+		for (int x = 0; x < 4; x ++)
+		{
+		  currPokemonMoves.add(new JButton("Hello"));
+		  gbc.gridx = 2 + x; gbc.gridy = 5;
+		  jfrm.add(currPokemonMoves.get(x), gbc);
+		}
+		for (int x = 0; x < 6; x ++)
+		{
+		  currSwitchablePokemon.add(new JButton("Hello"));
+		  gbc.gridx = 1 + x; gbc.gridy = 6;
+      jfrm.add(currSwitchablePokemon.get(x), gbc);
+		}
+		
+		
+		
+		currPlayerPokemonStatusEffects = new JLabel("");
+		opPlayerPokemonStatusEffects = new JLabel("");
+		
+		
+		
+		
+		
+		
+		//currPlayerPokemonHP = new JProgressBar(100);
+		//opPlayerPokemonHP = new JProgressBar(100);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		new SetupGui(this);
-		
-		
+		battleInProgress = true;
+		/*
+		while (battleInProgress)
+		{
+		  
+		}
+		*/
 	}
 	
 	//Mechanics
@@ -59,6 +103,8 @@ public class PokemonShowdownMainGui
 		p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 		p1Active = p1Pokemon.get(0);
 		p2Active = p2Pokemon.get(0);
+		p1ActiveIndex = 0;
+		p2ActiveIndex = 0;
 	}
 	
 	public void createSixVsSix()
@@ -69,6 +115,8 @@ public class PokemonShowdownMainGui
 			p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 			p1Active = p1Pokemon.get(0);
 			p2Active = p2Pokemon.get(0);
+			p1ActiveIndex = 0;
+	    p2ActiveIndex = 0;
 		}
 	}
 	
@@ -76,6 +124,37 @@ public class PokemonShowdownMainGui
 	{
 		p1Name = p1n; 
 		p2Name = p2n;
+	}
+	
+	public void p1Turn()
+	{
+	  //currPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
+	  //opPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
+	  //currPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
+	  //opPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
+	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+	  //currPlayerPokemonStatusEffects.setText(); set currplayerstatuseffects
+	  opPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+	  for (int x = 0; x < 4; x ++)
+	  {
+	    currPokemonMoves.get(x).setText(p1Active.getMoveSet().get(x).toString());
+	  }
+	  for (int x = 0; x < 6; x ++)
+	  {
+	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+	    if (x == p1ActiveIndex)
+	    {
+	      currSwitchablePokemon.get(x).setEnabled(false);
+	    }
+	  }
+	}
+	
+	public void p2Turn()
+	{
+	  //currPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
+	  //opPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
+	  //currPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
+    //opPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
 	}
 	
 	public void turnMove()
@@ -194,4 +273,3 @@ public class PokemonShowdownMainGui
 		
 
 }
-

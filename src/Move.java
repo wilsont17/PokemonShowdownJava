@@ -16,6 +16,9 @@ public class Move
     this.hitChance = hitChance;
   }
   
-  
+  public String toString()
+  {
+    return name;
+  }
   
 }
