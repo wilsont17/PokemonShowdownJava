@@ -7,7 +7,8 @@ public class Move
   private int power;
   private int hitChance;
   private String type;
-  
+  private int maxPP;
+  private int currPP;
   
   Move(String name, String description, int power, int hitChance)
   {
@@ -30,6 +31,11 @@ public class Move
   public String getType ()
   {
 	  return type;
+  }
+  
+  public boolean useable()
+  {
+    return (currPP > 0);
   }
   
 }
