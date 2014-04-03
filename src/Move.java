@@ -6,6 +6,7 @@ public class Move
   private String description;
   private int power;
   private int hitChance;
+  private String type;
   
   
   Move(String name, String description, int power, int hitChance)
@@ -16,6 +17,14 @@ public class Move
     this.hitChance = hitChance;
   }
   
+  public int getPower()
+  {
+	  return power;
+  }
   
+  public String getType ()
+  {
+	  return type;
+  }
   
 }

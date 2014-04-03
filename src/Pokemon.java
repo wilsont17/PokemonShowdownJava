@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Pokemon 
 {
+	private int level;
 	private int maxHP;
 	private int HP;
 	private int attack;
@@ -14,6 +15,7 @@ public class Pokemon
 	private int accuracy; //do these later
 	private int evasion; // 
 	private String name;
+	private ArrayList<String> type;
 	
 	ArrayList<Move> possibleMoves;
 	
@@ -27,6 +29,7 @@ public class Pokemon
 		this.spAttack = spAttack;
 		this.spDefense = spDefense;
 		this.speed = speed;
+		type = new ArrayList<String>();
 	}
 	
 	//For Use with experimental loader
@@ -64,6 +67,11 @@ public class Pokemon
 	public void modifySpeed(int amount)
 	{
 		this.speed+=amount;
+	}
+	
+	public int getLevel()
+	{
+		return level;
 	}
 	
 	public int getMaxHP()
@@ -149,6 +157,11 @@ public class Pokemon
 	  temp+=attack+" ";
 	  temp+=defense+" ";
 	  return temp;
+	}
+	
+	public ArrayList<String> getType()
+	{
+		return type;
 	}
 	
 	public static Pokemon getPokemonByID(int ID, ArrayList<Pokemon> pokemonPool)
