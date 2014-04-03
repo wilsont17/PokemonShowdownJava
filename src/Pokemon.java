@@ -143,7 +143,7 @@ public class Pokemon
 	public ImageIcon getImg ()
 	{
 	  //TODO return the img of the pokemon
-	  return null;
+	  return this.imgIcon;
 	}
 	
 	public int getID()
