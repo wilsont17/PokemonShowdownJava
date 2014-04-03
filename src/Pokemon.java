@@ -208,5 +208,10 @@ public class Pokemon
     return null;
 	}
 	
+	public void addType(String type)
+	{
+	  this.type.add(type);
+	}
+	
 	
 }
