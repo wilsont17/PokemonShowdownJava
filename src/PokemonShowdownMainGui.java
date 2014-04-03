@@ -43,14 +43,10 @@ public class PokemonShowdownMainGui implements ActionListener
 		p2Pokemon = new ArrayList<Pokemon>();
 		//loadPokemonDB();
 
-<<<<<<< HEAD
 		whoseTurn = true;
-		
-    experimentalPokemonDBLoader();
-=======
-    experimentalPokemonDBLoader(); // load all pokemon
->>>>>>> branch 'master' of https://github.com/samisftw/PokemonShowdownJava.git
-    System.out.println(pokemonPool);
+	
+		experimentalPokemonDBLoader(); // load all pokemon
+		System.out.println(pokemonPool);
 		jfrm.setVisible(true);
 		
 		previousMovesLog = new JLabel("<html>HELLLOOO");
