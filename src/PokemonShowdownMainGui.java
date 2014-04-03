@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
@@ -270,7 +269,7 @@ public class PokemonShowdownMainGui
 		Statement stmt;
 		ResultSet resName;
 		ResultSet resStats;
-
+		ResultSet restTypes;
 		Connection con;
 		// this segment of code loads the driver that handles the databse
 		try
@@ -284,6 +283,8 @@ public class PokemonShowdownMainGui
 			String query_pokemon = "select * from pokemon";
 			
 			String query_pokemonStats = "select * from pokemon_stats";
+			
+			String query_pokemonTypes = "select * from pokemon_types";
 			stmt = con.createStatement();
 			
 			resName = stmt.executeQuery(query_pokemon);
@@ -348,6 +349,28 @@ public class PokemonShowdownMainGui
  			        //no need now
  			      break;
  			  }
+ 			  
+ 			restTypes = stmt.executeQuery(query_pokemonTypes);
+ 			while(resStats.next())
+      {
+ 			  
+ 			  String pokeID = resStats.getString("pokemon_id");
+ 			  String typeID = resStats.getString("type_id");
+ 			  
+ 			  switch(Integer.parseInt(typeID)) 
+ 			  {
+ 			  case 1:
+ 			    
+ 			  break;
+ 			    
+ 			  case 2:
+ 			    
+ 			  break;
+ 			    
+ 			  }
+ 			  
+ 			  
+      }
  			 
  			 
  			  //System.out.println(resStats.getString("effort"));
