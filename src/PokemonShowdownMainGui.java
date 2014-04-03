@@ -37,8 +37,10 @@ public class PokemonShowdownMainGui
 		pokemonPool = new ArrayList<Pokemon>();
 		p1Pokemon = new ArrayList<Pokemon>();
 		p2Pokemon = new ArrayList<Pokemon>();
-		//experimentalPokemonDBLoader();
-		loadPokemonDB();
+		//loadPokemonDB();
+
+    experimentalPokemonDBLoader();
+    System.out.println(pokemonPool);
 		jfrm.setVisible(true);
 		
 		previousMovesLog = new JLabel("<html>");
@@ -105,7 +107,7 @@ public class PokemonShowdownMainGui
 		}
 	}
 	
-	
+	//do not use this method to load it is depreicated
 	public void loadPokemonDB() throws FileNotFoundException
 	{
 	  File inFile = new File("resources/pokemonstats.txt");
@@ -121,7 +123,6 @@ public class PokemonShowdownMainGui
 	   */
 	  while(inScan.hasNextLine())
 	  {
-	    
 	      String tempName = inScan.nextLine();
 	      int tempHP = Integer.parseInt(inScan.nextLine().trim());
 	      int tempAttack = Integer.parseInt(inScan.nextLine().trim());
@@ -137,7 +138,9 @@ public class PokemonShowdownMainGui
 	public void experimentalPokemonDBLoader()
 	{
 		Statement stmt;
-		ResultSet res;
+		ResultSet resName;
+		ResultSet resStats;
+
 		Connection con;
 		// this segment of code loads the driver that handles the databse
 		try
@@ -145,16 +148,82 @@ public class PokemonShowdownMainGui
 			Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
 			DriverManager.registerDriver(d);
 			
-			 String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
-			 con = DriverManager.getConnection(url);
+			String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+			con = DriverManager.getConnection(url);
 			
-			String sql = "SELECT name, sql FROM sqlite_master WHERE type='table'";
+			String query_pokemon = "select * from pokemon";
+			
+			String query_pokemonStats = "select * from pokemon_stats";
 			stmt = con.createStatement();
-			res = stmt.executeQuery(sql);
-			while(res.next())
-            {
-				System.out.println(res.getString("name"));
-            }
+			
+			resName = stmt.executeQuery(query_pokemon);
+			
+
+			while(resName.next()) // this loop adds all of the pokemon
+      {
+			  //System.out.println(resName.getString("id")); // gets pokemon ID
+			  int temporaryID = Integer.parseInt(resName.getString("id"));
+	
+			  
+			  //System.out.println(Pokemon.getPokemonByID(temporaryID,pokemonPool) + "       !!!!!experimental!!!!");
+			  //System.out.println(resName.getString("identifier")); //gets pokemon name
+			  
+			  pokemonPool.add(new Pokemon(resName.getString("identifier"), temporaryID));
+      
+      
+      }
+			
+			resStats = stmt.executeQuery(query_pokemonStats);
+			
+			while(resStats.next())
+      {
+			 // System.out.println(resStats.getString("pokemon_id"));
+			 // System.out.println(resStats.getString("stat_id")); //1 = hp, 2 = attack, 3 = defense, 4 = sp attack, 5 = sp defense, 6=speed, 
+ 			  //System.out.println(resStats.getString("base_stat")); // 7 = accuracy, 8 = evasion
+ 			  
+ 			  String tempstatID = resStats.getString("stat_id");
+ 			  int switchCase = Integer.parseInt(tempstatID);
+ 			  int statValue = Integer.parseInt(resStats.getString("base_stat"));
+ 			  switch(switchCase)
+ 			  {
+ 			      case 1:
+ 			        Pokemon.setHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			      
+ 			      case 2:
+ 			       Pokemon.setAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			        
+ 			      case 3:
+ 			       Pokemon.setDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			      
+ 			      case 4:
+ 			       Pokemon.setSpAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			       
+ 			      case 5:
+ 			       Pokemon.setSpDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			        
+ 			      case 6:
+ 			       Pokemon.setSpeed(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+ 			      break;
+ 			        
+ 			      case 7:
+ 			        //no need now
+ 			      break;
+ 			      
+ 			      case 8:
+ 			        //no need now
+ 			      break;
+ 			  }
+ 			 
+ 			 
+ 			  //System.out.println(resStats.getString("effort"));
+      }
+      
+			
 		}
 		catch(Exception e)
 		{

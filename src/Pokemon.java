@@ -10,7 +10,9 @@ public class Pokemon
 	private int spAttack;
 	private int spDefense;
 	private int speed;
-	
+	private int ID;
+	private int accuracy; //do these later
+	private int evasion; // 
 	private String name;
 	
 	ArrayList<Move> possibleMoves;
@@ -25,6 +27,13 @@ public class Pokemon
 		this.spAttack = spAttack;
 		this.spDefense = spDefense;
 		this.speed = speed;
+	}
+	
+	//For Use with experimental loader
+	Pokemon(String name, int ID)
+	{
+	  this.name = name;
+	  this.ID = ID;
 	}
 	
 	public void modifyHP(int amount)
@@ -92,15 +101,71 @@ public class Pokemon
 		return this.speed;
 	}
 	
+	public int getID()
+	{
+	  return this.ID;
+	}
+	
 	public void setMoves()
 	{
 	  //TODO get 4 random moves and add it to the pokemon
 	}
 	
+	public static void setHP(Pokemon p, int hp) // sets current HP
+	{
+	  p.HP = hp;
+	}
+	
+	 public static void setAttack(Pokemon p, int attack)
+	 {
+	   p.attack = attack;
+	 }
+	 
+   public static void setDefense(Pokemon p, int defense) 
+   {
+     p.defense = defense;
+   }
+   
+   public static void setSpAttack(Pokemon p, int spAttack) 
+   {
+     p.spAttack = spAttack;
+   }
+   
+   public static void setSpDefense(Pokemon p, int spDefense) 
+   {
+     p.spDefense = spDefense;
+   }
+   
+   public static void setSpeed(Pokemon p, int speed) 
+   {
+     p.speed = speed;
+   }
+	
 	public String toString()
 	{
 	  String temp = "";
-	  temp+=name;
+	  temp+=name+" ";
+	  temp+=HP+" ";
+	  temp+=attack+" ";
+	  temp+=defense+" ";
 	  return temp;
 	}
+	
+	public static Pokemon getPokemonByID(int ID, ArrayList<Pokemon> pokemonPool)
+	{
+	  for(Pokemon p : pokemonPool)
+	  {
+	    //System.out.println("searching " + p);
+	    if(p.getID() == ID) // find the right pokemon, return it
+	    {
+	      //System.out.println("found pokemon with ID     " +p);
+	      return p;
+	    }
+	  }
+	  //else could not find the pokemon
+	  System.out.println("could not find pokemon");
+    return null;
+	}
+	
+	
 }
