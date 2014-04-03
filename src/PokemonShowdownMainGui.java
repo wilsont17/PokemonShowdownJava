@@ -139,8 +139,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  //currPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
 	  //opPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
-	  //currPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
-	  //opPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
+	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
+	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
 	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
 	  String se = "";
@@ -184,8 +184,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  //currPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
 	  //opPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
-	  //currPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
-    //opPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
+	  currPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
+      opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
 	  currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
     String se = "";
