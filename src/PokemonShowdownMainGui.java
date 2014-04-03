@@ -186,6 +186,57 @@ public class PokemonShowdownMainGui
 		}
 	}
 	
+	
+	
+	
+	public int dmgDone(Pokemon attacker, Pokemon defender, Move attack)
+	{
+		if (attack.getType().equals("p"))
+		{
+			return (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
+					/ defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
+					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+		}
+		else
+		{
+			return (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
+					/ defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
+					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+		}
+	}
+	
+	public double stabResult(Pokemon user, Move ability)
+	{
+		for (int x = 0; x < user.getType().size(); x ++)
+		{
+			if (user.getType().get(x).equals(ability.getType()))
+			{
+				return 1.5;
+			}
+		}
+		return 1;
+		//http://www.serebii.net/games/damage.shtml
+	}
+	
+	public double weakResist(Pokemon defender, Move ability)
+	{
+		//TODO add weakness/resistance calcs later
+	  return 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//do not use this method to load it is depreicated
 	public void loadPokemonDB() throws FileNotFoundException
 	{
