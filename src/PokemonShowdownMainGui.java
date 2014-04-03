@@ -179,7 +179,45 @@ public class PokemonShowdownMainGui
 	  //opPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
 	  //currPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
     //opPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
-	}
+	  
+	  currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+    String se = "";
+    for (int x = 0; x < p2Active.getStatusEffects().size(); x ++)
+    {
+      se += p2Active.getStatusEffects().get(x) + " ";
+    }
+    currPlayerPokemonStatusEffects.setText(se);
+    
+    opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+    se = "";
+    for (int x = 0; x < p1Active.getStatusEffects().size(); x ++)
+    {
+      se += p1Active.getStatusEffects().get(x) + " ";
+    }
+    opPlayerPokemonStatusEffects.setText(se);
+    
+    
+    
+    for (int x = 0; x < 4; x ++)
+    {
+      currPokemonMoves.get(x).setEnabled(true);
+      currPokemonMoves.get(x).setText(p2Active.getMoveSet().get(x).toString());
+      if (!p2Active.getMoveSet().get(x).useable())
+      {
+        currPokemonMoves.get(x).setEnabled(false);
+      }
+    }
+    for (int x = 0; x < 6; x ++)
+    {
+      currSwitchablePokemon.get(x).setEnabled(true);
+      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
+      {
+        currSwitchablePokemon.get(x).setEnabled(false);
+      }
+    }
+  }
+
 	
 	public void turnMove()
 	{

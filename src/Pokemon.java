@@ -20,6 +20,7 @@ public class Pokemon
 	private ArrayList<String> statusEffects;
 	private ArrayList<Move> moves;
 	private ArrayList<String> type;
+	private int patklvl, spatklvl, pdeflvl, spdeflvl, spdlvl;
 	
 	ArrayList<Move> possibleMoves;
 	
@@ -36,6 +37,11 @@ public class Pokemon
 		statusEffects = new ArrayList<String>();
 		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 		type = new ArrayList<String>();
+		patklvl = 0;
+		spatklvl = 0;
+		pdeflvl = 0;
+		spdeflvl = 0;
+		spdlvl = 0;
 	}
 	
 	//For Use with experimental loader
@@ -92,27 +98,27 @@ public class Pokemon
 	
 	public int getAttack()
 	{
-		return this.attack;
+		return (int)(this.attack * ((0.5 * patklvl) + 1));
 	}
 	
 	public int getDefense()
 	{
-		return this.defense;
+		return (int)(this.defense * ((0.5 * pdeflvl) + 1));
 	}
 	
 	public int getSpAttack()
 	{
-		return this.spAttack;
+		return (int)(this.spAttack * ((0.5 * spatklvl) + 1));
 	}
 
 	public int getSpDefense()
 	{
-		return this.spDefense;
+		return (int)(this.spDefense * ((0.5 * spdeflvl) + 1));
 	}
 	
 	public int getSpeed()
 	{
-		return this.speed;
+		return (int)(this.speed * ((0.5 * spdlvl) + 1));
 	}
 	
 	public ArrayList<String> getStatusEffects()
