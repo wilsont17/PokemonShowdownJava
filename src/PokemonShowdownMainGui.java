@@ -75,8 +75,8 @@ public class PokemonShowdownMainGui
 		
 		
 		
-		//currPlayerPokemonHP = new JProgressBar(100);
-		//opPlayerPokemonHP = new JProgressBar(100);
+		currPlayerPokemonHP = new JProgressBar();
+	  opPlayerPokemonHP = new JProgressBar();
 		
 		
 		
@@ -134,17 +134,39 @@ public class PokemonShowdownMainGui
 	  //opPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
 	  //currPlayerActiveImg.setText(p1Active.getImg());  get img of p1activepokemon
 	  //opPlayerActiveImg.setText(p2Active.getImg());  get img of p2activepokemon
+	  
 	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
-	  //currPlayerPokemonStatusEffects.setText(); set currplayerstatuseffects
+	  String se = "";
+	  for (int x = 0; x < p1Active.getStatusEffects().size(); x ++)
+	  {
+	    se += p1Active.getStatusEffects().get(x) + " ";
+	  }
+	  currPlayerPokemonStatusEffects.setText(se);
+	  
 	  opPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+	  se = "";
+	  for (int x = 0; x < p2Active.getStatusEffects().size(); x ++)
+	  {
+      se += p2Active.getStatusEffects().get(x) + " ";
+    }
+	  opPlayerPokemonStatusEffects.setText(se);
+	  
+	  
+	  
 	  for (int x = 0; x < 4; x ++)
 	  {
+	    currPokemonMoves.get(x).setEnabled(true);
 	    currPokemonMoves.get(x).setText(p1Active.getMoveSet().get(x).toString());
+	    if (!p1Active.getMoveSet().get(x).useable())
+	    {
+	      currPokemonMoves.get(x).setEnabled(false);
+	    }
 	  }
 	  for (int x = 0; x < 6; x ++)
 	  {
+	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
-	    if (x == p1ActiveIndex)
+	    if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
 	    }
