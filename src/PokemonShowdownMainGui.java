@@ -509,14 +509,7 @@ public class PokemonShowdownMainGui implements ActionListener
         }
         
       }
-      
-      //TODO load images
-      
-      
-      
-      
-      
-       
+     
       
     }
     catch(Exception e)
