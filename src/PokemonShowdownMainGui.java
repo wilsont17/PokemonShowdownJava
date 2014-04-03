@@ -40,7 +40,7 @@ public class PokemonShowdownMainGui
 		p2Pokemon = new ArrayList<Pokemon>();
 		//loadPokemonDB();
 
-    experimentalPokemonDBLoader();
+    experimentalPokemonDBLoader(); // load all pokemon
     System.out.println(pokemonPool);
 		jfrm.setVisible(true);
 		
@@ -330,74 +330,66 @@ public class PokemonShowdownMainGui
 			
 			while(resStats.next())
       {
-			 // System.out.println(resStats.getString("pokemon_id"));
-			 // System.out.println(resStats.getString("stat_id")); //1 = hp, 2 = attack, 3 = defense, 4 = sp attack, 5 = sp defense, 6=speed, 
- 			  //System.out.println(resStats.getString("base_stat")); // 7 = accuracy, 8 = evasion
+			 //System.out.println(resStats.getString("pokemon_id"));
+			 //System.out.println(resStats.getString("stat_id")); //1 = hp, 2 = attack, 3 = defense, 4 = sp attack, 5 = sp defense, 6=speed, 
+ 			 //System.out.println(resStats.getString("base_stat")); // 7 = accuracy, 8 = evasion
  			  
  			  String tempstatID = resStats.getString("stat_id");
- 			  int switchCase = Integer.parseInt(tempstatID);
- 			  int statValue = Integer.parseInt(resStats.getString("base_stat"));
+ 			  String baseStat = resStats.getString("base_stat");
+ 			  int switchCase = Integer.parseInt(tempstatID.trim());
+ 			  int statValue = Integer.parseInt(baseStat);
+ 			  System.out.println(switchCase + " " + baseStat);
+ 			  
  			  switch(switchCase)
  			  {
  			      case 1:
  			        Pokemon.setHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
- 			      
+ 			        
  			      case 2:
  			       Pokemon.setAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
  			        
  			      case 3:
  			       Pokemon.setDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
  			      
  			      case 4:
  			       Pokemon.setSpAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
  			       
  			      case 5:
  			       Pokemon.setSpDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
  			        
  			      case 6:
  			       Pokemon.setSpeed(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
- 			      break;
  			        
  			      case 7:
  			        //no need now
- 			      break;
  			      
  			      case 8:
  			        //no need now
- 			      break;
- 			  }
+ 			    }
  			  
- 			restTypes = stmt.executeQuery(query_pokemonTypes);
+      }
+			restTypes = stmt.executeQuery(query_pokemonTypes);
+	     
  			while(resStats.next())
       {
  			  
  			  String pokeID = resStats.getString("pokemon_id");
  			  String typeID = resStats.getString("type_id");
- 			  
+ 			  System.out.println(pokeID + " " + typeID);
  			  switch(Integer.parseInt(typeID)) 
  			  {
- 			  case 1:
- 			    
- 			  break;
- 			    
- 			  case 2:
- 			    
- 			  break;
+   			  case 1:
+   			    
+   			  break;
+   			    
+   			  case 2:
+   			    
+   			  break;
  			    
  			  }
  			  
- 			  
       }
  			 
- 			 
- 			  //System.out.println(resStats.getString("effort"));
-      }
-      
 			
 		}
 		catch(Exception e)
@@ -410,3 +402,32 @@ public class PokemonShowdownMainGui
 		
 
 }
+
+/*
+ *  pokemon types by id
+ * 
+ * 1 :::::  normal
+2 :::::  fighting
+3 :::::  flying
+4 :::::  poison
+5 :::::  ground
+6 :::::  rock
+7 :::::  bug
+8 :::::  ghost
+9 :::::  steel
+10 :::::  fire
+11 :::::  water
+12 :::::  grass
+13 :::::  electric
+14 :::::  psychic
+15 :::::  ice
+16 :::::  dragon
+17 :::::  dark
+18 :::::  fairy
+10001 :::::  unknown
+10002 :::::  shadow
+ * 
+ * 
+ * 
+ * 
+ */

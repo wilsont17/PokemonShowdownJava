@@ -77,7 +77,7 @@ public class Pokemon
 	
 	public int getLevel()
 	{
-		return level;
+		return this.level;
 	}
 	
 	public int getMaxHP()
@@ -174,10 +174,10 @@ public class Pokemon
 	public String toString()
 	{
 	  String temp = "";
-	  temp+=name+" ";
-	  temp+=HP+" ";
-	  temp+=attack+" ";
-	  temp+=defense+" ";
+	  temp+=this.name+" ";
+	  temp+=this.HP+" ";
+	  temp+=this.attack+" ";
+	  temp+=this.defense+" ";
 	  return temp;
 	}
 	
