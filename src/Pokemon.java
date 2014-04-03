@@ -21,6 +21,8 @@ public class Pokemon
 	private ArrayList<Move> moves;
 	private ArrayList<String> type;
 	private int patklvl, spatklvl, pdeflvl, spdeflvl, spdlvl;
+	private String item;
+	private String ability;
 	
 	ArrayList<Move> possibleMoves;
 	

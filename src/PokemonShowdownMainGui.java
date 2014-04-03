@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -9,7 +11,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-public class PokemonShowdownMainGui 
+public class PokemonShowdownMainGui implements ActionListener
 {
 	String p1Name, p2Name;
 	boolean p1Switch, p2Switch, battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
@@ -21,6 +23,7 @@ public class PokemonShowdownMainGui
 	JScrollBar movesLogScroll;
 	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
 	ArrayList<JButton> currPokemonMoves, currSwitchablePokemon;
+	JCheckBox megaevo;
 
 	JFrame jfrm;
 	GridBagLayout gb;
@@ -40,6 +43,8 @@ public class PokemonShowdownMainGui
 		p2Pokemon = new ArrayList<Pokemon>();
 		//loadPokemonDB();
 
+		whoseTurn = true;
+		
     experimentalPokemonDBLoader();
     System.out.println(pokemonPool);
 		jfrm.setVisible(true);
@@ -66,6 +71,8 @@ public class PokemonShowdownMainGui
 		
 		
 		
+		
+		
 		currPlayerPokemonStatusEffects = new JLabel("");
 		opPlayerPokemonStatusEffects = new JLabel("");
 		
@@ -79,7 +86,8 @@ public class PokemonShowdownMainGui
 		
 		
 		
-		
+	  
+		megaevo = new JCheckBox("<html>Mega<br>Evolution");
 		
 		
 		
@@ -209,7 +217,7 @@ public class PokemonShowdownMainGui
     for (int x = 0; x < 6; x ++)
     {
       currSwitchablePokemon.get(x).setEnabled(true);
-      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).toString());
       if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
@@ -262,6 +270,7 @@ public class PokemonShowdownMainGui
 					/ defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
 					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 		}
+	//http://www.serebii.net/games/damage.shtml
 	}
 	
 	public double stabResult(Pokemon user, Move ability)
@@ -274,7 +283,7 @@ public class PokemonShowdownMainGui
 			}
 		}
 		return 1;
-		//http://www.serebii.net/games/damage.shtml
+		
 	}
 	
 	public double weakResist(Pokemon defender, Move ability)
@@ -285,8 +294,22 @@ public class PokemonShowdownMainGui
 	
 	
 	
-	
-	
+	public void actionPerformed(ActionEvent ae)
+  {
+    for (int x = 0; x < 4; x ++)
+    {
+      if (ae.getSource().equals(currPokemonMoves.get(x)))
+      {
+        
+      }
+    }
+    if (!ae.getSource().equals(megaevo))
+    {
+      //Turn check here
+    }
+    
+  }
+
 	
 	
 	
