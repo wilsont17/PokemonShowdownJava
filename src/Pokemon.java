@@ -24,6 +24,9 @@ public class Pokemon
 	private String item;
 	private String ability;
 	
+	private ImageIcon imgIcon;
+	
+	
 	ArrayList<Move> possibleMoves;
 	
 	Pokemon(String name, int hp, int attack, int defense, int spAttack, int spDefense, int speed)
@@ -51,6 +54,10 @@ public class Pokemon
 	{
 	  this.name = name;
 	  this.ID = ID;
+	  statusEffects = new ArrayList<String>();
+	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
+	  type = new ArrayList<String>();
+	  loadImageIcon();
 	}
 	
 	public void modifyHP(int amount)
@@ -85,7 +92,7 @@ public class Pokemon
 	
 	public int getLevel()
 	{
-		return level;
+		return this.level;
 	}
 	
 	public int getMaxHP()
@@ -125,12 +132,12 @@ public class Pokemon
 	
 	public ArrayList<String> getStatusEffects()
 	{
-	  return statusEffects;
+	  return this.statusEffects;
 	}
 	
 	public ArrayList<Move> getMoveSet ()
 	{
-	  return moves;
+	  return this.moves;
 	}
 	
 	public ImageIcon getImg ()
@@ -183,6 +190,7 @@ public class Pokemon
 	{
 	  String temp = "";
 	  temp+=name+" ";
+	  temp+=type+" ";
 	  temp+=HP+" ";
 	  temp+=attack+" ";
 	  temp+=defense+" ";
@@ -212,7 +220,22 @@ public class Pokemon
 	
 	public void addType(String type)
 	{
-	  this.type.add(type);
+		this.type.add(type);
+	}
+	
+	public void loadImageIcon()
+	{
+		ImageIcon temp = null;
+		try
+		{
+			temp = new ImageIcon("resources/icon/"+this.ID+".png");
+		}catch(Exception e)
+		{
+			temp = new ImageIcon("resources/icon/0.png");
+			System.out.println("could not find image of pokemon !!!! Loading default icon");
+		}
+		
+		this.imgIcon = temp;
 	}
 	
 	

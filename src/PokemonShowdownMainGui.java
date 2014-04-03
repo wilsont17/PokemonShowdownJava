@@ -66,7 +66,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 		  currSwitchablePokemon.add(new JButton("Hello"));
 		  gbc.gridx = 1 + x; gbc.gridy = 6;
-      jfrm.add(currSwitchablePokemon.get(x), gbc);
+		  jfrm.add(currSwitchablePokemon.get(x), gbc);
 		}
 		
 		
@@ -82,7 +82,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		currPlayerPokemonHP = new JProgressBar();
-	  opPlayerPokemonHP = new JProgressBar();
+		opPlayerPokemonHP = new JProgressBar();
 		
 		
 		
@@ -368,6 +368,8 @@ public class PokemonShowdownMainGui implements ActionListener
       String query_pokemonStats = "select * from pokemon_stats";
       
       String query_pokemonTypes = "select * from pokemon_types";
+      
+      
       stmt = con.createStatement();
       
       resName = stmt.executeQuery(query_pokemon);
@@ -399,63 +401,127 @@ public class PokemonShowdownMainGui implements ActionListener
         String baseStat = resStats.getString("base_stat");
         int switchCase = Integer.parseInt(tempstatID.trim());
         int statValue = Integer.parseInt(baseStat);
-        System.out.println(switchCase + " " + baseStat);
+        //System.out.println(switchCase + " " + baseStat);
         
         switch(switchCase)
         {
             case 1:
               Pokemon.setHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-              
+              break;
             case 2:
              Pokemon.setAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-              
+             break;
             case 3:
              Pokemon.setDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-            
+             break;
             case 4:
              Pokemon.setSpAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-             
+             break;
             case 5:
              Pokemon.setSpDefense(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-              
+             break;
             case 6:
              Pokemon.setSpeed(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
-              
+             break;
             case 7:
               //no need now
-            
+            break;
             case 8:
               //no need now
+            break;
           }
         
       }
+      
       restTypes = stmt.executeQuery(query_pokemonTypes);
        
-      while(resStats.next())
+      while(restTypes.next())
       {
         
-        String pokeID = resStats.getString("pokemon_id");
-        String typeID = resStats.getString("type_id");
-        System.out.println(pokeID + " " + typeID);
-        switch(Integer.parseInt(typeID)) 
+        String pokeID = restTypes.getString("pokemon_id");
+        String typeID = restTypes.getString("type_id");
+        //System.out.println(pokeID + " " + typeID);
+        //System.out.println(Integer.parseInt(typeID));
+    	//System.out.println("adding to " + Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool));
+        
+        switch(Integer.parseInt(typeID.trim())) 
         {
           case 1:
-            
-          break;
-            
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("normal");
+        	  break;
           case 2:
-            
-          break;
-          
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fighting");
+        	  break;
+          case 3:
+              Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("flying");
+              break;
+          case 4:
+              Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("poison");
+              break;
+          case 5:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ground");
+        	  break;
+          case 6:
+              Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("rock");
+              break;
+          case 7:
+              Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("bug");
+              break;
+          case 8:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ghost");
+        	  break;
+          case 9:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("steel");
+        	  break;
+          case 10:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fire");
+        	  break;
+          case 11:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("water");
+        	  break;
+          case 12:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("grass");
+        	  break;
+          case 13:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("electric");
+        	  break;
+          case 14:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("psychic");
+        	  break;
+          case 15:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ice");
+        	  break;
+          case 16:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dragon");
+        	  break;
+          case 17:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dark");
+        	  break;
+          case 18:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fairy");
+        	  break;
+          case 10001:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("unknown");
+        	  break;
+          case 10002:
+        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("shadow");
+        	  break;
         }
         
       }
+      
+      //TODO load images
+      
+      
+      
+      
+      
        
       
     }
     catch(Exception e)
     {
-      System.out.println(e);
+      e.printStackTrace();
     }
     
         
@@ -464,31 +530,26 @@ public class PokemonShowdownMainGui implements ActionListener
 
 }
 
-/*
- *  pokemon types by id
- * 
- * 1 :::::  normal
-2 :::::  fighting
-3 :::::  flying
-4 :::::  poison
-5 :::::  ground
-6 :::::  rock
-7 :::::  bug
-8 :::::  ghost
-9 :::::  steel
-10 :::::  fire
-11 :::::  water
-12 :::::  grass
-13 :::::  electric
-14 :::::  psychic
-15 :::::  ice
-16 :::::  dragon
-17 :::::  dark
-18 :::::  fairy
-10001 :::::  unknown
-10002 :::::  shadow
- * 
- * 
- * 
- * 
- */
+
+	 /*  pokemon types by id
+	 * 1 :::::  normal
+	2 :::::  fighting
+	3 :::::  flying
+	4 :::::  poison
+	5 :::::  ground
+	6 :::::  rock
+	7 :::::  bug
+	8 :::::  ghost
+	9 :::::  steel
+	10 :::::  fire
+	11 :::::  water
+	12 :::::  grass
+	13 :::::  electric
+	14 :::::  psychic
+	15 :::::  ice
+	16 :::::  dragon
+	17 :::::  dark
+	18 :::::  fairy
+	10001 :::::  unknown
+	10002 :::::  shadow
+	 */
