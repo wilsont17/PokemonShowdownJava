@@ -17,7 +17,8 @@ public class Pokemon
 	private int accuracy; //do these later
 	private int evasion; // 
 	private String name;
-	private ArrayList<String> statusEffects;
+	private String statusEffect;
+	private ArrayList<String> buffs;
 	private ArrayList<Move> moves;
 	private ArrayList<String> type;
 	private int patklvl, spatklvl, pdeflvl, spdeflvl, spdlvl;
@@ -39,7 +40,8 @@ public class Pokemon
 		this.spAttack = spAttack;
 		this.spDefense = spDefense;
 		this.speed = speed;
-		statusEffects = new ArrayList<String>();
+		statusEffect = "";
+		buffs = new ArrayList<String>();
 		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 		type = new ArrayList<String>();
 		patklvl = 0;
@@ -130,9 +132,14 @@ public class Pokemon
 		return (int)(this.speed * ((0.5 * spdlvl) + 1));
 	}
 	
-	public ArrayList<String> getStatusEffects()
+	public String getStatusEffect()
 	{
-	  return this.statusEffects;
+	  return statusEffect;
+	}
+	
+	public ArrayList<String> getBuffs()
+	{
+	  return this.buffs;
 	}
 	
 	public ArrayList<Move> getMoveSet ()

@@ -14,9 +14,9 @@ import javax.swing.*;
 public class PokemonShowdownMainGui implements ActionListener
 {
 	String p1Name, p2Name;
-	boolean p1Switch, p2Switch, battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
+	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
 	Pokemon p1Active, p2Active;
-	int p1ActiveIndex, p2ActiveIndex;
+	int p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
 	JLabel currPlayerAndAllPokemon, opPlayerAndAllPokemon, currPlayerActiveImg, opPlayerActiveImg,
 	  currPlayerPokemonStatusEffects, opPlayerPokemonStatusEffects, previousMovesLog, currentTurnEvents;
 	JProgressBar currPlayerPokemonHP, opPlayerPokemonHP;
@@ -96,6 +96,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		new SetupGui(this);
 		battleInProgress = true;
+		p1Switch = -1;
+		p2Switch = -1;
 		/*
 		while (battleInProgress)
 		{
@@ -228,35 +230,135 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void turnMove()
 	{
-		if (p1Switch)
+		if (p1Switch != -1)  //P1 switches out
 		{
-			
+			p1Active = p1Pokemon.get(p1Switch);
+			if (p2Move != -1)
+			{
+			  performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+			}
 		}
-		if (p2Switch)
+		
+		if (p2Switch != -1)  //p2 Switches out
 		{
-			
+			p2Active = p2Pokemon.get(p2Switch);
+			if (p1Move != -1)
+      {
+        performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+      }
 		}
-		if (!p1Switch && !p2Switch)
+		
+		if (!(p1Move == -1) && !(p2Move == -1))  //Both players use moves
 		{
-			if (p1Active.getSpeed() > p2Active.getSpeed())
-			{
-				
-			}
-			else if (p1Active.getSpeed() == p2Active.getSpeed())
-			{
-				
-			}
-			else
-			{
-				
-			}
+		  //same priority
+		  if (p1Active.getMoveSet().get(p1Move).getPriority() == p2Active.getMoveSet().get(p2Move).getPriority())
+		  {
+		    //p1 faster
+		    if (p1Active.getSpeed() > p2Active.getSpeed())
+	      {
+	        performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+	        if (p2Active.getHP() > 0)
+          {
+            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+          }
+	      }
+		    //both players same spd
+	      else if (p1Active.getSpeed() == p2Active.getSpeed())
+	      {
+	        //p1 wins roll goes first
+	        if (Math.random() > .5)
+	        {
+	          performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+	          if (p2Active.getHP() > 0)
+	          {
+	            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+	          }
+	        }
+	        //p2 wins roll goes first
+	        else
+	        {
+	          performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+	          {
+	            if (p1Active.getHP() > 0)
+	            {
+	              performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+	            }
+	          }
+	        }
+	      }
+		    //p2 faster
+	      else
+	      {
+	        performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+	        if (p1Active.getHP() > 0)
+          {
+            performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+          }
+	      }
+		  }
+		  //priorities unequal
+		  else
+		  {
+		    //p1 higher priority
+		    if (p1Active.getMoveSet().get(p1Move).getPriority() > p2Active.getMoveSet().get(p2Move).getPriority())
+		    {
+		      performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+          if (p2Active.getHP() > 0)
+          {
+            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+          }
+		    }
+		    else
+		    {
+		      performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+          if (p1Active.getHP() > 0)
+          {
+            performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+          }
+		    }
+		  }
+		  
+		  //after turn effects
+		  
 		}
 	}
 	
+	public void freeSwap (int player)
+	{
+	  for (int x = 0; x < 4; x ++)
+	  {
+	    currPokemonMoves.get(x).setEnabled(false);
+	  }
+	  megaevo.setEnabled(false);
+	  if (player == 1)
+	  {
+	    switchFaint = 1;
+	    for (int x = 0; x < 6; x ++)
+	    {
+	      currSwitchablePokemon.get(x).setEnabled(true);
+	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+	      if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
+	      {
+	        currSwitchablePokemon.get(x).setEnabled(false);
+	      }
+	    }
+	  }
+	  else
+	  {
+	    switchFaint = 2;
+	    for (int x = 0; x < 6; x ++)
+	    {
+	      currSwitchablePokemon.get(x).setEnabled(true);
+	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).toString());
+	      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
+	      {
+	        currSwitchablePokemon.get(x).setEnabled(false);
+	      }
+	    }
+	  }
+	}
 	
-	
-	
-	public int dmgDone(Pokemon attacker, Pokemon defender, Move attack)
+	public int performAttack(Pokemon attacker, Pokemon defender, Move attack)
 	{
 		if (attack.getType().equals("p"))
 		{
@@ -296,16 +398,62 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void actionPerformed(ActionEvent ae)
   {
+	  p1Move = -1;
+	  p2Move = -1;
+	  p1Switch = -1;
+	  p2Switch = -1;
     for (int x = 0; x < 4; x ++)
     {
       if (ae.getSource().equals(currPokemonMoves.get(x)))
       {
-        
+        if (whoseTurn)
+        {
+          p1Move = x;
+        }
+        else
+        {
+          p2Move = x;
+        }
+      }
+    }
+    for (int x = 0; x < 6; x ++)
+    {
+      if (ae.getSource().equals(currSwitchablePokemon.get(x)))
+      {
+        if (switchFaint != -1)
+        {
+          if (switchFaint == 1)
+          {
+            p1Active = p1Pokemon.get(x);
+          }
+          else
+          {
+            p2Active = p2Pokemon.get(x);
+          }
+          switchFaint = -1;
+        }
+        else if (whoseTurn)
+        {
+          p1Switch = x;
+        }
+        else
+        {
+          p2Switch = x;
+        }
       }
     }
     if (!ae.getSource().equals(megaevo))
     {
-      //Turn check here
+      if (whoseTurn)
+      {
+        whoseTurn = false;
+        p2Turn();
+      }
+      else if (!whoseTurn)
+      {
+        whoseTurn = true;
+        turnMove();
+      }
     }
     
   }
