@@ -22,13 +22,19 @@ public class Move
 		this.name = name;
 		this.description = description;
 		this.power = power;
-	    this.hitChance = hitChance;
+		this.hitChance = hitChance;
 	}
 	
 	Move(int pokemonID, int moveID)
 	{
 		this.pokemonID = pokemonID;
 		this.moveID = moveID;
+	}
+	
+	
+	Move() // empty constructor
+	{
+	  
 	}
 	
 	public int getMoveID()
@@ -92,23 +98,34 @@ public class Move
 		this.power = power;
 	}
 	
-	public Move clone()
+	public Move cloneMove(Move m) 
 	{
-	  return this.clone();
+	  Move temp = new Move();
+	  temp.setType(m.getType());
+	  temp.setPower(m.getPower());
+	 // temp.setAccuracy(m.getAccuracy());
+	  return temp;
 	}
 	
-	public static Move getMoveByID(int ID)
+	
+	public static Move getMoveByID(int ID) throws CloneNotSupportedException
 	{
 	  for(Move m : movePool)
 	  {
 	    if(m.getMoveID() == ID)
 	    {
-	      return m.clone(); // returns a copy of the move found
+	      return (Move) m.clone(); // returns a copy of the move found
 	    }
 	  }
 	  
 	  return null; // move not found
 	}
+	
+	public void setType(String s)
+	{
+	  this.type = s;
+	}
+	
 	
 	public void setType(int type)
 	{

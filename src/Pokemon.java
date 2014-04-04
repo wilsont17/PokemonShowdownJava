@@ -276,6 +276,7 @@ public class Pokemon
         String moveID = r1.getString("move_id");
         p.possibleMoveSet.add(Move.getMoveByID(Integer.parseInt(moveID)));
       }
+	    System.out.println(p.possibleMoveSet);
       //load the info on moves 
 	    r2 = stmt.executeQuery(query_MoveInfo);
 	    while(r2.next())
