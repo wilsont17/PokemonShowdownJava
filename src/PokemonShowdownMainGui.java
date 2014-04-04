@@ -110,6 +110,13 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 		p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 		p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+		
+		for(Pokemon p : p1Pokemon)
+		  Pokemon.loadMoveSet(p);
+		
+	  for(Pokemon p : p2Pokemon)
+	    Pokemon.loadMoveSet(p);
+	  
 		p1Active = p1Pokemon.get(0);
 		p2Active = p2Pokemon.get(0);
 		p1ActiveIndex = 0;
@@ -122,12 +129,21 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 			p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 			p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
-			p1Active = p1Pokemon.get(0);
-			p2Active = p2Pokemon.get(0);
-			p1ActiveIndex = 0;
-	    p2ActiveIndex = 0;
 		}
+		
+		for(Pokemon p : p1Pokemon)
+      Pokemon.loadMoveSet(p);
+    
+    for(Pokemon p : p2Pokemon)
+      Pokemon.loadMoveSet(p);
+    
+    p1Active = p1Pokemon.get(0);
+    p2Active = p2Pokemon.get(0);
+    p1ActiveIndex = 0;
+    p2ActiveIndex = 0;
 	}
+	
+	
 	
 	public void addNames(String p1n, String p2n)
 	{
@@ -514,13 +530,10 @@ public class PokemonShowdownMainGui implements ActionListener
       
       while(resMoves.next())
       {
-    	  //String pokeID = restTypes.getString("pokemon_id");
-          //String typeID = restTypes.getString("move_id");
-    	  //System.out.println(pokeID + " :::::::   "+typeID);
     	  Move.addToMovePool(new Move(Integer.parseInt(restTypes.getString("pokemon_id")), Integer.parseInt(restTypes.getString("move_id"))));
       }
       //Move.printMoveList();
-      
+      /*
       for(Move m :  Move.getMovePool())
       {
     	  query_MoveInfo+=m.getMoveID();
@@ -546,7 +559,8 @@ public class PokemonShowdownMainGui implements ActionListener
     	  //reset the query string
     	  query_MoveInfo = "select * from moves where id =";
       }
-      System.out.println("ALL POKEMON MOVES LOADED");
+      */
+      //System.out.println("ALL POKEMON MOVES LOADED");
     }
     catch(Exception e)
     {

@@ -92,6 +92,24 @@ public class Move
 		this.power = power;
 	}
 	
+	public Move clone()
+	{
+	  return this.clone();
+	}
+	
+	public static Move getMoveByID(int ID)
+	{
+	  for(Move m : movePool)
+	  {
+	    if(m.getMoveID() == ID)
+	    {
+	      return m.clone(); // returns a copy of the move found
+	    }
+	  }
+	  
+	  return null; // move not found
+	}
+	
 	public void setType(int type)
 	{
 	     switch(type) 
