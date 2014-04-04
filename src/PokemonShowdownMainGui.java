@@ -240,7 +240,8 @@ public class PokemonShowdownMainGui implements ActionListener
     }
   }
 
-	
+	//TODO check status effects - paralyze burn frozen sleep before a pokemon moves
+	//TODO check status effects and item effects after both pokemon move
 	public void turnMove()
 	{
 		if (p1Switch != -1)  //P1 switches out
