@@ -157,21 +157,22 @@ public class PokemonShowdownMainGui implements ActionListener
 	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
+	  
 	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
-	  String se = "";
-	  for (int x = 0; x < p1Active.getStatusEffects().size(); x ++)
+	  
+	  //buff and status effect data
+	  currPlayerPokemonStatusEffects.setText(p1Active.getStatusEffect());
+	  for (int x = 0; x < p1Active.getBuffs().size(); x ++)
 	  {
-	    se += p1Active.getStatusEffects().get(x) + " ";
+		  currPlayerPokemonStatusEffects.setText(currPlayerPokemonStatusEffects.getText() + " " + p1Active.getBuffs().get(x));
 	  }
-	  currPlayerPokemonStatusEffects.setText(se);
 	  
 	  opPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
-	  se = "";
-	  for (int x = 0; x < p2Active.getStatusEffects().size(); x ++)
+	  opPlayerPokemonStatusEffects.setText(p2Active.getStatusEffect());
+	  for (int x = 0; x < p2Active.getBuffs().size(); x ++)
 	  {
-      se += p2Active.getStatusEffects().get(x) + " ";
-    }
-	  opPlayerPokemonStatusEffects.setText(se);
+		  opPlayerPokemonStatusEffects.setText(opPlayerPokemonStatusEffects.getText() + " " + p2Active.getBuffs().get(x));
+	  }
 	  
 	  
 	  
@@ -203,22 +204,20 @@ public class PokemonShowdownMainGui implements ActionListener
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
 	  currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
-    String se = "";
-    for (int x = 0; x < p2Active.getStatusEffects().size(); x ++)
-    {
-      se += p2Active.getStatusEffects().get(x) + " ";
-    }
-    currPlayerPokemonStatusEffects.setText(se);
-    
-    opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
-    se = "";
-    for (int x = 0; x < p1Active.getStatusEffects().size(); x ++)
-    {
-      se += p1Active.getStatusEffects().get(x) + " ";
-    }
-    opPlayerPokemonStatusEffects.setText(se);
-    
-    
+	  
+	  //buff and status effect data
+	  currPlayerPokemonStatusEffects.setText(p2Active.getStatusEffect());
+	  for (int x = 0; x < p2Active.getBuffs().size(); x ++)
+	  {
+		  currPlayerPokemonStatusEffects.setText(currPlayerPokemonStatusEffects.getText() + " " + p2Active.getBuffs().get(x));
+	  }
+	  
+	  opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+	  opPlayerPokemonStatusEffects.setText(p1Active.getStatusEffect());
+	  for (int x = 0; x < p1Active.getBuffs().size(); x ++)
+	  {
+		  opPlayerPokemonStatusEffects.setText(opPlayerPokemonStatusEffects.getText() + " " + p1Active.getBuffs().get(x));
+	  }
     
     for (int x = 0; x < 4; x ++)
     {
