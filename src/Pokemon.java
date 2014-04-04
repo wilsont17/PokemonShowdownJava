@@ -1,3 +1,8 @@
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -20,6 +25,7 @@ public class Pokemon
 	private String statusEffect;
 	private ArrayList<String> buffs;
 	private ArrayList<Move> moves;
+	private ArrayList<Move> possibleMoveSet;
 	private ArrayList<String> type;
 	private int patklvl, spatklvl, pdeflvl, spdeflvl, spdlvl;
 	private String item;
@@ -58,6 +64,7 @@ public class Pokemon
 	  this.ID = ID;
 	  statusEffects = new ArrayList<String>();
 	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
+	  possibleMoveSet = new ArrayList<Move>();
 	  type = new ArrayList<String>();
 	  loadImageIcon();
 	}
@@ -243,6 +250,70 @@ public class Pokemon
 		}
 		
 		this.imgIcon = temp;
+	}
+	
+	public Pokemon clone()
+	{
+    return this.clone();
+	}
+	
+	public static void loadMoveSet(Pokemon p)
+	{
+	  Connection con;
+	  ResultSet r1;
+	  ResultSet r2;
+	  Statement stmt;
+	  
+	  try
+    {
+	    Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
+	    DriverManager.registerDriver(d);
+	    String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+	    con = DriverManager.getConnection(url);
+	    String query_moveList = "select * from pokemon_moves where pokemon_id =" + p.getID();
+	    String query_MoveInfo = "select * from moves where id =";
+	    stmt = con.createStatement();
+	    
+	    
+      //load moves corresponding to pokemon
+	    r1 = stmt.executeQuery(query_moveList);
+	    
+	    while(r1.next())
+      {
+        String moveID = r1.getString("move_id");
+        p.possibleMoveSet.add(Move.getMoveByID(Integer.parseInt(moveID)));
+      }
+      //load the info on moves 
+	    r2 = stmt.executeQuery(query_MoveInfo);
+	    while(r2.next())
+	    {
+	      String power = r2.getString("power");
+	      String pp = r2.getString("pp");
+	      String accuracy = r2.getString("accuracy");
+	      String priority = r2.getString("priority");
+	      String damage_class_id = r2.getString("damage_class_id");
+	      String effect_id = r2.getString("effect_id");
+	      String type_id = r2.getString("type_id");
+	      String name = r2.getString("identifier");
+	      String moveID = r2.getString("id");
+	      
+	      System.out.println(p + " possible moves   " + moveID + "    "   +name);
+	    }
+	   
+      /*
+      p.setType(Integer.parseInt(type_id));
+      p.setName(name);
+      p.setPower(Integer.parseInt(power));
+      p.setPP(Integer.parseInt(pp));
+      p.setPriority(Integer.parseInt(priority));
+      if(accuracy != null)
+        p.setAccuracy(Integer.parseInt(accuracy));
+	    */
+	    
+    } catch(Exception e)
+    {
+      System.out.println(e);
+    }
 	}
 	
 	
