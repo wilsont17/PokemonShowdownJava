@@ -353,6 +353,8 @@ public class PokemonShowdownMainGui implements ActionListener
     ResultSet resName;
     ResultSet resStats;
     ResultSet restTypes;
+    ResultSet resMoves;
+    ResultSet resMoveData;
     Connection con;
     // this segment of code loads the driver that handles the databse
     try
@@ -369,6 +371,9 @@ public class PokemonShowdownMainGui implements ActionListener
       
       String query_pokemonTypes = "select * from pokemon_types";
       
+      String query_pokemonMoves = "select * from pokemon_moves";
+      
+      String query_MoveInfo = "select * from moves where id =";
       
       stmt = con.createStatement();
       
@@ -377,16 +382,10 @@ public class PokemonShowdownMainGui implements ActionListener
 
       while(resName.next()) // this loop adds all of the pokemon
       {
-        //System.out.println(resName.getString("id")); // gets pokemon ID
+        
         int temporaryID = Integer.parseInt(resName.getString("id"));
-  
-        
-        //System.out.println(Pokemon.getPokemonByID(temporaryID,pokemonPool) + "       !!!!!experimental!!!!");
-        //System.out.println(resName.getString("identifier")); //gets pokemon name
-        
+   
         pokemonPool.add(new Pokemon(resName.getString("identifier"), temporaryID));
-      
-      
       }
       
       resStats = stmt.executeQuery(query_pokemonStats);
@@ -509,8 +508,45 @@ public class PokemonShowdownMainGui implements ActionListener
         }
         
       }
-     
+      System.out.println("ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES");
       
+      resMoves = stmt.executeQuery(query_pokemonMoves);
+      
+      while(resMoves.next())
+      {
+    	  //String pokeID = restTypes.getString("pokemon_id");
+          //String typeID = restTypes.getString("move_id");
+    	  //System.out.println(pokeID + " :::::::   "+typeID);
+    	  Move.addToMovePool(new Move(Integer.parseInt(restTypes.getString("pokemon_id")), Integer.parseInt(restTypes.getString("move_id"))));
+      }
+      //Move.printMoveList();
+      
+      for(Move m :  Move.getMovePool())
+      {
+    	  query_MoveInfo+=m.getMoveID();
+    	  resMoveData = stmt.executeQuery(query_MoveInfo);
+    	  ///parse data from the move retrieved
+    	  String power = restTypes.getString("power");
+    	  String pp = restTypes.getString("pp");
+    	  String accuracy = restTypes.getString("accuracy");
+    	  String priority = restTypes.getString("priority");
+    	  String damage_class_id = restTypes.getString("damage_class_id");
+    	  String effect_id = restTypes.getString("effect_id");
+    	  String type_id = restTypes.getString("type_id");
+    	  String name = restTypes.getString("identifier");
+    	  
+    	  m.setType(Integer.parseInt(type_id));
+    	  m.setName(name);
+    	  m.setPower(Integer.parseInt(power));
+    	  m.setPP(Integer.parseInt(pp));
+    	  m.setPriority(Integer.parseInt(priority));
+    	  if(accuracy != null)
+    		  m.setAccuracy(Integer.parseInt(accuracy));
+    	  
+    	  //reset the query string
+    	  query_MoveInfo = "select * from moves where id =";
+      }
+      System.out.println("ALL POKEMON MOVES LOADED");
     }
     catch(Exception e)
     {
