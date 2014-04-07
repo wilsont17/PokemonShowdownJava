@@ -156,6 +156,11 @@ public class Pokemon
 	  return statusEffect;
 	}
 	
+	public int getTurnsStatus()
+	{
+		return turnsStatus;
+	}
+	
 	public ArrayList<String> getBuffs()
 	{
 	  return this.buffs;

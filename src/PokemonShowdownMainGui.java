@@ -27,6 +27,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	JScrollBar movesLogScroll;
 	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
 	ArrayList<JButton> currPokemonMoves, currSwitchablePokemon;
+	int[] p1FieldDebuffs, p2FieldDebuffs;
 	JCheckBox megaevo;
 
 	JFrame jfrm;
@@ -302,14 +303,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	        }
 	      }
 		    //p2 faster
-	      else
-	      {
-	        performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-	        if (p1Active.getHP() > 0)
-          {
-            performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-          }
-	      }
+	      	else
+	      	{
+	    	  	performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+	        	if (p1Active.getHP() > 0)
+	        	{
+	        		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+            	}
+	      	}
 		  }
 		  //priorities unequal
 		  else
@@ -318,24 +319,37 @@ public class PokemonShowdownMainGui implements ActionListener
 		    if (p1Active.getMoveSet().get(p1Move).getPriority() > p2Active.getMoveSet().get(p2Move).getPriority())
 		    {
 		      performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-          if (p2Active.getHP() > 0)
-          {
-            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-          }
+		      if (p2Active.getHP() > 0)
+		      {
+		    	  performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		      }
 		    }
 		    else
 		    {
-		      performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-          if (p1Active.getHP() > 0)
-          {
-            performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-          }
+		        performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		        if (p1Active.getHP() > 0)
+		        {
+		      	  performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		        }
 		    }
 		  }
 		  
 		  //after turn effects
+		  //p1Active checks
+		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
+		  {
+			  int dmg = (int)(p1Active.getMaxHP() * .06 * p1Active.getTurnsStatus());
+			  //p1Active.setHP() finish this after confirming setHP method with sam
+		  }
+		  else if (p1Active.getStatusEffect().equals("BRN") && p1Active.getTurnsStatus() > 0)
+		  {
+			  int dmg = (int)(p1Active.getMaxHP() * .12);
+			  //p1Active.setHP() finish this after confirming setHP method with sam
+		  }
 		  
 		}
+		
+		//TODO update status bars hp bars etc after all turn moves done
 	}
 	
 	public void freeSwap (int player)
