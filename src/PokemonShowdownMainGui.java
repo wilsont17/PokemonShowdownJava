@@ -339,16 +339,30 @@ public class PokemonShowdownMainGui implements ActionListener
 		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p1Active.getMaxHP() * .06 * p1Active.getTurnsStatus());
-			  //p1Active.setHP() finish this after confirming setHP method with sam
+			  Pokemon.setHP(p1Active, dmg);
 		  }
 		  else if (p1Active.getStatusEffect().equals("BRN") && p1Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p1Active.getMaxHP() * .12);
-			  //p1Active.setHP() finish this after confirming setHP method with sam
+			  Pokemon.setHP(p1Active, dmg);
+		  }
+		  
+		  //p2Active checks
+		  if (p2Active.getStatusEffect().equals("PSN") && p2Active.getTurnsStatus() > 0)
+		  {
+			  int dmg = (int)(p2Active.getMaxHP() * .06 * p2Active.getTurnsStatus());
+			  Pokemon.setHP(p2Active, dmg);
+		  }
+		  else if (p2Active.getStatusEffect().equals("BRN") && p2Active.getTurnsStatus() > 0)
+		  {
+			  int dmg = (int)(p2Active.getMaxHP() * .12);
+			  Pokemon.setHP(p2Active, dmg);
 		  }
 		  
 		}
 		
+		
+		//TODO check if either poke died due to PSN/BRN and give player chance to switch/lose depending
 		//TODO update status bars hp bars etc after all turn moves done
 	}
 	
