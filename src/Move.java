@@ -10,7 +10,8 @@ public class Move
 	private String description;
 	private int power;
 	private int hitChance;
-	private String type;
+	private String type; //p for physical, s for special
+	private String dmgType;
 	private int maxPP;
 	private int currPP;
 	private int moveID;
@@ -47,6 +48,11 @@ public class Move
 		return name + " " + moveID;
 	}
   
+	public String getName()
+	{
+		return name;
+	}
+	
 	public int getPower()
 	{
 		return power;

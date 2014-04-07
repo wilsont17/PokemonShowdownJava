@@ -22,7 +22,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	Pokemon p1Active, p2Active;
 	int p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
 	JLabel currPlayerAndAllPokemon, opPlayerAndAllPokemon, currPlayerActiveImg, opPlayerActiveImg,
-	  currPlayerPokemonStatusEffects, opPlayerPokemonStatusEffects, previousMovesLog, currentTurnEvents;
+	  currPlayerPokemonStatusEffects, opPlayerPokemonStatusEffects, previousMovesLog, currTurnEvents;
 	JProgressBar currPlayerPokemonHP, opPlayerPokemonHP;
 	JScrollBar movesLogScroll;
 	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
@@ -243,6 +243,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	//TODO check status effects and item effects after both pokemon move
 	public void turnMove()
 	{
+		currTurnEvents.setText("<html>");
+		
 		if (p1Switch != -1)  //P1 switches out
 		{
 			p1Active = p1Pokemon.get(p1Switch);
@@ -373,11 +375,61 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public int performAttack(Pokemon attacker, Pokemon defender, Move attack)
 	{
+		//Check attack inhibiting status
+		if (attacker.getStatusEffect().equals("FRZ"))
+		{
+			if (Math.random() < .8)
+			{
+				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " is frozen! It can't move!");
+				return 0;
+			}
+			else
+			{
+				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " thawed out!");
+			}
+		}
+		else if (attacker.getStatusEffect().equals("PAR"))
+		{
+			if (Math.random() < .25)
+			{
+				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " is paralyzed! It can't move!");
+				return 0;
+			}
+		}
+		else if (attacker.getStatusEffect().equals("SLP"))
+		{
+			if (Math.random() < .66)
+			{
+				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " is still asleep!");
+				return 0;
+			}
+			else
+			{
+				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " woke up!");
+			}
+		}
+			
+		currTurnEvents.setText(currTurnEvents.getText() + "<br>" +
+				attacker.getName() + " used " + attack.getName() + "!");
+		
+		
+		//TODO printouts for if defender is immune/resists/weak and actual dmg % done
+		//dmg calcs
 		if (attack.getType().equals("p"))
 		{
-			return (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
+			int dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
 					/ defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
 					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+			if (attacker.getStatusEffect().equals("BRN"))
+			{
+				dmg *= .5;
+			}
+			return dmg;
 		}
 		else
 		{
@@ -385,6 +437,12 @@ public class PokemonShowdownMainGui implements ActionListener
 					/ defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
 					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 		}
+		
+		//TODO status effect moves
+		//TODO switch after dmg moves switch part
+		
+		
+		
 	//http://www.serebii.net/games/damage.shtml
 	}
 	

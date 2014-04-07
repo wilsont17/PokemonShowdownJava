@@ -22,7 +22,8 @@ public class Pokemon
 	private int accuracy; //do these later
 	private int evasion; // 
 	private String name;
-	private String statusEffect;
+	private String statusEffect; //SLP, PSN, PAR, BRN, FRZ
+	private int turnsStatus;
 	private ArrayList<String> buffs;
 	private ArrayList<Move> moves;
 	private ArrayList<Move> possibleMoveSet;
@@ -47,6 +48,7 @@ public class Pokemon
 		this.spDefense = spDefense;
 		this.speed = speed;
 		statusEffect = "";
+		turnsStatus = 0;
 		buffs = new ArrayList<String>();
 		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 		type = new ArrayList<String>();
@@ -99,6 +101,11 @@ public class Pokemon
 		this.speed+=amount;
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
+	
 	public int getLevel()
 	{
 		return this.level;
@@ -136,7 +143,12 @@ public class Pokemon
 	
 	public int getSpeed()
 	{
-		return (int)(this.speed * ((0.5 * spdlvl) + 1));
+		int spd = (int)(this.speed * ((0.5 * spdlvl) + 1));
+		if (this.getStatusEffect().equals("PAR"))
+		{
+			return (int)(spd * .25);
+		}
+		return spd;
 	}
 	
 	public String getStatusEffect()
