@@ -17,6 +17,7 @@ public class Move
 	private int moveID;
 	private int pokemonID; // this identifies the pokemon that can use this move
 	private int priority;
+	
 	Move(String name, String description, int power, int hitChance)
 	{
 		
@@ -32,11 +33,22 @@ public class Move
 		this.moveID = moveID;
 	}
 	
-	
-	Move() // empty constructor
+	// Copy constructor
+	Move(Move m)
 	{
-	  
+		this.name = m.name;
+		this.description = m.description;
+		this.power = m.power;
+		this.hitChance = m.hitChance;
+		this.type = m.type;
+		this.dmgType = m.dmgType;
+		this.maxPP = m.maxPP;
+		this.currPP = m.currPP;
+		this.moveID = m.moveID;
+		this.pokemonID = m.pokemonID;
+		this.priority = m.priority;
 	}
+	
 	
 	public int getMoveID()
 	{
@@ -104,23 +116,15 @@ public class Move
 		this.power = power;
 	}
 	
-	public Move cloneMove(Move m) 
-	{
-	  Move temp = new Move();
-	  temp.setType(m.getType());
-	  temp.setPower(m.getPower());
-	 // temp.setAccuracy(m.getAccuracy());
-	  return temp;
-	}
 	
-	
-	public static Move getMoveByID(int ID) throws CloneNotSupportedException
+	public static Move getMoveByID(int ID)
 	{
 	  for(Move m : movePool)
 	  {
 	    if(m.getMoveID() == ID)
 	    {
-	      return (Move) m.clone(); // returns a copy of the move found
+	    	//System.out.println("adding " + new Move(m));
+	    	return new Move(m); // returns a copy of the move found
 	    }
 	  }
 	  

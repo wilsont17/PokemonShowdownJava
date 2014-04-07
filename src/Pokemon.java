@@ -34,9 +34,6 @@ public class Pokemon
 	
 	private ImageIcon imgIcon;
 	
-	
-	ArrayList<Move> possibleMoves;
-	
 	Pokemon(String name, int hp, int attack, int defense, int spAttack, int spDefense, int speed)
 	{
 		this.name = name;
@@ -64,7 +61,7 @@ public class Pokemon
 	{
 	  this.name = name;
 	  this.ID = ID;
-	  statusEffects = new ArrayList<String>();
+	  //statusEffects = new ArrayList<String>();
 	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 	  possibleMoveSet = new ArrayList<Move>();
 	  type = new ArrayList<String>();
@@ -171,6 +168,11 @@ public class Pokemon
 	  return this.moves;
 	}
 	
+	public ArrayList<Move> getPossibleMoveSet()
+	{
+	  return this.possibleMoveSet;
+	}
+	
 	public ImageIcon getImg ()
 	{
 	  //TODO return the img of the pokemon
@@ -228,6 +230,12 @@ public class Pokemon
 	  return temp;
 	}
 	
+	public void addToPossibleMoveSet(Move m)
+	{
+		//System.out.println(m + " :::::  " + this.possibleMoveSet);
+		this.possibleMoveSet.add(m);
+	}
+	
 	public ArrayList<String> getType()
 	{
 		return type;
@@ -269,10 +277,6 @@ public class Pokemon
 		this.imgIcon = temp;
 	}
 	
-	public Pokemon clone()
-	{
-    return this.clone();
-	}
 	
 	public static void loadMoveSet(Pokemon p)
 	{
@@ -282,41 +286,51 @@ public class Pokemon
 	  Statement stmt;
 	  
 	  try
-    {
+	  {
 	    Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
 	    DriverManager.registerDriver(d);
 	    String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
 	    con = DriverManager.getConnection(url);
+	    
 	    String query_moveList = "select * from pokemon_moves where pokemon_id =" + p.getID();
 	    String query_MoveInfo = "select * from moves where id =";
+	    String moveID = "";
 	    stmt = con.createStatement();
 	    
 	    
       //load moves corresponding to pokemon
 	    r1 = stmt.executeQuery(query_moveList);
-	    
 	    while(r1.next())
-      {
-        String moveID = r1.getString("move_id");
-        p.possibleMoveSet.add(Move.getMoveByID(Integer.parseInt(moveID)));
-      }
-	    System.out.println(p.possibleMoveSet);
-      //load the info on moves 
-	    r2 = stmt.executeQuery(query_MoveInfo);
-	    while(r2.next())
 	    {
-	      String power = r2.getString("power");
-	      String pp = r2.getString("pp");
-	      String accuracy = r2.getString("accuracy");
-	      String priority = r2.getString("priority");
-	      String damage_class_id = r2.getString("damage_class_id");
-	      String effect_id = r2.getString("effect_id");
-	      String type_id = r2.getString("type_id");
-	      String name = r2.getString("identifier");
-	      String moveID = r2.getString("id");
-	      
-	      System.out.println(p + " possible moves   " + moveID + "    "   +name);
+	    	moveID = r1.getString("move_id");
+	    	p.addToPossibleMoveSet(Move.getMoveByID(Integer.parseInt(moveID)));
 	    }
+	     //do this for each element of the moveset
+	    for(Move m : p.getPossibleMoveSet())
+	    {
+	    	query_MoveInfo = "select * from moves where id =" + m.getMoveID();
+	    	r2 = stmt.executeQuery(query_MoveInfo);
+	    	while(r2.next())
+	 	    {
+	 	      String power = r2.getString("power");
+	 	      String pp = r2.getString("pp");
+	 	      String accuracy = r2.getString("accuracy");
+	 	      String priority = r2.getString("priority");
+	 	      String damage_class_id = r2.getString("damage_class_id");
+	 	      String effect_id = r2.getString("effect_id");
+	 	      String type_id = r2.getString("type_id");
+	 	      String name = r2.getString("identifier");
+	 	      String ID = r2.getString("id");
+	 	      
+	 	      m.setPP(Integer.parseInt(pp));
+	 	      m.setType(type_id);
+	 	      m.setName(name);
+	 	      m.setPriority(Integer.parseInt(priority));
+	 	    }
+	 	    
+	    }
+	    System.out.println(p + " ::::::  " + p.getPossibleMoveSet());
+	    
 	   
       /*
       p.setType(Integer.parseInt(type_id));
@@ -330,7 +344,7 @@ public class Pokemon
 	    
     } catch(Exception e)
     {
-      System.out.println(e);
+      e.printStackTrace();
     }
 	}
 	

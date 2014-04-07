@@ -117,8 +117,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 		p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
 		p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+		
+		Pokemon.loadMoveSet(p1Pokemon.get(0));
+		Pokemon.loadMoveSet(p2Pokemon.get(0));
+		
 		p1Active = p1Pokemon.get(0);
 		p2Active = p2Pokemon.get(0);
+		
+		
 		p1ActiveIndex = 0;
 		p2ActiveIndex = 0;
 	}
@@ -132,15 +138,15 @@ public class PokemonShowdownMainGui implements ActionListener
 		}
 		
 		for(Pokemon p : p1Pokemon)
-      Pokemon.loadMoveSet(p);
+			Pokemon.loadMoveSet(p);
     
-    for(Pokemon p : p2Pokemon)
-      Pokemon.loadMoveSet(p);
+		for(Pokemon p : p2Pokemon)
+			Pokemon.loadMoveSet(p);
     
-    p1Active = p1Pokemon.get(0);
-    p2Active = p2Pokemon.get(0);
-    p1ActiveIndex = 0;
-    p2ActiveIndex = 0;
+	    p1Active = p1Pokemon.get(0);
+	    p2Active = p2Pokemon.get(0);
+	    p1ActiveIndex = 0;
+	    p2ActiveIndex = 0;
 	}
 	
 	
