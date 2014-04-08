@@ -29,7 +29,6 @@ public class PokemonShowdownMainGui implements ActionListener
 	ArrayList<JButton> currPokemonMoves, currSwitchablePokemon;
 	int[] p1FieldDebuffs, p2FieldDebuffs;
 	int[][] weaknessesAndResistances;
-	JCheckBox megaevo;
 
 	JFrame jfrm;
 	GridBagLayout gb;
@@ -38,9 +37,6 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	PokemonShowdownMainGui() throws FileNotFoundException
 	{
-	  
-	  
-	  
 	  
 		jfrm = new JFrame("Pokemon Showdown");
 		gb = new GridBagLayout();
@@ -55,7 +51,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		//weaknessesAndResistances = {}
 
-		whoseTurn = true;
+		
 	
 		experimentalPokemonDBLoader(); // load all pokemon
 		System.out.println(pokemonPool);
@@ -82,7 +78,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		}
 		
 		
-		
+		currPlayerAndAllPokemon = new JLabel();
+		opPlayerAndAllPokemon = new JLabel();
 		
 		
 		currPlayerPokemonStatusEffects = new JLabel("");
@@ -98,24 +95,12 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		
-	  
-		megaevo = new JCheckBox("<html>Mega<br>Evolution");
-		
-		
-		
-		
-		
 		
 		new SetupGui(this);
-		battleInProgress = true;
 		p1Switch = -1;
 		p2Switch = -1;
-		/*
-		while (battleInProgress)
-		{
-		  
-		}
-		*/
+		whoseTurn = true;
+		p1Turn();
 	}
 	
 	//Mechanics
@@ -386,6 +371,14 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		//TODO check if either poke died due to PSN/BRN and give player chance to switch/lose depending
 		//TODO update status bars hp bars etc after all turn moves done
+		
+		
+		//resets variables in preparation for next round
+		p1Move = -1;
+		p2Move = -1;
+		p1Switch = -1;
+		p2Switch = -1;
+		p1Turn();
 	}
 	
 	public void freeSwap (int player)
@@ -394,7 +387,6 @@ public class PokemonShowdownMainGui implements ActionListener
 	  {
 	    currPokemonMoves.get(x).setEnabled(false);
 	  }
-	  megaevo.setEnabled(false);
 	  if (player == 1)
 	  {
 	    switchFaint = 1;
@@ -432,11 +424,15 @@ public class PokemonShowdownMainGui implements ActionListener
 			{
 				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
 						+ attacker.getName() + " is frozen! It can't move!");
+				previousMovesLog.setText(previousMovesLog.getText() + "<br>"
+						+ attacker.getName() + " is frozen! It can't move!");
 				return 0;
 			}
 			else
 			{
 				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " thawed out!");
+				previousMovesLog.setText(previousMovesLog.getText() + "<br>"
 						+ attacker.getName() + " thawed out!");
 			}
 		}
@@ -445,6 +441,8 @@ public class PokemonShowdownMainGui implements ActionListener
 			if (Math.random() < .25)
 			{
 				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
+						+ attacker.getName() + " is paralyzed! It can't move!");
+				previousMovesLog.setText(previousMovesLog.getText() + "<br>"
 						+ attacker.getName() + " is paralyzed! It can't move!");
 				return 0;
 			}
@@ -455,16 +453,22 @@ public class PokemonShowdownMainGui implements ActionListener
 			{
 				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
 						+ attacker.getName() + " is still asleep!");
+				previousMovesLog.setText(previousMovesLog.getText() + "<br>"
+						+ attacker.getName() + " is still asleep!");
 				return 0;
 			}
 			else
 			{
 				currTurnEvents.setText(currTurnEvents.getText() + "<br>"
 						+ attacker.getName() + " woke up!");
+				previousMovesLog.setText(previousMovesLog.getText() + "<br>"
+						+ attacker.getName() + " woke up!");
 			}
 		}
 			
 		currTurnEvents.setText(currTurnEvents.getText() + "<br>" +
+				attacker.getName() + " used " + attack.getName() + "!");
+		previousMovesLog.setText(previousMovesLog.getText() + "<br>" +
 				attacker.getName() + " used " + attack.getName() + "!");
 		
 		
@@ -474,29 +478,33 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 		  int dmg = 0;
 		  if (attack.getType().equals("p"))
-	    {
-	      dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
-	          / defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
-	          weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-	      if (attacker.getStatusEffect().equals("BRN"))
-	      {
-	        dmg *= .5;
-	      }
-	    }
-	    else if (attack.getType().equals("s"))
-	    {
-	      dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
-	          / defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
-	          weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-	    }
+		  {
+			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
+					  / defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
+					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+			  if (attacker.getStatusEffect().equals("BRN"))
+			  {
+				  dmg *= .5;
+			  }
+		  }
+		  else if (attack.getType().equals("s"))
+		  {
+			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
+					  / defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
+					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+		  }
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() + " lost "
 		      + (int)dmg / defender.getMaxHP() + "% of its HP!");
+		  previousMovesLog.setText(previousMovesLog.getText() +"<br>The opponent's " + defender.getName() + " lost "
+		      + (int)dmg / defender.getMaxHP() + "% of its HP!" );
 		  return dmg;
 		}
 		else
 		{
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() +
 		      " dodged the attack!");
+		  previousMovesLog.setText(previousMovesLog.getText() + "<br>The opponent's " + defender.getName() +
+			      " dodged the attack!");
 		  return 0;
 		}	
 		
@@ -566,14 +574,42 @@ public class PokemonShowdownMainGui implements ActionListener
 	   return avgMultiplier/(100*(double)count);
 	}
 	
+	public void battleOver ()
+	{
+		boolean p1Alive = false;
+		boolean p2Alive = false;
+		for (int x = 0; x < p1Pokemon.size(); x ++)
+		{
+			if (p1Pokemon.get(x).getHP() > 0)
+			{
+				p1Alive = true;
+			}
+		}
+		for (int x = 0; x < p2Pokemon.size(); x ++)
+		{
+			if (p2Pokemon.get(x).getHP() > 0)
+			{
+				p2Alive = true;
+			}
+		}
+		
+		if (!p1Alive)
+		{
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " has won the battle!");
+			previousMovesLog.setText(previousMovesLog.getText() + p2Name + " has won the battle!");
+			new SetupGui(this);
+		}
+		else if (!p2Alive)
+		{
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " has won the battle!");
+			previousMovesLog.setText(previousMovesLog.getText() + p1Name + " has won the battle!");
+			new SetupGui(this);
+		}
+		
+	}
 	
-	
-	public void actionPerformed(ActionEvent ae)
+  public void actionPerformed(ActionEvent ae)
   {
-	  p1Move = -1;
-	  p2Move = -1;
-	  p1Switch = -1;
-	  p2Switch = -1;
     for (int x = 0; x < 4; x ++)
     {
       if (ae.getSource().equals(currPokemonMoves.get(x)))
@@ -614,18 +650,15 @@ public class PokemonShowdownMainGui implements ActionListener
         }
       }
     }
-    if (!ae.getSource().equals(megaevo))
+    if (whoseTurn)
     {
-      if (whoseTurn)
-      {
-        whoseTurn = false;
-        p2Turn();
-      }
-      else if (!whoseTurn)
-      {
-        whoseTurn = true;
-        turnMove();
-      }
+      whoseTurn = false;
+      p2Turn();
+    }
+    else if (!whoseTurn)
+    {
+      whoseTurn = true;
+      turnMove();
     }
     
   }
