@@ -17,7 +17,7 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui implements ActionListener
 {
-	String p1Name, p2Name, weather;
+	String p1Name, p2Name;
 	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
 	Pokemon p1Active, p2Active;
 	int p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
@@ -86,7 +86,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		opPlayerPokemonStatusEffects = new JLabel("");
 		
 		
-		
+		currPlayerActiveImg = new JLabel();
+		opPlayerActiveImg = new JLabel();
 		
 		
 		
@@ -106,8 +107,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
-		p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
-		p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+		p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+		p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		
 		Pokemon.loadMoveSet(p1Pokemon.get(0));
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
@@ -124,8 +125,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 		for (int x = 0; x < 6; x ++)
 		{
-			p1Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
-			p2Pokemon.add(pokemonPool.get((int)(Math.random()* pokemonPool.size())));
+			p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+			p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		}
 		
 		for(Pokemon p : p1Pokemon)
