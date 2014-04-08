@@ -534,7 +534,7 @@ public class PokemonShowdownMainGui implements ActionListener
       String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
       con = DriverManager.getConnection(url);
       
-      String query_multiplier = "select * from type_efficiacy";
+      String query_multiplier = "select * from type_efficacy";
       
       stmt = con.createStatement();
       
@@ -763,11 +763,11 @@ public class PokemonShowdownMainGui implements ActionListener
         switch(Integer.parseInt(typeID.trim())) 
         {
           case 1:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("normal");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("normal");
+          	  break;
           case 2:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fighting");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fighting");
+          	  break;
           case 3:
               Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("flying");
               break;
@@ -775,8 +775,8 @@ public class PokemonShowdownMainGui implements ActionListener
               Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("poison");
               break;
           case 5:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ground");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ground");
+          	  break;
           case 6:
               Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("rock");
               break;
@@ -784,44 +784,44 @@ public class PokemonShowdownMainGui implements ActionListener
               Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("bug");
               break;
           case 8:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ghost");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ghost");
+          	  break;
           case 9:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("steel");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("steel");
+          	  break;
           case 10:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fire");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fire");
+          	  break;
           case 11:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("water");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("water");
+          	  break;
           case 12:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("grass");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("grass");
+          	  break;
           case 13:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("electric");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("electric");
+          	  break;
           case 14:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("psychic");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("psychic");
+          	  break;
           case 15:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ice");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("ice");
+          	  break;
           case 16:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dragon");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dragon");
+          	  break;
           case 17:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dark");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("dark");
+          	  break;
           case 18:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fairy");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("fairy");
+          	  break;
           case 10001:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("unknown");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("unknown");
+          	  break;
           case 10002:
-        	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("shadow");
-        	  break;
+          	  Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool).addType("shadow");
+          	  break;
         }
         
       }

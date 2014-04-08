@@ -68,6 +68,61 @@ public class Pokemon
 	  loadImageIcon();
 	}
 	
+	//clone constructor
+	
+	Pokemon(Pokemon p)
+	{
+	  this.name = p.getName();
+	  this.ID = p.getID();
+	  this.HP = p.getHP();
+	  this.maxHP = p.getHP();
+	  this.attack = p.getAttack();
+    this.defense = p.getDefense();
+    this.spAttack = p.getSpAttack();
+    this.spDefense = p.getSpDefense();
+    this.speed = p.getSpeed();
+    this.buffs = p.getBuffs();
+    this.moves = p.getMoves();
+    this.type = p.getType();
+    this.patklvl = 0;
+    this.spatklvl = 0;
+    this.pdeflvl = 0;
+    this.spdeflvl = 0;
+    this.spdlvl = 0;
+    this.loadImageIcon();
+	}
+	
+	public int getpatklvl()
+	{
+	  return this.patklvl;
+	}
+	
+	 public int getspatklvl()
+	 {
+	   return this.spatklvl;
+	 }
+	 
+	 public int getpdeflvl()
+	 {
+	   return this.pdeflvl;
+	 }
+	 
+   public int getspdeflvl()
+   {
+     return this.spdeflvl;
+   }
+   
+   public int getspdlvl()
+   {
+     return this.spdlvl;
+   } 
+	  
+	public ArrayList<Move> getMoves()
+	{
+	  return this.moves;
+	}
+	
+	
 	public void modifyHP(int amount)
 	{
 		this.HP+=amount;
@@ -189,10 +244,6 @@ public class Pokemon
 	  return this.ID;
 	}
 	
-	public void setMoves()
-	{
-	  //TODO get 4 random moves and add it to the pokemon
-	}
 	
 	public static void setHP(Pokemon p, int hp) // sets current HP
 	{
