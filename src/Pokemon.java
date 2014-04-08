@@ -349,7 +349,7 @@ public class Pokemon
 	 	      
 	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
-	 	      m.setType(Integer.parseInt(type_id));
+	 	      m.setDmgType(Integer.parseInt(type_id));
 	 	      m.setName(name);
 	 	      m.setPriority(Integer.parseInt(priority));
 	 	    }

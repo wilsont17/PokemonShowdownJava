@@ -38,6 +38,10 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	PokemonShowdownMainGui() throws FileNotFoundException
 	{
+	  
+	  
+	  
+	  
 		jfrm = new JFrame("Pokemon Showdown");
 		gb = new GridBagLayout();
 		gbc = new GridBagConstraints();
@@ -150,6 +154,12 @@ public class PokemonShowdownMainGui implements ActionListener
 	    p2Active = p2Pokemon.get(0);
 	    p1ActiveIndex = 0;
 	    p2ActiveIndex = 0;
+	    
+	    
+	    //Type efficiency test
+	    System.out.println(p2Active);
+	    System.out.println(p1Active.getMoveSet().get(0));
+	    weakResist(p2Active, p1Active.getMoveSet().get(0));
 	}
 	
 	

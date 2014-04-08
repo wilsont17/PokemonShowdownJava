@@ -167,70 +167,70 @@ public class Move
 	}
 	
 	
-	public void setType(int type)
+	public void setDmgType(int type)
 	{
 	     switch(type) 
 	        {
 	          case 1:
-	        	  this.type = "normal";
+	        	  this.dmgType = "normal";
 	        	  break;
 	          case 2:
-	        	  this.type = "fighting";
+	        	  this.dmgType = "fighting";
 		        	 
 	        	  break;
 	          case 3:
-	        	  this.type = "flying";
+	        	  this.dmgType = "flying";
 		           break;
 	          case 4:
-	        	  this.type = "poison";
+	        	  this.dmgType = "poison";
 		          break;
 	          case 5:
-	        	  this.type = "ground";
+	        	  this.dmgType = "ground";
 		     	  break;
 	          case 6:
-	        	  this.type = "rock";
+	        	  this.dmgType = "rock";
 		          break;
 	          case 7:
-	        	  this.type = "bug";
+	        	  this.dmgType = "bug";
 		           break;
 	          case 8:
-	        	  this.type = "ghost";
+	        	  this.dmgType = "ghost";
 	        	  break;
 	          case 9:
-	        	  this.type = "steel";
+	        	  this.dmgType = "steel";
 	        	  break;
 	          case 10:
-	        	  this.type = "fire";
+	        	  this.dmgType = "fire";
 	        	  break;
 	          case 11:
-	        	  this.type = "water";
+	        	  this.dmgType = "water";
 	        	  break;
 	          case 12:
-	        	  this.type = "grass";
+	        	  this.dmgType = "grass";
 	        	  break;
 	          case 13:
-	        	  this.type = "electric";
+	        	  this.dmgType = "electric";
 	        	  break;
 	          case 14:
-	        	  this.type = "psychic";
+	        	  this.dmgType = "psychic";
 	        	  break;
 	          case 15:
-	        	  this.type = "ice";
+	        	  this.dmgType = "ice";
 	        	  break;
 	          case 16:
-	        	  this.type = "dragon";
+	        	  this.dmgType = "dragon";
 	        	  break;
 	          case 17:
-	        	  this.type = "dark";
+	        	  this.dmgType = "dark";
 	        	  break;
 	          case 18:
-	        	  this.type = "fairy";
+	        	  this.dmgType = "fairy";
 	        	   break;
 	          case 10001:
-	        	  this.type = "unknown";
+	        	  this.dmgType = "unknown";
 	        	  break;
 	          case 10002:
-	        	  this.type = "shadow";
+	        	  this.dmgType = "shadow";
 	        	  break;
 	        }
 	}
