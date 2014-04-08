@@ -414,8 +414,8 @@ public class Pokemon
 	    	r3 = stmt.executeQuery(query_description);
 	    	String desc = r3.getString("effect");
 	    	String short_desc = r3.getString("short_effect");
-	    	System.out.println(m + " :::: " + desc);
-	    	m.setDescription(desc);
+	    	//System.out.println(m + " :::: " + short_desc);
+	    	m.setDescription(short_desc);
 	    }
 	
     } catch(Exception e)

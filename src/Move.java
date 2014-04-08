@@ -100,6 +100,10 @@ public class Move
 	{
 		return type;
 	}
+	public String getDmgType()
+	{
+		return dmgType;
+	}
 	
 	public int getPriority()
 	{
@@ -165,6 +169,9 @@ public class Move
 	{
 	  this.type = s;
 	}
+	
+	
+	
 	
 	
 	public void setDmgType(int type)

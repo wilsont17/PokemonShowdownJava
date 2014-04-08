@@ -541,15 +541,20 @@ public class PokemonShowdownMainGui implements ActionListener
       
       r = stmt.executeQuery(query_multiplier);
       
+      
       while(r.next())
       {
         String dmgType = r.getString("damage_type_id");
         String targetType = r.getString("target_type_id");
+        //String damage_factor = r.getString("damage_factor");
         
-        if(defender.getType().equals(targetType) && ability.getType().equals(dmgType))
-        {
-          ret = Integer.parseInt(r.getString("damage_factor"));
-        }
+       for(String defType : defender.getType())
+       {
+    	   if(defType.equals(getType(Integer.parseInt(targetType))))
+    	   {
+    		   ret *= r.getDouble("damage_factor");
+    	   }
+       }
         
       }
       
@@ -559,8 +564,7 @@ public class PokemonShowdownMainGui implements ActionListener
     }
 	  
 	  
-	  
-	  System.out.println(ret);
+	  System.out.println(ret + " for" + defender.getType() + " defending vs a  " + ability.getDmgType());
 	  return ret;
 	}
 	
@@ -871,6 +875,80 @@ public class PokemonShowdownMainGui implements ActionListener
     
         
   }
+  
+  
+  public static String getType(int type)
+  {
+	  String ret = "";
+	  switch(type) 
+      {
+        case 1:
+      	  ret = "normal";
+      	  break;
+        case 2:
+      	  ret = "fighting";
+      	  break;
+        case 3:
+        	ret = "flying";
+	        break;
+        case 4:
+        	ret = "poison";
+	          break;
+        case 5:
+        	ret = "ground";
+	     	  break;
+        case 6:
+        	ret = "rock";
+	        break;
+        case 7:
+        	ret = "bug";
+	        break;
+        case 8:
+        	ret = "ghost";
+        	break;
+        case 9:
+        	ret = "steel";
+        	break;
+        case 10:
+        	ret = "fire";
+      	  break;
+        case 11:
+      	  ret = "water";
+      	  break;
+        case 12:
+      	  ret = "grass";
+      	  break;
+        case 13:
+      	  ret = "electric";
+      	  break;
+        case 14:
+      	  ret = "psychic";
+      	  break;
+        case 15:
+      	  ret = "ice";
+      	  break;
+        case 16:
+      	  ret = "dragon";
+      	  break;
+        case 17:
+      	  ret = "dark";
+      	  break;
+        case 18:
+      	  ret = "fairy";
+      	   break;
+        case 10001:
+      	  ret = "unknown";
+      	  break;
+        case 10002:
+      	  ret = "shadow";
+      	  break;
+      }
+	  return ret;
+  }
+  
+  
+  
+  
     
 
 }
