@@ -72,24 +72,30 @@ public class Pokemon
 	
 	Pokemon(Pokemon p)
 	{
-	  this.name = p.getName();
-	  this.ID = p.getID();
-	  this.HP = p.getHP();
-	  this.maxHP = p.getHP();
-	  this.attack = p.getAttack();
-    this.defense = p.getDefense();
-    this.spAttack = p.getSpAttack();
-    this.spDefense = p.getSpDefense();
-    this.speed = p.getSpeed();
-    this.buffs = p.getBuffs();
-    this.moves = p.getMoves();
-    this.type = p.getType();
-    this.patklvl = 0;
-    this.spatklvl = 0;
-    this.pdeflvl = 0;
-    this.spdeflvl = 0;
-    this.spdlvl = 0;
-    this.loadImageIcon();
+		this.name = p.getName();
+		this.ID = p.getID();
+		this.HP = p.getHP();
+		this.maxHP = p.getHP();
+		this.attack = p.getAttack();
+	    this.defense = p.getDefense();
+	    this.spAttack = p.getSpAttack();
+	    this.spDefense = p.getSpDefense();
+	    this.speed = p.getSpeed();
+	    this.buffs = p.getBuffs();
+	    this.moves = p.getMoves();
+	    this.type = p.getType();
+	    this.patklvl = 0;
+	    this.spatklvl = 0;
+	    this.pdeflvl = 0;
+	    this.spdeflvl = 0;
+	    this.spdlvl = 0;
+	    this.loadImageIcon();
+	}
+	
+	
+	public Pokemon clone()
+	{
+		return new Pokemon(this);
 	}
 	
 	public int getpatklvl()
