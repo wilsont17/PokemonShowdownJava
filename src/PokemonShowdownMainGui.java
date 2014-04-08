@@ -526,46 +526,44 @@ public class PokemonShowdownMainGui implements ActionListener
 	  Connection con;
 	  ResultSet r;
 	  Statement stmt;
-	  double ret = 0.0;
-    try
-    {
-      Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
-      DriverManager.registerDriver(d);
-      
-      String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
-      con = DriverManager.getConnection(url);
-      
-      String query_multiplier = "select * from type_efficacy";
-      
-      stmt = con.createStatement();
-      
-      r = stmt.executeQuery(query_multiplier);
-      
-      
-      while(r.next())
-      {
-        String dmgType = r.getString("damage_type_id");
-        String targetType = r.getString("target_type_id");
-        //String damage_factor = r.getString("damage_factor");
-        
-       for(String defType : defender.getType())
-       {
-    	   if(defType.equals(getType(Integer.parseInt(targetType))))
-    	   {
-    		   ret *= r.getDouble("damage_factor");
-    	   }
-       }
-        
-      }
-      
-    }catch(Exception e)
-    {
-      e.printStackTrace();
-    }
-	  
-	  
-	  System.out.println(ret + " for" + defender.getType() + " defending vs a  " + ability.getDmgType());
-	  return ret;
+	  double avgMultiplier = 0.0;
+	  int count = 0;
+	  try
+	  {
+	      Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
+	      DriverManager.registerDriver(d);
+	      
+	      String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+	      con = DriverManager.getConnection(url);
+	      
+	      String query_multiplier = "select * from type_efficacy";
+	      
+	      stmt = con.createStatement();
+	      
+	      r = stmt.executeQuery(query_multiplier);
+	      
+	      
+	      while(r.next())
+	      {
+	        String dmgType = r.getString("damage_type_id");
+	        String targetType = r.getString("target_type_id");
+	        for(String type : defender.getType())
+	        {
+	        	if(type.equals(getType(Integer.parseInt(targetType))) && ability.getDmgType().equals(getType(Integer.parseInt(dmgType))))
+	        	{
+	        		avgMultiplier += r.getDouble("damage_factor");
+		        	count++;
+		        }
+	        }
+	        
+	      }
+    
+	      
+	    }catch(Exception e)
+	    {
+	      e.printStackTrace();
+	    }
+	   return avgMultiplier/(100*(double)count);
 	}
 	
 	
