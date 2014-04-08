@@ -57,22 +57,27 @@ public class PokemonShowdownMainGui implements ActionListener
 		System.out.println(pokemonPool);
 		jfrm.setVisible(true);
 		
-		previousMovesLog = new JLabel("<html>HELLLOOO");
+		previousMovesLog = new JLabel("<html>");
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(previousMovesLog, gbc);
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
+		
+		gbc.gridheight = 1; gbc.gridwidth = 1;
+		
 		for (int x = 0; x < 4; x ++)
 		{
 		  currPokemonMoves.add(new JButton("Hello"));
+		  currPokemonMoves.get(x).addActionListener(this);
 		  gbc.gridx = 2 + x; gbc.gridy = 5;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
-		for (int x = 0; x < 6; x ++)
+		for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 		{
 		  currSwitchablePokemon.add(new JButton("Hello"));
+		  currSwitchablePokemon.get(x).addActionListener(this);
 		  gbc.gridx = 1 + x; gbc.gridy = 6;
 		  jfrm.add(currSwitchablePokemon.get(x), gbc);
 		}
@@ -98,7 +103,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		gbc.gridx = 1; gbc.gridy = 3;
 		jfrm.add(currPlayerActiveImg, gbc);
 		opPlayerActiveImg = new JLabel();
-		gbc.gridx = 5; gbc.gridy = 3;
+		gbc.gridx = 5; gbc.gridy = 0;
 		jfrm.add(opPlayerActiveImg, gbc);
 		
 		
@@ -107,6 +112,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		opPlayerPokemonHP = new JProgressBar();
 		
 		
+		
+		currTurnEvents = new JLabel ("<html>");
+		gbc.gridx = 1; gbc.gridy = 4;
+		gbc.gridwidth = 6;
+		jfrm.add(currTurnEvents, gbc);
 		
 		
 		new SetupGui(this);
@@ -202,10 +212,10 @@ public class PokemonShowdownMainGui implements ActionListener
 	      currPokemonMoves.get(x).setEnabled(false);
 	    }
 	  }
-	  for (int x = 0; x < 6; x ++)
+	  for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 	  {
 	    currSwitchablePokemon.get(x).setEnabled(true);
-	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	    if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
@@ -239,16 +249,16 @@ public class PokemonShowdownMainGui implements ActionListener
     for (int x = 0; x < 4; x ++)
     {
       currPokemonMoves.get(x).setEnabled(true);
-      currPokemonMoves.get(x).setText(p2Active.getMoveSet().get(x).toString());
+      currPokemonMoves.get(x).setText(p2Active.getMoveSet().get(x).getName());
       if (!p2Active.getMoveSet().get(x).useable())
       {
         currPokemonMoves.get(x).setEnabled(false);
       }
     }
-    for (int x = 0; x < 6; x ++)
+    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
     {
       currSwitchablePokemon.get(x).setEnabled(true);
-      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).toString());
+      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
       if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
@@ -287,47 +297,47 @@ public class PokemonShowdownMainGui implements ActionListener
 		  {
 		    //p1 faster
 		    if (p1Active.getSpeed() > p2Active.getSpeed())
-	      {
-	        performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-	        if (p2Active.getHP() > 0)
-          {
-            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-          }
-	      }
+		    {
+		    	performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    	if (p2Active.getHP() > 0)
+		    	{
+		    		performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    	}
+		    }
 		    //both players same spd
-	      else if (p1Active.getSpeed() == p2Active.getSpeed())
-	      {
-	        //p1 wins roll goes first
-	        if (Math.random() > .5)
-	        {
-	          performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-	          if (p2Active.getHP() > 0)
-	          {
-	            performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-	          }
-	        }
-	        //p2 wins roll goes first
-	        else
-	        {
-	          performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-	          {
-	            if (p1Active.getHP() > 0)
-	            {
-	              performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-	            }
-	          }
-	        }
-	      }
-		    //p2 faster
-	      	else
+		    else if (p1Active.getSpeed() == p2Active.getSpeed())
 	      	{
-	    	  	performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
-	        	if (p1Active.getHP() > 0)
-	        	{
-	        		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-            	}
+	        //p1 wins roll goes first
+		    	if (Math.random() > .5)
+		    	{
+		    		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    		if (p2Active.getHP() > 0)
+		    		{
+		    			performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    		}
+		    	}
+	        //p2 wins roll goes first
+		    	else
+		    	{
+		    		performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    		{
+		    			if (p1Active.getHP() > 0)
+		    			{
+		    				performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    			}
+		    		}
+		    	}
 	      	}
-		  }
+		    //p2 faster
+		    else
+		    {
+		    	performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    	if (p1Active.getHP() > 0)
+		    	{
+		    		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    	}
+		    }
+		 }
 		  //priorities unequal
 		  else
 		  {
@@ -350,6 +360,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		    }
 		  }
 		  
+		  
+		  battleOver();
 		  //after turn effects
 		  //p1Active checks
 		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
@@ -363,6 +375,8 @@ public class PokemonShowdownMainGui implements ActionListener
 			  Pokemon.setHP(p1Active, dmg);
 		  }
 		  
+		  battleOver();
+		  
 		  //p2Active checks
 		  if (p2Active.getStatusEffect().equals("PSN") && p2Active.getTurnsStatus() > 0)
 		  {
@@ -374,6 +388,8 @@ public class PokemonShowdownMainGui implements ActionListener
 			  int dmg = (int)(p2Active.getMaxHP() * .12);
 			  Pokemon.setHP(p2Active, dmg);
 		  }
+		  
+		  battleOver();
 		  
 		  p1Active.setTurnsStatus(p1Active.getTurnsStatus() + 1);
 		  p2Active.setTurnsStatus(p2Active.getTurnsStatus() + 1);
@@ -404,7 +420,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	    for (int x = 0; x < 6; x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
-	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).toString());
+	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	      if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	      {
 	        currSwitchablePokemon.get(x).setEnabled(false);
@@ -417,7 +433,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	    for (int x = 0; x < 6; x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
-	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).toString());
+	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
 	      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
 	      {
 	        currSwitchablePokemon.get(x).setEnabled(false);
@@ -635,7 +651,7 @@ public class PokemonShowdownMainGui implements ActionListener
         }
       }
     }
-    for (int x = 0; x < 6; x ++)
+    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
     {
       if (ae.getSource().equals(currSwitchablePokemon.get(x)))
       {
@@ -663,11 +679,13 @@ public class PokemonShowdownMainGui implements ActionListener
     }
     if (whoseTurn)
     {
+    	System.out.println("ae recieved while whoseTurn = true");
       whoseTurn = false;
       p2Turn();
     }
     else if (!whoseTurn)
     {
+    	System.out.println("ae recieved while whoseTurn = false");
       whoseTurn = true;
       turnMove();
     }
