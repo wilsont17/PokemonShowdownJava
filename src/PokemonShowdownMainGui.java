@@ -17,7 +17,7 @@ import javax.swing.*;
 
 public class PokemonShowdownMainGui implements ActionListener
 {
-	String p1Name, p2Name;
+	String p1Name, p2Name, weather;
 	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
 	Pokemon p1Active, p2Active;
 	int p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
@@ -28,6 +28,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	ArrayList<Pokemon> p1Pokemon, p2Pokemon, pokemonPool;
 	ArrayList<JButton> currPokemonMoves, currSwitchablePokemon;
 	int[] p1FieldDebuffs, p2FieldDebuffs;
+	int[][] weaknessesAndResistances;
 	JCheckBox megaevo;
 
 	JFrame jfrm;
@@ -47,6 +48,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		p1Pokemon = new ArrayList<Pokemon>();
 		p2Pokemon = new ArrayList<Pokemon>();
 		//loadPokemonDB();
+		
+		weaknessesAndResistances = {}
 
 		whoseTurn = true;
 	
@@ -454,23 +457,35 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		//TODO printouts for if defender is immune/resists/weak and actual dmg % done
 		//dmg calcs
-		if (attack.getType().equals("p"))
+		if (Math.random() < (attack.getHitChance()/100.0) || attack.getHitChance() == 00)
 		{
-			int dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
-					/ defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
-					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-			if (attacker.getStatusEffect().equals("BRN"))
-			{
-				dmg *= .5;
-			}
-			return dmg;
+		  int dmg = 0;
+		  if (attack.getType().equals("p"))
+	    {
+	      dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
+	          / defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
+	          weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+	      if (attacker.getStatusEffect().equals("BRN"))
+	      {
+	        dmg *= .5;
+	      }
+	    }
+	    else if (attack.getType().equals("s"))
+	    {
+	      dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
+	          / defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
+	          weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+	    }
+		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() + " lost "
+		      + (int)dmg / defender.getMaxHP() + "% of its HP!");
+		  return dmg;
 		}
 		else
 		{
-			return (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
-					/ defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
-					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-		}
+		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() +
+		      " dodged the attack!");
+		  return 0;
+		}	
 		
 		//TODO status effect moves
 		//TODO switch after dmg moves switch part
@@ -495,8 +510,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public double weakResist(Pokemon defender, Move ability)
 	{
-		//TODO add weakness/resistance calcs later
-	  return 0;
+		
 	}
 	
 	

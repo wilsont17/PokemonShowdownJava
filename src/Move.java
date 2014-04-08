@@ -10,7 +10,7 @@ public class Move
 	private String description;
 	private int power;
 	private int hitChance;
-	private String type; //p for physical, s for special
+	private String type; //p for physical, s for special, e for statuseffect
 	private String dmgType;
 	private int maxPP;
 	private int currPP;
@@ -104,6 +104,11 @@ public class Move
 	public int getPriority()
 	{
 		return priority;
+	}
+	
+	public int getHitChance ()
+	{
+	  return hitChance;
 	}
   
 	public boolean useable()
