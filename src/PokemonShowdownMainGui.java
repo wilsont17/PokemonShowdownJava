@@ -368,6 +368,8 @@ public class PokemonShowdownMainGui implements ActionListener
 			  Pokemon.setHP(p2Active, dmg);
 		  }
 		  
+		  p1Active.setTurnsStatus(p1Active.getTurnsStatus() + 1);
+		  p2Active.setTurnsStatus(p2Active.getTurnsStatus() + 1);
 		}
 		
 		
