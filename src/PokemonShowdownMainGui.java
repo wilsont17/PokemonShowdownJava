@@ -49,7 +49,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		p2Pokemon = new ArrayList<Pokemon>();
 		//loadPokemonDB();
 		
-		weaknessesAndResistances = {}
+		//weaknessesAndResistances = {}
 
 		whoseTurn = true;
 	
@@ -510,7 +510,45 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public double weakResist(Pokemon defender, Move ability)
 	{
-		
+	  Connection con;
+	  ResultSet r;
+	  Statement stmt;
+	  double ret = 0.0;
+    try
+    {
+      Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
+      DriverManager.registerDriver(d);
+      
+      String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
+      con = DriverManager.getConnection(url);
+      
+      String query_multiplier = "select * from type_efficiacy";
+      
+      stmt = con.createStatement();
+      
+      r = stmt.executeQuery(query_multiplier);
+      
+      while(r.next())
+      {
+        String dmgType = r.getString("damage_type_id");
+        String targetType = r.getString("target_type_id");
+        
+        if(defender.getType().equals(targetType) && ability.getType().equals(dmgType))
+        {
+          ret = Integer.parseInt(r.getString("damage_factor"));
+        }
+        
+      }
+      
+    }catch(Exception e)
+    {
+      e.printStackTrace();
+    }
+	  
+	  
+	  
+	  System.out.println(ret);
+	  return ret;
 	}
 	
 	
