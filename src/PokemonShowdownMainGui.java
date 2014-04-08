@@ -78,16 +78,28 @@ public class PokemonShowdownMainGui implements ActionListener
 		}
 		
 		
-		currPlayerAndAllPokemon = new JLabel();
-		opPlayerAndAllPokemon = new JLabel();
+		currPlayerAndAllPokemon = new JLabel("<html>");
+		gbc.gridx = 0; gbc.gridy = 3;
+		jfrm.add(currPlayerAndAllPokemon, gbc);
+		opPlayerAndAllPokemon = new JLabel("<html>");
+		gbc.gridx = 6; gbc.gridy = 3;
+		jfrm.add(opPlayerAndAllPokemon, gbc);
 		
 		
 		currPlayerPokemonStatusEffects = new JLabel("");
+		gbc.gridx = 2; gbc.gridy = 4;
+		jfrm.add(currPlayerPokemonStatusEffects, gbc);
 		opPlayerPokemonStatusEffects = new JLabel("");
+		gbc.gridx = 4; gbc.gridy = 1;
+		jfrm.add(opPlayerPokemonStatusEffects, gbc);
 		
 		
 		currPlayerActiveImg = new JLabel();
+		gbc.gridx = 1; gbc.gridy = 3;
+		jfrm.add(currPlayerActiveImg, gbc);
 		opPlayerActiveImg = new JLabel();
+		gbc.gridx = 5; gbc.gridy = 3;
+		jfrm.add(opPlayerActiveImg, gbc);
 		
 		
 		
