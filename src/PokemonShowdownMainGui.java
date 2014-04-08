@@ -100,7 +100,6 @@ public class PokemonShowdownMainGui implements ActionListener
 		p1Switch = -1;
 		p2Switch = -1;
 		whoseTurn = true;
-		p1Turn();
 	}
 	
 	//Mechanics
