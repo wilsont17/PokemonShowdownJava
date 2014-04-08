@@ -142,7 +142,6 @@ public class Move
 		this.power = power;
 	}
 	
-	
 	public static Move getMoveByID(int ID)
 	{
 	  for(Move m : movePool)
@@ -244,6 +243,11 @@ public class Move
 	public static ArrayList<Move> getMovePool()
 	{
 		return movePool;
+	}
+	
+	public void movePerformMove(Pokemon defender)
+	{
+	  
 	}
 
 	
