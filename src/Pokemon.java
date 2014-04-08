@@ -128,27 +128,27 @@ public class Pokemon
 		this.HP+=amount;
 	}
 	
-	public void modifyAttack(int amount)
+	public void modifyAttackLevel(int amount)
 	{
 		this.attack+=amount;
 	}
 	
-	public void modifyDefense(int amount)
+	public void modifyDefenseLevel(int amount)
 	{
 		this.defense+=amount;
 	}
 	
-	public void modifySpAttack(int amount)
+	public void modifySpAttackLevel(int amount)
 	{
 		this.spAttack+=amount;
 	}
 	
-	public void modifySpDefense(int amount)
+	public void modifySpDefenseLevel(int amount)
 	{
 		this.spDefense+=amount;
 	}
 	
-	public void modifySpeed(int amount)
+	public void modifySpeedLevel(int amount)
 	{
 		this.speed+=amount;
 	}
@@ -211,6 +211,11 @@ public class Pokemon
 	public int getTurnsStatus()
 	{
 		return turnsStatus;
+	}
+	
+	public void setTurnsStatus(int t)
+	{
+	  turnsStatus = t;
 	}
 	
 	public ArrayList<String> getBuffs()
