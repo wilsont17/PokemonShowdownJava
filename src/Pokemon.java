@@ -287,7 +287,7 @@ public class Pokemon
 			p.moves.add(new Move(p.getPossibleMoveSet().get(rand))); // makes a copy of the move, puts it in moves arraylist
 		}
 		
-		//System.out.println(p.moves);
+		System.out.println(p + "     " + p.moves);
 		
 	}
 	
@@ -356,23 +356,12 @@ public class Pokemon
 	    	//now load description
 	    	query_description = "select * from move_effect_prose where move_effect_id=" + m.getEffectID();
 	    	r3 = stmt.executeQuery(query_description);
-	    	String desc = r3.getString("short_effect");
+	    	String desc = r3.getString("effect");
+	    	String short_desc = r3.getString("short_effect");
+	    	System.out.println(m + " :::: " + desc);
 	    	m.setDescription(desc);
 	    }
-	    
-	    //System.out.println(p + " ::::::  " + p.getPossibleMoveSet());
-	    
-	   
-      /*
-      p.setType(Integer.parseInt(type_id));
-      p.setName(name);
-      p.setPower(Integer.parseInt(power));
-      p.setPP(Integer.parseInt(pp));
-      p.setPriority(Integer.parseInt(priority));
-      if(accuracy != null)
-        p.setAccuracy(Integer.parseInt(accuracy));
-	    */
-	    
+	
     } catch(Exception e)
     {
       e.printStackTrace();
