@@ -156,9 +156,10 @@ public class PokemonShowdownMainGui implements ActionListener
 	    p2ActiveIndex = 0;
 	    
 	    
-	    //Type efficiency test
+	    //Type efficiency test remove when fixed
 	    System.out.println(p2Active);
 	    System.out.println(p1Active.getMoveSet().get(0));
+	    System.out.println("HAI");
 	    weakResist(p2Active, p1Active.getMoveSet().get(0));
 	}
 	
@@ -172,8 +173,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void p1Turn()
 	{
-	  //currPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
-	  //opPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
+	  currPlayerAndAllPokemon.setText(p1Name);
+	  opPlayerAndAllPokemon.setText(p2Name);
 	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
@@ -218,8 +219,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void p2Turn()
 	{
-	  //currPlayerAndAllPokemon.setText(p2Name, );  Set to p2name and imgs for all pokemon
-	  //opPlayerAndAllPokemon.setText(p1Name, );  Set to p1name and imgs for all pokemon
+	  currPlayerAndAllPokemon.setText(p2Name);
+	  opPlayerAndAllPokemon.setText(p1Name);
 	  currPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
