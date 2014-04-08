@@ -287,7 +287,7 @@ public class Pokemon
 			p.moves.add(new Move(p.getPossibleMoveSet().get(rand))); // makes a copy of the move, puts it in moves arraylist
 		}
 		
-		System.out.println(p.moves);
+		//System.out.println(p.moves);
 		
 	}
 	
