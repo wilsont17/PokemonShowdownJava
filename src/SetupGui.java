@@ -44,7 +44,7 @@ public class SetupGui implements ActionListener
 	{
 		if (ae.getSource() == start)
 		{
-		  h.addNames(p1NameInput.getText(), p2NameInput.getText());
+			h.addNames(p1NameInput.getText(), p2NameInput.getText());
 			if (gameModes.getSelectedIndex() == 0)  //JComboBox selects 1v1
 			{
 				h.createOneVsOne();
@@ -53,6 +53,7 @@ public class SetupGui implements ActionListener
 			{
 				h.createSixVsSix();
 			}
+			h.p1Turn();
 			j.dispose();
 		}
 		
