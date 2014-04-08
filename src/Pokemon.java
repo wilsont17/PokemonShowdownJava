@@ -34,36 +34,23 @@ public class Pokemon
 	
 	private ImageIcon imgIcon;
 	
-	Pokemon(String name, int hp, int attack, int defense, int spAttack, int spDefense, int speed)
+
+	//For Use with experimental loader
+	Pokemon(String name, int ID)
 	{
-		this.name = name;
-		this.maxHP = hp;
-		this.HP = hp;
-		this.attack = attack;
-		this.defense = defense;
-		this.spAttack = spAttack;
-		this.spDefense = spDefense;
-		this.speed = speed;
-		statusEffect = "";
 		turnsStatus = 0;
-		buffs = new ArrayList<String>();
-		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
-		type = new ArrayList<String>();
 		patklvl = 0;
 		spatklvl = 0;
 		pdeflvl = 0;
 		spdeflvl = 0;
 		spdlvl = 0;
-	}
-	
-	//For Use with experimental loader
-	Pokemon(String name, int ID)
-	{
+	  this.statusEffect = "";
 	  this.name = name;
 	  this.ID = ID;
 	  //statusEffects = new ArrayList<String>();
 	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 	  possibleMoveSet = new ArrayList<Move>();
+	  buffs = new ArrayList<String>();
 	  type = new ArrayList<String>();
 	  loadImageIcon();
 	}
@@ -89,7 +76,9 @@ public class Pokemon
 	    this.pdeflvl = 0;
 	    this.spdeflvl = 0;
 	    this.spdlvl = 0;
+	    this.statusEffect = p.getStatusEffect();
 	    this.loadImageIcon();
+	    this.possibleMoveSet = p.possibleMoveSet;
 	}
 	
 	
@@ -202,6 +191,7 @@ public class Pokemon
 	public int getSpeed()
 	{
 		int spd = (int)(this.speed * ((0.5 * spdlvl) + 1));
+		System.out.println(this.getStatusEffect());
 		if (this.getStatusEffect().equals("PAR"))
 		{
 			return (int)(spd * .25);
