@@ -163,7 +163,6 @@ public class PokemonShowdownMainGui implements ActionListener
 	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
-	  
 	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
 	  
 	  //buff and status effect data
