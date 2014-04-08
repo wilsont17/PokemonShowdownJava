@@ -196,7 +196,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  for (int x = 0; x < 4; x ++)
 	  {
 	    currPokemonMoves.get(x).setEnabled(true);
-	    currPokemonMoves.get(x).setText(p1Active.getMoveSet().get(x).toString());
+	    currPokemonMoves.get(x).setText(p1Active.getMoveSet().get(x).getName());
 	    if (!p1Active.getMoveSet().get(x).useable())
 	    {
 	      currPokemonMoves.get(x).setEnabled(false);
