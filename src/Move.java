@@ -17,6 +17,10 @@ public class Move
 	private int moveID;
 	private int pokemonID; // this identifies the pokemon that can use this move
 	private int priority;
+	private int effect_id;
+	private int effect_chance; // this remains null unless specified otherwise
+	
+	
 	
 	Move(String name, String description, int power, int hitChance)
 	{
@@ -47,6 +51,28 @@ public class Move
 		this.moveID = m.moveID;
 		this.pokemonID = m.pokemonID;
 		this.priority = m.priority;
+		this.effect_id  = m.effect_id;
+		
+	}
+	
+	public void setEffectChance(int chance)
+	{
+		this.effect_chance = chance;
+	}
+	
+	public int getEffectChance()
+	{
+		return this.getEffectChance();
+	}
+	
+	public void setEffectID(int id)
+	{
+		this.effect_id = id;
+	}
+	
+	public int getEffectID()
+	{
+		return this.effect_id;
 	}
 	
 	
@@ -57,7 +83,7 @@ public class Move
   
 	public String toString()
 	{
-		return name + " " + moveID;
+		return name + " " + moveID + " " + type + " " + description;
 	}
   
 	public String getName()

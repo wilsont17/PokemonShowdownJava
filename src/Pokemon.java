@@ -277,12 +277,29 @@ public class Pokemon
 		this.imgIcon = temp;
 	}
 	
+	private static void randomMoveSelectionFromPool(Pokemon p)
+	{
+		int rand;
+		
+		for(int x =0; x<4; x++)
+		{
+			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
+			p.moves.add(new Move(p.getPossibleMoveSet().get(rand))); // makes a copy of the move, puts it in moves arraylist
+		}
+		
+		System.out.println(p.moves);
+		
+	}
+	
+	
+	
 	
 	public static void loadMoveSet(Pokemon p)
 	{
 	  Connection con;
-	  ResultSet r1;
-	  ResultSet r2;
+	  ResultSet r1 = null;
+	  ResultSet r2 = null;
+	  ResultSet r3 = null;
 	  Statement stmt;
 	  
 	  try
@@ -294,6 +311,7 @@ public class Pokemon
 	    
 	    String query_moveList = "select * from pokemon_moves where pokemon_id =" + p.getID();
 	    String query_MoveInfo = "select * from moves where id =";
+	    String query_description = "select * from move_effect_prose where id=";
 	    String moveID = "";
 	    stmt = con.createStatement();
 	    
@@ -303,7 +321,7 @@ public class Pokemon
 	    while(r1.next())
 	    {
 	    	moveID = r1.getString("move_id");
-	    	p.addToPossibleMoveSet(Move.getMoveByID(Integer.parseInt(moveID)));
+	     	p.addToPossibleMoveSet(Move.getMoveByID(Integer.parseInt(moveID)));
 	    }
 	     //do this for each element of the moveset
 	    for(Move m : p.getPossibleMoveSet())
@@ -318,18 +336,31 @@ public class Pokemon
 	 	      String priority = r2.getString("priority");
 	 	      String damage_class_id = r2.getString("damage_class_id");
 	 	      String effect_id = r2.getString("effect_id");
+	 	      String effect_chance = r2.getString("effect_chance");
 	 	      String type_id = r2.getString("type_id");
 	 	      String name = r2.getString("identifier");
 	 	      String ID = r2.getString("id");
 	 	      
+	 	      
+	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
-	 	      m.setType(type_id);
+	 	      m.setType(Integer.parseInt(type_id));
 	 	      m.setName(name);
 	 	      m.setPriority(Integer.parseInt(priority));
 	 	    }
-	 	    
+	    
 	    }
-	    System.out.println(p + " ::::::  " + p.getPossibleMoveSet());
+	    
+	    for(Move m : p.getPossibleMoveSet())
+	    {
+	    	//now load description
+	    	query_description = "select * from move_effect_prose where move_effect_id=" + m.getEffectID();
+	    	r3 = stmt.executeQuery(query_description);
+	    	String desc = r3.getString("short_effect");
+	    	m.setDescription(desc);
+	    }
+	    
+	    //System.out.println(p + " ::::::  " + p.getPossibleMoveSet());
 	    
 	   
       /*
@@ -346,6 +377,8 @@ public class Pokemon
     {
       e.printStackTrace();
     }
+	  
+	  randomMoveSelectionFromPool(p);
 	}
 	
 	
