@@ -78,14 +78,15 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		for (int x = 0; x < 4; x ++)
 		{
-		  currPokemonMoves.add(new JButton("Hello"));
+		  currPokemonMoves.add(new JButton("     "));
 		  currPokemonMoves.get(x).addActionListener(this);
 		  gbc.gridx = 2 + x; gbc.gridy = 6;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
 		for (int x = 0; x < 6; x ++)
 		{
-		  currSwitchablePokemon.add(new JButton("Hello"));
+		  currSwitchablePokemon.add(new JButton(""));
+		  currSwitchablePokemon.get(x).setIcon("resources/icons/0.png");
 		  currSwitchablePokemon.get(x).addActionListener(this);
 		  gbc.gridx = 1 + x; gbc.gridy = 7;
 		  jfrm.add(currSwitchablePokemon.get(x), gbc);
@@ -148,6 +149,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		turnNum = 1;
 		p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+		
+		for (int x = 1; x < 6; x ++)
+		{
+			currSwitchablePokemon.get(x).setEnabled(false);
+		}
 		
 		Pokemon.loadMoveSet(p1Pokemon.get(0));
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
@@ -301,7 +307,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	public void turnMove()
 	{
 		currTurnEvents.setText("<html>Turn " + turnNum + "<br>-------");
-		previousMovesLog.setText(previousMovesLog.getText() + "<html>Turn " + turnNum + "<br>-------");
+		previousMovesLog.setText(previousMovesLog.getText() + "<br>Turn " + turnNum + "<br>-------");
 		System.out.println("ALLTHESWAG");
     System.out.println(p1Active.getHP() + "   " + p1Active.getName() + "   BEEFORE");
     System.out.println(p2Active.getHP() + "   " + p2Active.getName() + "   BEEFORE");
