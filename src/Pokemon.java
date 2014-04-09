@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 
 public class Pokemon 
 {
-	private int level;
+	private int level = 99;
 	private int maxHP;
 	private int HP;
 	private int attack;
@@ -425,6 +425,9 @@ public class Pokemon
 		 	    	  break;
 	 	      }
 	 	      
+	 	      if(accuracy != null)
+	 	    	  m.setAccuracy(Integer.parseInt(accuracy));
+	 	      m.setPower(Integer.parseInt(power));
 	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
 	 	      m.setDmgType(Integer.parseInt(type_id));
