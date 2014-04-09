@@ -520,6 +520,11 @@ public class PokemonShowdownMainGui implements ActionListener
 					  / defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
 					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 		  }
+		  //Status effect
+		  else if (attack.getType().equals("e"))
+		  {
+			  
+		  }
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() + " lost "
 		      + (int)dmg / defender.getMaxHP() + "% of its HP!");
 		  previousMovesLog.setText(previousMovesLog.getText() +"<br>The opponent's " + defender.getName() + " lost "
