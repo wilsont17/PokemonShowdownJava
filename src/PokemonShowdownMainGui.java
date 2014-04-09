@@ -277,7 +277,7 @@ public class PokemonShowdownMainGui implements ActionListener
 			p1Active = p1Pokemon.get(p1Switch);
 			if (p2Move != -1)
 			{
-			  performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+			  Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 			}
 		}
 		
@@ -285,9 +285,9 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 			p2Active = p2Pokemon.get(p2Switch);
 			if (p1Move != -1)
-      {
-        performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
-      }
+			{
+				Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+			}
 		}
 		
 		if (!(p1Move == -1) && !(p2Move == -1))  //Both players use moves
@@ -298,10 +298,10 @@ public class PokemonShowdownMainGui implements ActionListener
 		    //p1 faster
 		    if (p1Active.getSpeed() > p2Active.getSpeed())
 		    {
-		    	performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    	Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    	if (p2Active.getHP() > 0)
 		    	{
-		    		performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    		Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    	}
 		    }
 		    //both players same spd
@@ -310,20 +310,20 @@ public class PokemonShowdownMainGui implements ActionListener
 	        //p1 wins roll goes first
 		    	if (Math.random() > .5)
 		    	{
-		    		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    		Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    		if (p2Active.getHP() > 0)
 		    		{
-		    			performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    			Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    		}
 		    	}
 	        //p2 wins roll goes first
 		    	else
 		    	{
-		    		performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    		Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    		{
 		    			if (p1Active.getHP() > 0)
 		    			{
-		    				performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    				Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    			}
 		    		}
 		    	}
@@ -331,37 +331,50 @@ public class PokemonShowdownMainGui implements ActionListener
 		    //p2 faster
 		    else
 		    {
-		    	performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    	Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    	if (p1Active.getHP() > 0)
 		    	{
-		    		performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		    		Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    	}
 		    }
-		 }
+		  }
 		  //priorities unequal
 		  else
 		  {
 		    //p1 higher priority
 		    if (p1Active.getMoveSet().get(p1Move).getPriority() > p2Active.getMoveSet().get(p2Move).getPriority())
 		    {
-		      performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		      Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		      if (p2Active.getHP() > 0)
 		      {
-		    	  performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		    	  Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		      }
 		    }
 		    else
 		    {
-		        performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move));
+		        Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		        if (p1Active.getHP() > 0)
 		        {
-		      	  performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move));
+		      	  Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		        }
 		    }
 		  }
 		  
-		  
 		  battleOver();
+		  System.out.println("BAYLIFE");
+		  System.out.println(p1Active.getHP());
+		  System.out.println(p2Active.getHP());
+		  if (p1Active.getHP() < 1)
+		  {
+			  System.out.println("P1 POKMEON FAINTED");
+			  freeSwap(1);
+		  }
+		  if (p2Active.getHP() < 1)
+		  {
+			  System.out.println("PRAYA2 POKMEON FAINTED");
+			  freeSwap(2);
+		  }
+		  System.out.println("YOLOSWAG");
 		  //after turn effects
 		  //p1Active checks
 		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
@@ -507,7 +520,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  if (attack.getType().equals("p"))
 		  {
 			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
-					  / defender.getDefense() / 50) + 2) * stabResult(attacker, attack) * 
+					  / defender.getDefense()) / 50 + 2) * stabResult(attacker, attack) * 
 					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 			  if (attacker.getStatusEffect().equals("BRN"))
 			  {
@@ -517,7 +530,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  else if (attack.getType().equals("s"))
 		  {
 			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
-					  / defender.getSpDefense() / 50) + 2) * stabResult(attacker, attack) *
+					  / defender.getSpDefense()) / 50) + 2 * stabResult(attacker, attack) *
 					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 		  }
 		  //Status effect
@@ -525,10 +538,16 @@ public class PokemonShowdownMainGui implements ActionListener
 		  {
 			  
 		  }
+		  System.out.println(dmg * 100 / defender.getMaxHP() + "     dmg percentage");
+		  System.out.println(attacker.getHP() + attacker.getName());
+		  System.out.println(dmg + " dmg dealt");
+		  System.out.println(attack.getPower() + " power of move");
+		  System.out.println(attacker.getLevel() + " level of attacker");
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>The opponent's " + defender.getName() + " lost "
-		      + (int)dmg / defender.getMaxHP() + "% of its HP!");
+		      + (int)(dmg * 100 / defender.getMaxHP()) + "% of its HP!");
 		  previousMovesLog.setText(previousMovesLog.getText() +"<br>The opponent's " + defender.getName() + " lost "
-		      + (int)dmg / defender.getMaxHP() + "% of its HP!" );
+		      + (int)(dmg * 100 / defender.getMaxHP()) + "% of its HP!" );
+		  
 		  return dmg;
 		}
 		else
@@ -603,6 +622,18 @@ public class PokemonShowdownMainGui implements ActionListener
 	    {
 	      e.printStackTrace();
 	    }
+	  if (avgMultiplier == 0)
+	  {
+		  currTurnEvents.setText(currTurnEvents.getText() + "<br>the opposing pokemon is immune!");
+	  }
+	  else if(avgMultiplier > 100)
+	  {
+		  currTurnEvents.setText(currTurnEvents.getText() + "<br>it's super effective!");
+	  }
+	  else if (avgMultiplier < 100)
+	  {
+		  currTurnEvents.setText(currTurnEvents.getText() + "<br>it's not very effective!");
+	  }
 	   return avgMultiplier/(100*(double)count);
 	}
 	
@@ -684,13 +715,11 @@ public class PokemonShowdownMainGui implements ActionListener
     }
     if (whoseTurn)
     {
-    	System.out.println("ae recieved while whoseTurn = true");
       whoseTurn = false;
       p2Turn();
     }
     else if (!whoseTurn)
     {
-    	System.out.println("ae recieved while whoseTurn = false");
       whoseTurn = true;
       turnMove();
     }
@@ -758,7 +787,8 @@ public class PokemonShowdownMainGui implements ActionListener
         switch(switchCase)
         {
             case 1:
-              Pokemon.setHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);
+              Pokemon.setHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue * 3);
+              Pokemon.setMaxHP(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue * 3);
               break;
             case 2:
              Pokemon.setAttack(Pokemon.getPokemonByID(Integer.parseInt(resStats.getString("pokemon_id")),pokemonPool) , statValue);

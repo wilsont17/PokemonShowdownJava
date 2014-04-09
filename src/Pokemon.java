@@ -246,6 +246,11 @@ public class Pokemon
 	  p.HP = hp;
 	}
 	
+	public static void setMaxHP(Pokemon p, int mhp) // sets current HP
+	{
+	  p.maxHP = mhp;
+	}
+	
 	 public static void setAttack(Pokemon p, int attack)
 	 {
 	   p.attack = attack;
