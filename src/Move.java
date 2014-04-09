@@ -100,6 +100,10 @@ public class Move
 	{
 		return type;
 	}
+	public String getDmgType()
+	{
+		return dmgType;
+	}
 	
 	public int getPriority()
 	{
@@ -166,6 +170,22 @@ public class Move
 	  this.type = s;
 	}
 	
+	public boolean equals(Object o)
+	{
+		if(o instanceof Move && ((Move) o).getMoveID() == this.moveID)
+			return false;
+		return true;
+	}
+	
+	public int compareTo(Object o)
+	{
+		if(o.equals(this))
+		{
+			return 0;
+		}
+		
+		return -999;
+	}
 	
 	public void setDmgType(int type)
 	{

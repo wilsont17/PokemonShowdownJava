@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 
 public class Pokemon 
 {
-	private int level;
+	private int level = 99;
 	private int maxHP;
 	private int HP;
 	private int attack;
@@ -34,36 +34,23 @@ public class Pokemon
 	
 	private ImageIcon imgIcon;
 	
-	Pokemon(String name, int hp, int attack, int defense, int spAttack, int spDefense, int speed)
+
+	//For Use with experimental loader
+	Pokemon(String name, int ID)
 	{
-		this.name = name;
-		this.maxHP = hp;
-		this.HP = hp;
-		this.attack = attack;
-		this.defense = defense;
-		this.spAttack = spAttack;
-		this.spDefense = spDefense;
-		this.speed = speed;
-		statusEffect = "";
 		turnsStatus = 0;
-		buffs = new ArrayList<String>();
-		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
-		type = new ArrayList<String>();
 		patklvl = 0;
 		spatklvl = 0;
 		pdeflvl = 0;
 		spdeflvl = 0;
 		spdlvl = 0;
-	}
-	
-	//For Use with experimental loader
-	Pokemon(String name, int ID)
-	{
+	  this.statusEffect = "";
 	  this.name = name;
 	  this.ID = ID;
 	  //statusEffects = new ArrayList<String>();
 	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
 	  possibleMoveSet = new ArrayList<Move>();
+	  buffs = new ArrayList<String>();
 	  type = new ArrayList<String>();
 	  loadImageIcon();
 	}
@@ -72,24 +59,32 @@ public class Pokemon
 	
 	Pokemon(Pokemon p)
 	{
-	  this.name = p.getName();
-	  this.ID = p.getID();
-	  this.HP = p.getHP();
-	  this.maxHP = p.getHP();
-	  this.attack = p.getAttack();
-    this.defense = p.getDefense();
-    this.spAttack = p.getSpAttack();
-    this.spDefense = p.getSpDefense();
-    this.speed = p.getSpeed();
-    this.buffs = p.getBuffs();
-    this.moves = p.getMoves();
-    this.type = p.getType();
-    this.patklvl = 0;
-    this.spatklvl = 0;
-    this.pdeflvl = 0;
-    this.spdeflvl = 0;
-    this.spdlvl = 0;
-    this.loadImageIcon();
+		this.name = p.getName();
+		this.ID = p.getID();
+		this.HP = p.getHP();
+		this.maxHP = p.getHP();
+		this.attack = p.getAttack();
+	    this.defense = p.getDefense();
+	    this.spAttack = p.getSpAttack();
+	    this.spDefense = p.getSpDefense();
+	    this.speed = p.getSpeed();
+	    this.buffs = p.getBuffs();
+	    this.moves = p.getMoves();
+	    this.type = p.getType();
+	    this.patklvl = 0;
+	    this.spatklvl = 0;
+	    this.pdeflvl = 0;
+	    this.spdeflvl = 0;
+	    this.spdlvl = 0;
+	    this.statusEffect = p.getStatusEffect();
+	    this.loadImageIcon();
+	    this.possibleMoveSet = p.possibleMoveSet;
+	}
+	
+	
+	public Pokemon clone()
+	{
+		return new Pokemon(this);
 	}
 	
 	public int getpatklvl()
@@ -196,6 +191,7 @@ public class Pokemon
 	public int getSpeed()
 	{
 		int spd = (int)(this.speed * ((0.5 * spdlvl) + 1));
+		System.out.println(this.getStatusEffect());
 		if (this.getStatusEffect().equals("PAR"))
 		{
 			return (int)(spd * .25);
@@ -235,7 +231,6 @@ public class Pokemon
 	
 	public ImageIcon getImg ()
 	{
-	  //TODO return the img of the pokemon
 	  return this.imgIcon;
 	}
 	
@@ -248,6 +243,11 @@ public class Pokemon
 	public static void setHP(Pokemon p, int hp) // sets current HP
 	{
 	  p.HP = hp;
+	}
+	
+	public static void setMaxHP(Pokemon p, int mhp) // sets current HP
+	{
+	  p.maxHP = mhp;
 	}
 	
 	 public static void setAttack(Pokemon p, int attack)
@@ -336,18 +336,35 @@ public class Pokemon
 	private static void randomMoveSelectionFromPool(Pokemon p)
 	{
 		int rand;
+		boolean duplicate = false;
 		
-		for(int x =0; x<4; x++)
+		while(p.moves.size() != 4)
 		{
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
-			p.moves.add(new Move(p.getPossibleMoveSet().get(rand))); // makes a copy of the move, puts it in moves arraylist
+			Move temp = new Move(p.getPossibleMoveSet().get(rand));
+			System.out.println(temp);
+			
+			for(Move m : p.moves)
+			{
+				if(m.getMoveID() == temp.getMoveID())
+				{
+					duplicate = true;
+				}
+			}
+
+			if(!duplicate)
+			{
+				p.moves.add(temp);
+			}
+			else
+			{
+				duplicate = false;
+			}
 		}
 		
 		System.out.println(p + "     " + p.moves);
 		
 	}
-	
-	
 	
 	
 	public static void loadMoveSet(Pokemon p)
@@ -397,13 +414,30 @@ public class Pokemon
 	 	      String name = r2.getString("identifier");
 	 	      String ID = r2.getString("id");
 	 	      
+	 	      m.setType(damage_class_id);
 	 	      
+	 	      switch(Integer.parseInt(damage_class_id))
+	 	      {
+		 	      case 1:
+		 	    	  m.setType("e");
+		 	    	  break;
+		 	      case 2:
+		 	    	  m.setType("p");
+		 	    	  break;
+		 	      case 3:
+		 	    	  m.setType("s");
+		 	    	  break;
+	 	      }
+	 	      
+	 	      if(accuracy != null)
+	 	    	  m.setAccuracy(Integer.parseInt(accuracy));
+	 	      m.setPower(Integer.parseInt(power));
 	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
 	 	      m.setDmgType(Integer.parseInt(type_id));
 	 	      m.setName(name);
 	 	      m.setPriority(Integer.parseInt(priority));
-	 	    }
+	 	     }
 	    
 	    }
 	    
@@ -414,8 +448,8 @@ public class Pokemon
 	    	r3 = stmt.executeQuery(query_description);
 	    	String desc = r3.getString("effect");
 	    	String short_desc = r3.getString("short_effect");
-	    	System.out.println(m + " :::: " + desc);
-	    	m.setDescription(desc);
+	    	//System.out.println(m + " :::: " + short_desc);
+	    	m.setDescription(short_desc);
 	    }
 	
     } catch(Exception e)
