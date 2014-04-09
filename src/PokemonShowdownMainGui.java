@@ -83,7 +83,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  gbc.gridx = 2 + x; gbc.gridy = 6;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
-		for (int x = 0; x < currSwitchablePokemon.size(); x ++)
+		for (int x = 0; x < 6; x ++)
 		{
 		  currSwitchablePokemon.add(new JButton("Hello"));
 		  currSwitchablePokemon.get(x).addActionListener(this);
@@ -237,10 +237,12 @@ public class PokemonShowdownMainGui implements ActionListener
 	      currPokemonMoves.get(x).setEnabled(false);
 	    }
 	  }
+	  System.out.println(currSwitchablePokemon.size());
 	  for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 	  {
 	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
+	    currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
 	    if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
@@ -253,7 +255,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
 	  currPlayerActiveImg.setText(p2Active.getName());
-    opPlayerActiveImg.setText(p1Active.getName());
+      opPlayerActiveImg.setText(p1Active.getName());
 	  currPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
@@ -286,6 +288,7 @@ public class PokemonShowdownMainGui implements ActionListener
     {
       currSwitchablePokemon.get(x).setEnabled(true);
       currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
+      currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
       if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
