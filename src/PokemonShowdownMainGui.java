@@ -626,7 +626,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  Connection con;
 	  ResultSet r;
 	  Statement stmt;
-	  double avgMultiplier = 0.0;
+	  double avgMultiplier = 1.0;
 	  int count = 0;
 	  try
 	  {
@@ -651,8 +651,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	        {
 	        	if(type.equals(getType(Integer.parseInt(targetType))) && ability.getDmgType().equals(getType(Integer.parseInt(dmgType))))
 	        	{
-	        		avgMultiplier += r.getDouble("damage_factor");
-		        	count++;
+	        		avgMultiplier *= r.getDouble("damage_factor")/100;
 		        }
 	        }
 	        
@@ -663,19 +662,23 @@ public class PokemonShowdownMainGui implements ActionListener
 	    {
 	      e.printStackTrace();
 	    }
+	  
+	  System.out.println(defender.getType() + "  :::  " + ability.getDmgType());
+	  System.out.println("asdsadas    "+avgMultiplier);
+	  
 	  if (avgMultiplier == 0)
 	  {
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>the opposing pokemon is immune!");
 	  }
-	  else if(avgMultiplier > 100)
+	  else if(avgMultiplier > 1)
 	  {
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>it's super effective!");
 	  }
-	  else if (avgMultiplier < 100)
+	  else if (avgMultiplier < 1)
 	  {
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>it's not very effective!");
 	  }
-	   return avgMultiplier/(100*(double)count);
+	   return avgMultiplier;
 	}
 	
 	public void battleOver ()
