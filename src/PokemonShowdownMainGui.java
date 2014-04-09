@@ -86,7 +86,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		for (int x = 0; x < 6; x ++)
 		{
 		  currSwitchablePokemon.add(new JButton(""));
-		  currSwitchablePokemon.get(x).setIcon("resources/icons/0.png");
+		  currSwitchablePokemon.get(x).setIcon(new ImageIcon("resources/icons/0.png"));
 		  currSwitchablePokemon.get(x).addActionListener(this);
 		  gbc.gridx = 1 + x; gbc.gridy = 7;
 		  jfrm.add(currSwitchablePokemon.get(x), gbc);
