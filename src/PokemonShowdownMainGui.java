@@ -237,8 +237,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	      currPokemonMoves.get(x).setEnabled(false);
 	    }
 	  }
-	  System.out.println(currSwitchablePokemon.size());
-	  for (int x = 0; x < currSwitchablePokemon.size(); x ++)
+
+	  for (int x = 0; x < p1Pokemon.size(); x ++)
 	  {
 	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
@@ -284,7 +284,7 @@ public class PokemonShowdownMainGui implements ActionListener
         currPokemonMoves.get(x).setEnabled(false);
       }
     }
-    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
+    for (int x = 0; x < p2Pokemon.size(); x ++)
     {
       currSwitchablePokemon.get(x).setEnabled(true);
       currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
@@ -470,7 +470,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  {
 	    System.out.println("FREESWAP UNO ACTIVATED");
 	    switchFaint = 1;
-	    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
+	    for (int x = 0; x < p1Pokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
@@ -484,7 +484,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  {
 	    System.out.println("FREESWAP 2 ACTIVATED");
 	    switchFaint = 2;
-	    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
+	    for (int x = 0; x < p2Pokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
