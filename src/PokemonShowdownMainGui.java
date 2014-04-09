@@ -20,7 +20,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	String p1Name, p2Name;
 	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
 	Pokemon p1Active, p2Active;
-	int p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
+	int turnNum, p1ActiveIndex, p2ActiveIndex, p1Move, p2Move, switchFaint, p1Switch, p2Switch; //switch -1 if no switch, 0-5 switch to that slot
 	JLabel currPlayerAndAllPokemon, opPlayerAndAllPokemon, currPlayerActiveImg, opPlayerActiveImg,
 	  currPlayerPokemonStatusEffects, opPlayerPokemonStatusEffects, previousMovesLog, currTurnEvents;
 	JProgressBar currPlayerPokemonHP, opPlayerPokemonHP;
@@ -55,7 +55,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 		experimentalPokemonDBLoader(); // load all pokemon
 		System.out.println(pokemonPool);
-		jfrm.setVisible(true);
+		jfrm.setVisible(false);
 		
 		
 		previousMovesLog = new JLabel("<html>");
@@ -80,14 +80,14 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 		  currPokemonMoves.add(new JButton("Hello"));
 		  currPokemonMoves.get(x).addActionListener(this);
-		  gbc.gridx = 2 + x; gbc.gridy = 5;
+		  gbc.gridx = 2 + x; gbc.gridy = 6;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
 		for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 		{
 		  currSwitchablePokemon.add(new JButton("Hello"));
 		  currSwitchablePokemon.get(x).addActionListener(this);
-		  gbc.gridx = 1 + x; gbc.gridy = 6;
+		  gbc.gridx = 1 + x; gbc.gridy = 7;
 		  jfrm.add(currSwitchablePokemon.get(x), gbc);
 		}
 		
@@ -111,26 +111,26 @@ public class PokemonShowdownMainGui implements ActionListener
 		currPlayerActiveImg = new JLabel();
 		currPlayerActiveImg.setVerticalTextPosition(SwingConstants.TOP);
 		currPlayerActiveImg.setHorizontalTextPosition(SwingConstants.CENTER);
-		gbc.gridx = 1; gbc.gridy = 3;
+		gbc.gridx = 1; gbc.gridy = 3; gbc.gridwidth = 2;
 		jfrm.add(currPlayerActiveImg, gbc);
 		opPlayerActiveImg = new JLabel();
 		opPlayerActiveImg.setVerticalTextPosition(SwingConstants.TOP);
-    opPlayerActiveImg.setHorizontalTextPosition(SwingConstants.CENTER);
+		opPlayerActiveImg.setHorizontalTextPosition(SwingConstants.CENTER);
 		gbc.gridx = 5; gbc.gridy = 0;
 		jfrm.add(opPlayerActiveImg, gbc);
 		
-		
+		gbc.gridwidth = 1;
 		
 		currPlayerPokemonHP = new JProgressBar();
 		gbc.gridx = 4; gbc.gridy = 0;
 		jfrm.add(currPlayerPokemonHP, gbc);
 		opPlayerPokemonHP = new JProgressBar();
 		gbc.gridx = 2; gbc.gridy = 4;
-    jfrm.add(opPlayerPokemonHP, gbc);
+		jfrm.add(opPlayerPokemonHP, gbc);
 		
 		
 		currTurnEvents = new JLabel ("<html>");
-		gbc.gridx = 1; gbc.gridy = 4;
+		gbc.gridx = 1; gbc.gridy = 5;
 		gbc.gridwidth = 6;
 		jfrm.add(currTurnEvents, gbc);
 		
@@ -145,6 +145,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
+		turnNum = 1;
 		p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		
@@ -161,6 +162,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createSixVsSix()
 	{
+		turnNum = 1;
 		for (int x = 0; x < 6; x ++)
 		{
 			p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
@@ -192,6 +194,11 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 		p1Name = p1n; 
 		p2Name = p2n;
+	}
+	
+	public JFrame getjfrm()
+	{
+		return jfrm;
 	}
 	
 	public void p1Turn()
@@ -290,7 +297,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	//TODO check status effects and item effects after both pokemon move
 	public void turnMove()
 	{
-		currTurnEvents.setText("<html>");
+		currTurnEvents.setText("<html>Turn " + turnNum + "<br>-------");
+		previousMovesLog.setText(previousMovesLog.getText() + "<html>Turn " + turnNum + "<br>-------");
 		System.out.println("ALLTHESWAG");
     System.out.println(p1Active.getHP() + "   " + p1Active.getName() + "   BEEFORE");
     System.out.println(p2Active.getHP() + "   " + p2Active.getName() + "   BEEFORE");
@@ -444,6 +452,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		p2Move = -1;
 		p1Switch = -1;
 		p2Switch = -1;
+		turnNum ++;
 		p1Turn();
 	}
 	
@@ -689,12 +698,14 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " has won the battle!");
 			previousMovesLog.setText(previousMovesLog.getText() + p2Name + " has won the battle!");
+			jfrm.setVisible(false);
 			new SetupGui(this);
 		}
 		else if (!p2Alive)
 		{
 			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " has won the battle!");
 			previousMovesLog.setText(previousMovesLog.getText() + p1Name + " has won the battle!");
+			jfrm.setVisible(false);
 			new SetupGui(this);
 		}
 		
