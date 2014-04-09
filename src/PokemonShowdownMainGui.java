@@ -58,9 +58,16 @@ public class PokemonShowdownMainGui implements ActionListener
 		jfrm.setVisible(true);
 		
 		previousMovesLog = new JLabel("<html>");
+		
+		JScrollPane scroller = new JScrollPane(previousMovesLog, 
+			      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+			      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+		
+		
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
-		jfrm.add(previousMovesLog, gbc);
+		jfrm.add(scroller, gbc);
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
