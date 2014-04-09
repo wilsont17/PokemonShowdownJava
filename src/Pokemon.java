@@ -333,7 +333,7 @@ public class Pokemon
 	{
 		int rand;
 		boolean duplicate = false;
-		//System.out.println(p.getPossibleMoveSet());
+		
 		while(p.moves.size() != 4)
 		{
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
@@ -346,9 +346,8 @@ public class Pokemon
 				{
 					duplicate = true;
 				}
-				
 			}
-			
+
 			if(!duplicate)
 			{
 				p.moves.add(temp);
@@ -357,23 +356,10 @@ public class Pokemon
 			{
 				duplicate = false;
 			}
-			//p.moves.add(temp);
 		}
 		
 		System.out.println(p + "     " + p.moves);
 		
-	}
-	
-	//helper method for loading moves
-	private static boolean checkArrayListForMove(Move m, Pokemon p)
-	{
-		for(Move move : p.moves)
-		{
-			if(move.equals(m))
-				return true;
-		}
-		
-		return false;
 	}
 	
 	
