@@ -79,6 +79,7 @@ public class Pokemon
 	    this.statusEffect = p.getStatusEffect();
 	    this.loadImageIcon();
 	    this.possibleMoveSet = p.possibleMoveSet;
+	    loadImageIcon();
 	}
 	
 	
@@ -323,10 +324,10 @@ public class Pokemon
 		ImageIcon temp = null;
 		try
 		{
-			temp = new ImageIcon("resources/icon/"+this.ID+".png");
+			temp = new ImageIcon("resources/icons/"+this.ID+".png");
 		}catch(Exception e)
 		{
-			temp = new ImageIcon("resources/icon/0.png");
+			temp = new ImageIcon("resources/icons/0.png");
 			System.out.println("could not find image of pokemon !!!! Loading default icon");
 		}
 		

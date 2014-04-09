@@ -57,6 +57,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		System.out.println(pokemonPool);
 		jfrm.setVisible(true);
 		
+		
 		previousMovesLog = new JLabel("<html>");
 		
 		JScrollPane scroller = new JScrollPane(previousMovesLog, 
@@ -68,6 +69,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(scroller, gbc);
+		
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -107,17 +109,24 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		currPlayerActiveImg = new JLabel();
+		currPlayerActiveImg.setVerticalTextPosition(SwingConstants.TOP);
+		currPlayerActiveImg.setHorizontalTextPosition(SwingConstants.CENTER);
 		gbc.gridx = 1; gbc.gridy = 3;
 		jfrm.add(currPlayerActiveImg, gbc);
 		opPlayerActiveImg = new JLabel();
+		opPlayerActiveImg.setVerticalTextPosition(SwingConstants.TOP);
+    opPlayerActiveImg.setHorizontalTextPosition(SwingConstants.CENTER);
 		gbc.gridx = 5; gbc.gridy = 0;
 		jfrm.add(opPlayerActiveImg, gbc);
 		
 		
 		
 		currPlayerPokemonHP = new JProgressBar();
+		gbc.gridx = 4; gbc.gridy = 0;
+		jfrm.add(currPlayerPokemonHP, gbc);
 		opPlayerPokemonHP = new JProgressBar();
-		
+		gbc.gridx = 2; gbc.gridy = 4;
+    jfrm.add(opPlayerPokemonHP, gbc);
 		
 		
 		currTurnEvents = new JLabel ("<html>");
@@ -189,6 +198,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  currPlayerAndAllPokemon.setText(p1Name);
 	  opPlayerAndAllPokemon.setText(p2Name);
+	  currPlayerActiveImg.setText(p1Active.getName());
+	  opPlayerActiveImg.setText(p2Active.getName());
 	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
@@ -234,6 +245,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
+	  currPlayerActiveImg.setText(p2Active.getName());
+    opPlayerActiveImg.setText(p1Active.getName());
 	  currPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
@@ -278,6 +291,9 @@ public class PokemonShowdownMainGui implements ActionListener
 	public void turnMove()
 	{
 		currTurnEvents.setText("<html>");
+		System.out.println("ALLTHESWAG");
+    System.out.println(p1Active.getHP() + "   " + p1Active.getName() + "   BEEFORE");
+    System.out.println(p2Active.getHP() + "   " + p2Active.getName() + "   BEEFORE");
 		
 		if (p1Switch != -1)  //P1 switches out
 		{
@@ -293,7 +309,7 @@ public class PokemonShowdownMainGui implements ActionListener
 			p2Active = p2Pokemon.get(p2Switch);
 			if (p1Move != -1)
 			{
-				Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+				Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 			}
 		}
 		
@@ -305,10 +321,10 @@ public class PokemonShowdownMainGui implements ActionListener
 		    //p1 faster
 		    if (p1Active.getSpeed() > p2Active.getSpeed())
 		    {
-		    	Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		    	Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    	if (p2Active.getHP() > 0)
 		    	{
-		    		Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		    		Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    	}
 		    }
 		    //both players same spd
@@ -317,20 +333,20 @@ public class PokemonShowdownMainGui implements ActionListener
 	        //p1 wins roll goes first
 		    	if (Math.random() > .5)
 		    	{
-		    		Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		    		Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    		if (p2Active.getHP() > 0)
 		    		{
-		    			Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		    			Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    		}
 		    	}
 	        //p2 wins roll goes first
 		    	else
 		    	{
-		    		Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		    		Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    		{
 		    			if (p1Active.getHP() > 0)
 		    			{
-		    				Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		    				Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    			}
 		    		}
 		    	}
@@ -338,10 +354,10 @@ public class PokemonShowdownMainGui implements ActionListener
 		    //p2 faster
 		    else
 		    {
-		    	Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		    	Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		    	if (p1Active.getHP() > 0)
 		    	{
-		    		Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		    		Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		    	}
 		    }
 		  }
@@ -351,26 +367,29 @@ public class PokemonShowdownMainGui implements ActionListener
 		    //p1 higher priority
 		    if (p1Active.getMoveSet().get(p1Move).getPriority() > p2Active.getMoveSet().get(p2Move).getPriority())
 		    {
-		      Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		      Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		      if (p2Active.getHP() > 0)
 		      {
-		    	  Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		    	  Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		      }
 		    }
 		    else
 		    {
-		        Pokemon.setHP(p1Active, performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
+		        Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		        if (p1Active.getHP() > 0)
 		        {
-		      	  Pokemon.setHP(p2Active, performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
+		      	  Pokemon.setHP(p2Active, p1Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		        }
 		    }
 		  }
 		  
-		  battleOver();
+		  
 		  System.out.println("BAYLIFE");
 		  System.out.println(p1Active.getHP());
 		  System.out.println(p2Active.getHP());
+		  
+		  battleOver();
+		  
 		  if (p1Active.getHP() < 1)
 		  {
 			  System.out.println("P1 POKMEON FAINTED");
@@ -387,12 +406,12 @@ public class PokemonShowdownMainGui implements ActionListener
 		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p1Active.getMaxHP() * .06 * p1Active.getTurnsStatus());
-			  Pokemon.setHP(p1Active, dmg);
+			  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
 		  }
 		  else if (p1Active.getStatusEffect().equals("BRN") && p1Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p1Active.getMaxHP() * .12);
-			  Pokemon.setHP(p1Active, dmg);
+			  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
 		  }
 		  
 		  battleOver();
@@ -401,12 +420,12 @@ public class PokemonShowdownMainGui implements ActionListener
 		  if (p2Active.getStatusEffect().equals("PSN") && p2Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p2Active.getMaxHP() * .06 * p2Active.getTurnsStatus());
-			  Pokemon.setHP(p2Active, dmg);
+			  Pokemon.setHP(p2Active, p2Active.getHP() - dmg);
 		  }
 		  else if (p2Active.getStatusEffect().equals("BRN") && p2Active.getTurnsStatus() > 0)
 		  {
 			  int dmg = (int)(p2Active.getMaxHP() * .12);
-			  Pokemon.setHP(p2Active, dmg);
+			  Pokemon.setHP(p2Active, p2Active.getHP() - dmg);
 		  }
 		  
 		  battleOver();
@@ -432,12 +451,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  for (int x = 0; x < 4; x ++)
 	  {
+	    currPokemonMoves.get(x).setText("     ");
 	    currPokemonMoves.get(x).setEnabled(false);
 	  }
 	  if (player == 1)
 	  {
+	    System.out.println("FREESWAP UNO ACTIVATED");
 	    switchFaint = 1;
-	    for (int x = 0; x < 6; x ++)
+	    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
@@ -449,8 +470,9 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  else
 	  {
+	    System.out.println("FREESWAP 2 ACTIVATED");
 	    switchFaint = 2;
-	    for (int x = 0; x < 6; x ++)
+	    for (int x = 0; x < currSwitchablePokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
@@ -543,7 +565,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  //Status effect
 		  else if (attack.getType().equals("e"))
 		  {
-			  
+			  System.out.println("Status Effect Used");
 		  }
 		  System.out.println(dmg * 100 / defender.getMaxHP() + "     dmg percentage");
 		  System.out.println(attacker.getHP() + attacker.getName());
