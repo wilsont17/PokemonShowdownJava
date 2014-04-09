@@ -332,18 +332,49 @@ public class Pokemon
 	private static void randomMoveSelectionFromPool(Pokemon p)
 	{
 		int rand;
-		
-		for(int x =0; x<4; x++)
+		boolean duplicate = false;
+		//System.out.println(p.getPossibleMoveSet());
+		while(p.moves.size() != 4)
 		{
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
-			p.moves.add(new Move(p.getPossibleMoveSet().get(rand))); // makes a copy of the move, puts it in moves arraylist
+			Move temp = new Move(p.getPossibleMoveSet().get(rand));
+			System.out.println(temp);
+			
+			for(Move m : p.moves)
+			{
+				if(m.getMoveID() == temp.getMoveID())
+				{
+					duplicate = true;
+				}
+				
+			}
+			
+			if(!duplicate)
+			{
+				p.moves.add(temp);
+			}
+			else
+			{
+				duplicate = false;
+			}
+			//p.moves.add(temp);
 		}
 		
 		System.out.println(p + "     " + p.moves);
 		
 	}
 	
-	
+	//helper method for loading moves
+	private static boolean checkArrayListForMove(Move m, Pokemon p)
+	{
+		for(Move move : p.moves)
+		{
+			if(move.equals(m))
+				return true;
+		}
+		
+		return false;
+	}
 	
 	
 	public static void loadMoveSet(Pokemon p)
@@ -393,13 +424,27 @@ public class Pokemon
 	 	      String name = r2.getString("identifier");
 	 	      String ID = r2.getString("id");
 	 	      
+	 	      m.setType(damage_class_id);
+	 	      
+	 	      switch(Integer.parseInt(damage_class_id))
+	 	      {
+		 	      case 1:
+		 	    	  m.setType("e");
+		 	    	  break;
+		 	      case 2:
+		 	    	  m.setType("p");
+		 	    	  break;
+		 	      case 3:
+		 	    	  m.setType("s");
+		 	    	  break;
+	 	      }
 	 	      
 	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
 	 	      m.setDmgType(Integer.parseInt(type_id));
 	 	      m.setName(name);
 	 	      m.setPriority(Integer.parseInt(priority));
-	 	    }
+	 	     }
 	    
 	    }
 	    
