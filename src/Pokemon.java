@@ -298,6 +298,16 @@ public class Pokemon
 		return type;
 	}
 	
+	public String getTypeAsString()
+	{
+		String t = "";
+		for (int x = 0; x < type.size(); x ++)
+		{
+			t += type.get(x) + " ";
+		}
+		return t;
+	}
+	
 	public static Pokemon getPokemonByID(int ID, ArrayList<Pokemon> pokemonPool)
 	{
 	  for(Pokemon p : pokemonPool)

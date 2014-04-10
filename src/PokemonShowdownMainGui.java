@@ -54,21 +54,22 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 	
 		experimentalPokemonDBLoader(); // load all pokemon
-		jfrm.setVisible(false);
+		jfrm.setVisible(true);
 		
 		
 		previousMovesLog = new JLabel("<html>");
+		System.out.println(previousMovesLog.getText());
 		
+		/*
 		JScrollPane scroller = new JScrollPane(previousMovesLog, 
 			      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
 			      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-		
-		
+
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(scroller, gbc);
-		
+		*/
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -79,7 +80,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		{
 		  currPokemonMoves.add(new JButton("     "));
 		  currPokemonMoves.get(x).addActionListener(this);
-		  gbc.gridx = 2 + x; gbc.gridy = 6;
+		  gbc.gridx = 2 + x; gbc.gridy = 7;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
 		for (int x = 0; x < 6; x ++)
@@ -87,7 +88,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  currSwitchablePokemon.add(new JButton(""));
 		  currSwitchablePokemon.get(x).setIcon(new ImageIcon("resources/icons/0.png"));
 		  currSwitchablePokemon.get(x).addActionListener(this);
-		  gbc.gridx = 1 + x; gbc.gridy = 7;
+		  gbc.gridx = 1 + x; gbc.gridy = 8;
 		  jfrm.add(currSwitchablePokemon.get(x), gbc);
 		}
 		
@@ -122,30 +123,35 @@ public class PokemonShowdownMainGui implements ActionListener
 		gbc.gridwidth = 1;
 		
 		currPlayerPokemonHP = new JProgressBar();
-		gbc.gridx = 4; gbc.gridy = 0;
+		gbc.gridx = 2; gbc.gridy = 4;
 		jfrm.add(currPlayerPokemonHP, gbc);
 		opPlayerPokemonHP = new JProgressBar();
-		gbc.gridx = 2; gbc.gridy = 4;
+		gbc.gridx = 4; gbc.gridy = 0;
 		jfrm.add(opPlayerPokemonHP, gbc);
 		
 		
 		currTurnEvents = new JLabel ("<html>");
 		gbc.gridx = 1; gbc.gridy = 5;
 		gbc.gridwidth = 6;
+		gbc.gridheight = 2;
 		jfrm.add(currTurnEvents, gbc);
 		
-		
 		new SetupGui(this);
-		p1Switch = -1;
-		p2Switch = -1;
-		whoseTurn = true;
+		
 	}
 	
 	//Mechanics
 	
 	public void createOneVsOne()
 	{
+		p1Move = -1;
+		p2Move = -1;
+		p1Switch = -1;
+		p2Switch = -1;
+		switchFaint = -1;
 		previousMovesLog.setText("html>");
+		battleInProgress = true;
+		whoseTurn = true;
 		turnNum = 1;
 		p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
@@ -168,7 +174,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createSixVsSix()
 	{
+		p1Move = -1;
+		p2Move = -1;
+		p1Switch = -1;
+		p2Switch = -1;
+		switchFaint = -1;
 		previousMovesLog.setText("html>");
+		battleInProgress = true;
+		whoseTurn = true;
 		turnNum = 1;
 		for (int x = 0; x < 6; x ++)
 		{
@@ -206,8 +219,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  currPlayerAndAllPokemon.setText(p1Name);
 	  opPlayerAndAllPokemon.setText(p2Name);
-	  currPlayerActiveImg.setText(p1Active.getName());
-	  opPlayerActiveImg.setText(p2Active.getName());
+	  currPlayerActiveImg.setText("<html>" + p1Active.getName() + "<br>" + p1Active.getTypeAsString());
+	  opPlayerActiveImg.setText("<html>" + p2Active.getName() + "<br>" + p2Active.getTypeAsString());
 	  currPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
@@ -255,8 +268,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
-	  currPlayerActiveImg.setText(p2Active.getName());
-      opPlayerActiveImg.setText(p1Active.getName());
+	  currPlayerActiveImg.setText("<html>" + p2Active.getName() + "<br>" + p2Active.getTypeAsString());
+	  opPlayerActiveImg.setText("<html>" + p1Active.getName() + "<br>" + p1Active.getTypeAsString());
 	  currPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
@@ -306,7 +319,11 @@ public class PokemonShowdownMainGui implements ActionListener
 
 		if (p1Switch != -1)  //P1 switches out
 		{
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " withdrew " + p1Active.getName());
+			previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p1Name + " withdrew  " + p1Active.getName());
 			p1Active = p1Pokemon.get(p1Switch);
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " sent out " + p1Active.getName());
+			previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p1Name + " sent out " + p1Active.getName());
 			if (p2Move != -1)
 			{
 			  Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
@@ -315,7 +332,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		if (p2Switch != -1)  //p2 Switches out
 		{
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " withdrew " + p2Active.getName());
+			previousMovesLog.setText(previousMovesLog.getText() +"<br>" + p2Name + " withdrew " + p2Active.getName());
 			p2Active = p2Pokemon.get(p2Switch);
+			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " sent out " + p2Active.getName());
+			previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p2Name + " sent out " + p2Active.getName());
 			if (p1Move != -1)
 			{
 				Pokemon.setHP(p2Active, p2Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
@@ -390,68 +411,61 @@ public class PokemonShowdownMainGui implements ActionListener
 		      	  Pokemon.setHP(p2Active, p1Active.getHP() - performAttack(p1Active, p2Active, p1Active.getMoveSet().get(p1Move)));
 		        }
 		    }
-		  }
-
-		  battleOver();
-		  
-		  if (p1Active.getHP() < 1)
-		  {
-			  freeSwap(1);
-		  }
-		  if (p2Active.getHP() < 1)
-		  {
-			  freeSwap(2);
-		  }
-
-		  //after turn effects
-		  //p1Active checks
-		  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
-		  {
-			  int dmg = (int)(p1Active.getMaxHP() * .06 * p1Active.getTurnsStatus());
-			  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
-		  }
-		  else if (p1Active.getStatusEffect().equals("BRN") && p1Active.getTurnsStatus() > 0)
-		  {
-			  int dmg = (int)(p1Active.getMaxHP() * .12);
-			  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
-		  }
-		  
-		  battleOver();
-		  
-		  //p2Active checks
-		  if (p2Active.getStatusEffect().equals("PSN") && p2Active.getTurnsStatus() > 0)
-		  {
-			  int dmg = (int)(p2Active.getMaxHP() * .06 * p2Active.getTurnsStatus());
-			  Pokemon.setHP(p2Active, p2Active.getHP() - dmg);
-		  }
-		  else if (p2Active.getStatusEffect().equals("BRN") && p2Active.getTurnsStatus() > 0)
-		  {
-			  int dmg = (int)(p2Active.getMaxHP() * .12);
-			  Pokemon.setHP(p2Active, p2Active.getHP() - dmg);
-		  }
-		  
-		  battleOver();
-		  
-		  p1Active.setTurnsStatus(p1Active.getTurnsStatus() + 1);
-		  p2Active.setTurnsStatus(p2Active.getTurnsStatus() + 1);
+		  }	  
 		}
 		
-		
-		//TODO check if either poke died due to PSN/BRN and give player chance to switch/lose depending
-		//TODO update status bars hp bars etc after all turn moves done
-		
-		
+
+		  battleOver();
+		  
+		  if (battleInProgress)
+		  {
+			  if (p1Active.getHP() < 1)
+			  {
+				  currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + "'s " + 
+						  p1Active.getName() + " fainted!");
+				  previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p1Name + "'s " + 
+						  p1Active.getName() + " fainted!");
+				  freeSwap(1);
+			  }
+			  if (p2Active.getHP() < 1)
+			  {
+				  currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + "'s " + 
+						  p2Active.getName() + " fainted!");
+				  previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p2Name + "'s " + 
+						  p2Active.getName() + " fainted!");
+				  freeSwap(2); 
+			  }
+			  //Damage from status conditions
+			  if (p1Active.getStatusEffect().equals("PSN") && p1Active.getTurnsStatus() > 0)
+			  {
+				  int dmg = (int)(p1Active.getMaxHP() * .06 * p1Active.getTurnsStatus());
+				  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
+			  }
+			  else if (p1Active.getStatusEffect().equals("BRN") && p1Active.getTurnsStatus() > 0)
+			  {
+				  int dmg = (int)(p1Active.getMaxHP() * .12);
+				  Pokemon.setHP(p1Active, p1Active.getHP() - dmg);
+			  }
+			  
+			  battleOver();
+		  }
+		  
 		//resets variables in preparation for next round
-		p1Move = -1;
-		p2Move = -1;
-		p1Switch = -1;
-		p2Switch = -1;
-		turnNum ++;
-		p1Turn();
+		if (battleInProgress)
+		{
+			p1Move = -1;
+			p2Move = -1;
+			p1Switch = -1;
+			p2Switch = -1;
+			turnNum ++;
+			p1Turn();
+		}
+		
 	}
 	
 	public void freeSwap (int player)
 	{
+		battleInProgress = false;
 	  for (int x = 0; x < 4; x ++)
 	  {
 	    currPokemonMoves.get(x).setText("     ");
@@ -459,12 +473,12 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  if (player == 1)
 	  {
-	    System.out.println("FREESWAP UNO ACTIVATED");
 	    switchFaint = 1;
 	    for (int x = 0; x < p1Pokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
+	      currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
 	      if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	      {
 	        currSwitchablePokemon.get(x).setEnabled(false);
@@ -473,12 +487,12 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  else
 	  {
-	    System.out.println("FREESWAP 2 ACTIVATED");
 	    switchFaint = 2;
 	    for (int x = 0; x < p2Pokemon.size(); x ++)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
+	      currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
 	      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
 	      {
 	        currSwitchablePokemon.get(x).setEnabled(false);
@@ -684,19 +698,22 @@ public class PokemonShowdownMainGui implements ActionListener
 			}
 		}
 		
+		if (!p1Alive || !p2Alive)
+		{
+			battleInProgress = false;
+			jfrm.setVisible(false);
+			new SetupGui(this);
+		}
 		if (!p1Alive)
 		{
 			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " has won the battle!");
 			previousMovesLog.setText(previousMovesLog.getText() + p2Name + " has won the battle!");
-			jfrm.setVisible(false);
-			new SetupGui(this);
+			
 		}
 		else if (!p2Alive)
 		{
 			currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " has won the battle!");
 			previousMovesLog.setText(previousMovesLog.getText() + p1Name + " has won the battle!");
-			jfrm.setVisible(false);
-			new SetupGui(this);
 		}
 		
 	}
@@ -723,15 +740,29 @@ public class PokemonShowdownMainGui implements ActionListener
       {
         if (switchFaint != -1)
         {
+        	
           if (switchFaint == 1)
           {
             p1Active = p1Pokemon.get(x);
+            currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p1Name + " sent out " + p1Active.getName());
+            previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p1Name + " sent out " + p1Active.getName());
           }
           else
           {
             p2Active = p2Pokemon.get(x);
+            currTurnEvents.setText(currTurnEvents.getText() + "<br>" + p2Name + " sent out " + p2Active.getName());
+            previousMovesLog.setText(previousMovesLog.getText() + "<br>" + p2Name + " sent out " + p2Active.getName());
           }
           switchFaint = -1;
+          battleInProgress = true;
+          whoseTurn = true;
+          p1Move = -1;
+		  p2Move = -1;
+		  p1Switch = -1;
+		  p2Switch = -1;
+		  turnNum ++;
+		  p1Turn();
+          return;
         }
         else if (whoseTurn)
         {
