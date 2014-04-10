@@ -60,11 +60,15 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		previousMovesLog = new JLabel("<html>");
 		
-		JScrollPane scroller = new JScrollPane(previousMovesLog, 
-			      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-			      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+		previousMovesLog.setPreferredSize(new Dimension(300,400));
 		
+		JScrollPane scroller = new JScrollPane(previousMovesLog);
+		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroller.setViewportView(previousMovesLog);
+		scroller.setMinimumSize(new Dimension(300, 400));
+		scroller.setPreferredSize(new Dimension(300, 1200));
+
 		
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
