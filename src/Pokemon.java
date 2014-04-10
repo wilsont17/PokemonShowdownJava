@@ -354,6 +354,7 @@ public class Pokemon
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
 			Move temp = new Move(p.getPossibleMoveSet().get(rand));
 			System.out.println(temp);
+			System.out.println("THISISTHEERROR");
 			
 			for(Move m : p.moves)
 			{

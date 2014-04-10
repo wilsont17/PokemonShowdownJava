@@ -87,14 +87,14 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		for (int x = 0; x < 4; x ++)
 		{
-		  currPokemonMoves.add(new JButton("     "));
+		  currPokemonMoves.add(new JButton("<html>     "));
 		  currPokemonMoves.get(x).addActionListener(this);
 		  gbc.gridx = 2 + x; gbc.gridy = 7;
 		  jfrm.add(currPokemonMoves.get(x), gbc);
 		}
 		for (int x = 0; x < 6; x ++)
 		{
-		  currSwitchablePokemon.add(new JButton(""));
+		  currSwitchablePokemon.add(new JButton("<html>"));
 		  currSwitchablePokemon.get(x).setIcon(new ImageIcon("resources/icons/0.png"));
 		  currSwitchablePokemon.get(x).addActionListener(this);
 		  gbc.gridx = 1 + x; gbc.gridy = 8;
@@ -138,6 +138,8 @@ public class PokemonShowdownMainGui implements ActionListener
 		gbc.gridx = 4; gbc.gridy = 0;
 		jfrm.add(opPlayerPokemonHP, gbc);
 		
+		currPlayerPokemonHP.setStringPainted(true);
+		opPlayerPokemonHP.setStringPainted(true);
 		
 		currTurnEvents = new JLabel ("<html>");
 		gbc.gridx = 1; gbc.gridy = 5;
@@ -161,6 +163,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		p2Switch = -1;
 		switchFaint = -1;
 		previousMovesLog.setText("<html>");
+		currTurnEvents.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
@@ -193,6 +196,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		p2Switch = -1;
 		switchFaint = -1;
 		previousMovesLog.setText("<html>");
+		currTurnEvents.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
@@ -238,6 +242,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  opPlayerActiveImg.setIcon(p2Active.getImg());  //get img of p2activepokemon
 	  
 	  currPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+	  currPlayerPokemonHP.setString(currPlayerPokemonHP.getValue() + "%");
 	  
 	  //buff and status effect data
 	  currPlayerPokemonStatusEffects.setText(p1Active.getStatusEffect());
@@ -247,6 +252,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  
 	  opPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+	  opPlayerPokemonHP.setString(opPlayerPokemonHP.getValue() + "%");
 	  opPlayerPokemonStatusEffects.setText(p2Active.getStatusEffect());
 	  for (int x = 0; x < p2Active.getBuffs().size(); x ++)
 	  {
@@ -258,7 +264,12 @@ public class PokemonShowdownMainGui implements ActionListener
 	  for (int x = 0; x < 4; x ++)
 	  {
 	    currPokemonMoves.get(x).setEnabled(true);
-	    currPokemonMoves.get(x).setText(p1Active.getMoveSet().get(x).getName());
+	    
+	    //TODO copy stuff below about currPokemonMoves.get(x).setText() to p2
+	    //TODO also do this for p1 and p2 pokemon switch buttons
+	    currPokemonMoves.get(x).setText("<html>" + p1Active.getMoveSet().get(x).getName() + "<br>"
+	        + p1Active.getMoveSet().get(x).getType() + " - " 
+	        + p1Active.getMoveSet().get(x).getDmgType());
 	    if (!p1Active.getMoveSet().get(x).useable())
 	    {
 	      currPokemonMoves.get(x).setEnabled(false);
@@ -287,6 +298,7 @@ public class PokemonShowdownMainGui implements ActionListener
       opPlayerActiveImg.setIcon(p1Active.getImg());  //get img of p1activepokemon
 	  
 	  currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+	  currPlayerPokemonHP.setString((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()) + "%");
 	  
 	  //buff and status effect data
 	  currPlayerPokemonStatusEffects.setText(p2Active.getStatusEffect());
@@ -296,6 +308,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  
 	  opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+	  opPlayerPokemonHP.setString((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()) + "%");
 	  opPlayerPokemonStatusEffects.setText(p1Active.getStatusEffect());
 	  for (int x = 0; x < p1Active.getBuffs().size(); x ++)
 	  {
@@ -427,7 +440,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		  }	  
 		}
 		
-
+		currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
+    currPlayerPokemonHP.setString((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()) + "%");
+    opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+    opPlayerPokemonHP.setString((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()) + "%");
+    
 		  battleOver();
 		  
 		  if (battleInProgress)
