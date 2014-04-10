@@ -58,17 +58,27 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		previousMovesLog = new JLabel("<html>");
-		previousMovesLog.setPreferredSize(new Dimension(200,950));
+		
+		/*
+		JScrollPane scroller = new JScrollPane(previousMovesLog, 
+			      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+			      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+
+		previousMovesLog.setPreferredSize(new Dimension(300,400));
+		
 		JScrollPane scroller = new JScrollPane(previousMovesLog);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.setViewportView(previousMovesLog);
-	  //scroller.setPreferredSize(new Dimension(200,350));
-  	//gbc.anchor = GridBagConstraints.WEST;
-		gbc.gridx = 10; gbc.gridy = 0;
+		scroller.setMinimumSize(new Dimension(300, 400));
+		scroller.setPreferredSize(new Dimension(300, 1200));
+
+		
+		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(scroller, gbc);
-		
+		*/
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -121,17 +131,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		gbc.gridwidth = 1;
 		
-		
 		currPlayerPokemonHP = new JProgressBar();
-		currPlayerPokemonHP.setPreferredSize(new Dimension(100,25));
 		gbc.gridx = 2; gbc.gridy = 4;
-	
 		jfrm.add(currPlayerPokemonHP, gbc);
-		
 		opPlayerPokemonHP = new JProgressBar();
-		opPlayerPokemonHP.setPreferredSize(new Dimension(100,25));
 		gbc.gridx = 4; gbc.gridy = 0;
-
 		jfrm.add(opPlayerPokemonHP, gbc);
 		
 		
@@ -149,6 +153,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
+	  p1Pokemon = new ArrayList<Pokemon>();
+    p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
@@ -179,12 +185,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createSixVsSix()
 	{
+	  p1Pokemon = new ArrayList<Pokemon>();
+    p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
 		p2Switch = -1;
 		switchFaint = -1;
-		previousMovesLog.setText("html>");
+		previousMovesLog.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
@@ -262,7 +270,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	    currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
-	    if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
+	    if (p1Pokemon.get(x).equals(p1Active) || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
 	    }
@@ -308,7 +316,7 @@ public class PokemonShowdownMainGui implements ActionListener
       currSwitchablePokemon.get(x).setEnabled(true);
       currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
       currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
-      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
+      if (p2Pokemon.get(x).equals(p2Active) || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
       }
