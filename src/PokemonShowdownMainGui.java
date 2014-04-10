@@ -58,7 +58,6 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		previousMovesLog = new JLabel("<html>");
-		System.out.println(previousMovesLog.getText());
 		
 		/*
 		JScrollPane scroller = new JScrollPane(previousMovesLog, 
@@ -154,12 +153,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
+	  p1Pokemon = new ArrayList<Pokemon>();
+    p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
 		p2Switch = -1;
 		switchFaint = -1;
-		previousMovesLog.setText("html>");
+		previousMovesLog.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
@@ -184,12 +185,14 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createSixVsSix()
 	{
+	  p1Pokemon = new ArrayList<Pokemon>();
+    p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
 		p2Switch = -1;
 		switchFaint = -1;
-		previousMovesLog.setText("html>");
+		previousMovesLog.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
@@ -267,7 +270,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	    currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
-	    if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
+	    if (p1Pokemon.get(x).equals(p1Active) || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
 	    }
@@ -313,7 +316,7 @@ public class PokemonShowdownMainGui implements ActionListener
       currSwitchablePokemon.get(x).setEnabled(true);
       currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
       currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
-      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
+      if (p2Pokemon.get(x).equals(p2Active) || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
       }
