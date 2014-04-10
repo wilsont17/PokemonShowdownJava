@@ -58,28 +58,17 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		
 		previousMovesLog = new JLabel("<html>");
-		System.out.println(previousMovesLog.getText());
-		
-		/*
-		JScrollPane scroller = new JScrollPane(previousMovesLog, 
-			      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-			      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-
-		previousMovesLog.setPreferredSize(new Dimension(300,400));
-		
+		previousMovesLog.setPreferredSize(new Dimension(200,950));
 		JScrollPane scroller = new JScrollPane(previousMovesLog);
 		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.setViewportView(previousMovesLog);
-		scroller.setMinimumSize(new Dimension(300, 400));
-		scroller.setPreferredSize(new Dimension(300, 1200));
-
-		
-		gbc.gridx = 7; gbc.gridy = 0;
+	  //scroller.setPreferredSize(new Dimension(200,350));
+  	//gbc.anchor = GridBagConstraints.WEST;
+		gbc.gridx = 10; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(scroller, gbc);
-		*/
+		
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -132,11 +121,17 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		gbc.gridwidth = 1;
 		
+		
 		currPlayerPokemonHP = new JProgressBar();
+		currPlayerPokemonHP.setPreferredSize(new Dimension(100,25));
 		gbc.gridx = 2; gbc.gridy = 4;
+	
 		jfrm.add(currPlayerPokemonHP, gbc);
+		
 		opPlayerPokemonHP = new JProgressBar();
+		opPlayerPokemonHP.setPreferredSize(new Dimension(100,25));
 		gbc.gridx = 4; gbc.gridy = 0;
+
 		jfrm.add(opPlayerPokemonHP, gbc);
 		
 		
@@ -159,7 +154,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		p1Switch = -1;
 		p2Switch = -1;
 		switchFaint = -1;
-		previousMovesLog.setText("html>");
+		previousMovesLog.setText("<html>");
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
