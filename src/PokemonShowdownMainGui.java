@@ -173,18 +173,23 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		Pokemon.loadMoveSet(p1Pokemon.get(0));
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
 		
-		if(p1Pokemon.get(0).getPossibleMoveSet().size() < 4)
-		{
-			p1Pokemon.clear();
-			p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-		}
 		
-		if(p2Pokemon.get(0).getPossibleMoveSet().size() < 4)
-		{
-			p2Pokemon.clear();
-			p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-		}
-		
+    while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
+    {
+      System.out.println("invalid pokemon detected --- regenerating list");
+      p1Pokemon.clear();
+      p2Pokemon.clear();
+      for (int x = 0; x < 6; x ++)
+      {
+        Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+        Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+        Pokemon.loadMoveSet(temp1);
+        Pokemon.loadMoveSet(temp2);
+        p1Pokemon.add(temp1);
+        p2Pokemon.add(temp2);
+      }
+      
+    }
 		
 		
 		p1Active = p1Pokemon.get(0);
@@ -223,15 +228,20 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		
 		while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
 		{
-			p1Pokemon.clear();
-			p2Pokemon.clear();
+		  System.out.println("invalid pokemon detected --- regenerating list");
 			for (int x = 0; x < 6; x ++)
 			{
-				p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-				p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+			  Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			  Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			  Pokemon.loadMoveSet(temp1);
+			  Pokemon.loadMoveSet(temp2);
+        p1Pokemon.add(temp1);
+				p2Pokemon.add(temp2);
 			}
 			
 		}
+		
+
     
 	    p1Active = p1Pokemon.get(0);
 	    p2Active = p2Pokemon.get(0);
@@ -1107,11 +1117,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 
   public void adjustmentValueChanged(AdjustmentEvent e)
   {
-    System.out.println(e);
     if(!e.getValueIsAdjusting())
     {
       e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
-      
     }
     
   }
