@@ -56,21 +56,25 @@ public class PokemonShowdownMainGui implements ActionListener
 		experimentalPokemonDBLoader(); // load all pokemon
 		jfrm.setVisible(true);
 		
+		JPanel prevMoveLog = new JPanel();
+		
+		prevMoveLog.setPreferredSize(new Dimension(300,300));
+		JLabel test = new JLabel("asdsada");
+		test.setSize(new Dimension(100,100));
+		
+		JScrollPane jsp = new JScrollPane();
+		
 		
 		previousMovesLog = new JLabel("<html>");
+		previousMovesLog.setPreferredSize(new Dimension(300,300));
 		
+		jsp.add(previousMovesLog);
+		jsp.add(test);
 
-		previousMovesLog.setPreferredSize(new Dimension(300,400));
-		
-		JScrollPane scroller = new JScrollPane(previousMovesLog);
-		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scroller.setViewportView(previousMovesLog);
-		scroller.setMinimumSize(new Dimension(300, 400));
-		scroller.setPreferredSize(new Dimension(300, 1200));
+		prevMoveLog.add(jsp);
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
-		jfrm.add(scroller, gbc);
+		jfrm.add(jsp, gbc);
 		
 		
 		currPokemonMoves = new ArrayList<JButton>();
@@ -125,9 +129,11 @@ public class PokemonShowdownMainGui implements ActionListener
 		gbc.gridwidth = 1;
 		
 		currPlayerPokemonHP = new JProgressBar();
+		currPlayerPokemonHP.setMinimumSize(new Dimension(200, 25));
 		gbc.gridx = 2; gbc.gridy = 4;
 		jfrm.add(currPlayerPokemonHP, gbc);
 		opPlayerPokemonHP = new JProgressBar();
+		opPlayerPokemonHP.setMinimumSize(new Dimension(200, 25));
 		gbc.gridx = 4; gbc.gridy = 0;
 		jfrm.add(opPlayerPokemonHP, gbc);
 		
@@ -148,8 +154,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
-	  p1Pokemon = new ArrayList<Pokemon>();
-    p2Pokemon = new ArrayList<Pokemon>();
+		p1Pokemon = new ArrayList<Pokemon>();
+	  	p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
@@ -160,6 +166,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		battleInProgress = true;
 		whoseTurn = true;
 		turnNum = 1;
+		
 		p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
 		
@@ -171,6 +178,20 @@ public class PokemonShowdownMainGui implements ActionListener
 		Pokemon.loadMoveSet(p1Pokemon.get(0));
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
 		
+		if(p1Pokemon.get(0).getPossibleMoveSet().size() < 4)
+		{
+			p1Pokemon.clear();
+			p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+		}
+		
+		if(p2Pokemon.get(0).getPossibleMoveSet().size() < 4)
+		{
+			p2Pokemon.clear();
+			p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+		}
+		
+		
+		
 		p1Active = p1Pokemon.get(0);
 		p2Active = p2Pokemon.get(0);
 		
@@ -181,8 +202,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createSixVsSix()
 	{
-	  p1Pokemon = new ArrayList<Pokemon>();
-    p2Pokemon = new ArrayList<Pokemon>();
+		p1Pokemon = new ArrayList<Pokemon>();
+	  	p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
@@ -204,6 +225,18 @@ public class PokemonShowdownMainGui implements ActionListener
     
 		for(Pokemon p : p2Pokemon)
 			Pokemon.loadMoveSet(p);
+		
+		while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
+		{
+			p1Pokemon.clear();
+			p2Pokemon.clear();
+			for (int x = 0; x < 6; x ++)
+			{
+				p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+				p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+			}
+			
+		}
     
 	    p1Active = p1Pokemon.get(0);
 	    p2Active = p2Pokemon.get(0);
@@ -212,7 +245,15 @@ public class PokemonShowdownMainGui implements ActionListener
 	    
 	}
 	
-	
+	private boolean pokemonHelper(ArrayList<Pokemon> list)
+	{
+		for(Pokemon p : list)
+		{
+			if(p.getPossibleMoveSet().size() < 4)
+				return false;
+		}
+		return true;
+	}
 	
 	public void addNames(String p1n, String p2n)
 	{
@@ -983,35 +1024,7 @@ public class PokemonShowdownMainGui implements ActionListener
       {
     	  Move.addToMovePool(new Move(Integer.parseInt(restTypes.getString("pokemon_id")), Integer.parseInt(restTypes.getString("move_id"))));
       }
-      //Move.printMoveList();
-      /*
-      for(Move m :  Move.getMovePool())
-      {
-    	  query_MoveInfo+=m.getMoveID();
-    	  resMoveData = stmt.executeQuery(query_MoveInfo);
-    	  ///parse data from the move retrieved
-    	  String power = restTypes.getString("power");
-    	  String pp = restTypes.getString("pp");
-    	  String accuracy = restTypes.getString("accuracy");
-    	  String priority = restTypes.getString("priority");
-    	  String damage_class_id = restTypes.getString("damage_class_id");
-    	  String effect_id = restTypes.getString("effect_id");
-    	  String type_id = restTypes.getString("type_id");
-    	  String name = restTypes.getString("identifier");
-    	  
-    	  m.setType(Integer.parseInt(type_id));
-    	  m.setName(name);
-    	  m.setPower(Integer.parseInt(power));
-    	  m.setPP(Integer.parseInt(pp));
-    	  m.setPriority(Integer.parseInt(priority));
-    	  if(accuracy != null)
-    		  m.setAccuracy(Integer.parseInt(accuracy));
-    	  
-    	  //reset the query string
-    	  query_MoveInfo = "select * from moves where id =";
-      }
-      */
-      //System.out.println("ALL POKEMON MOVES LOADED");
+
     }
     catch(Exception e)
     {

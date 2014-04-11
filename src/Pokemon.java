@@ -349,12 +349,11 @@ public class Pokemon
 		int rand;
 		boolean duplicate = false;
 		
-		while(p.moves.size() != 4)
+		while(p.moves.size() != 4 && p.getPossibleMoveSet().size() >= 4)
 		{
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
 			Move temp = new Move(p.getPossibleMoveSet().get(rand));
-			System.out.println(temp);
-			System.out.println("THISISTHEERROR");
+			//System.out.println(p+ " "+temp);
 			
 			for(Move m : p.moves)
 			{
@@ -364,7 +363,7 @@ public class Pokemon
 				}
 			}
 
-			if(!duplicate)
+			if(!duplicate && !temp.getType().equals("e"))
 			{
 				p.moves.add(temp);
 			}
@@ -408,6 +407,8 @@ public class Pokemon
 	    	moveID = r1.getString("move_id");
 	     	p.addToPossibleMoveSet(Move.getMoveByID(Integer.parseInt(moveID)));
 	    }
+	    
+	  
 	     //do this for each element of the moveset
 	    for(Move m : p.getPossibleMoveSet())
 	    {
