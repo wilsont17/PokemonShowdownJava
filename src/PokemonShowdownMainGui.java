@@ -260,6 +260,9 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void p1Turn()
 	{
+	  String iguisetup = "It is now " + p1Name + "'s Turn";
+	  new InstructionsGui(this, iguisetup);
+	  
 	  currPlayerAndAllPokemon.setText(p1Name);
 	  opPlayerAndAllPokemon.setText(p2Name);
 	  currPlayerActiveImg.setText("<html>" + p1Active.getName() + "<br>" + p1Active.getTypeAsString());
@@ -294,9 +297,11 @@ public class PokemonShowdownMainGui implements ActionListener
 	    //TODO copy stuff below about currPokemonMoves.get(x).setText() to p2
 	    //TODO also do this for p1 and p2 pokemon switch buttons
 	    currPokemonMoves.get(x).setText("<html>" + p1Active.getMoveSet().get(x).getName());
-	    currPokemonMoves.get(x).setToolTipText("<html>" + p1Active.getMoveSet().get(x).getType() + " attack / " 
-	    	+ p1Active.getMoveSet().get(x).getPower() + " power<br>"
-	        + p1Active.getMoveSet().get(x).getDmgType() + " type");
+	    currPokemonMoves.get(x).setToolTipText("<html>" + p1Active.getMoveSet().get(x).getType() + " attack / "
+	        + p1Active.getMoveSet().get(x).getDmgType() + " type <br>"
+	        + p1Active.getMoveSet().get(x).getPower() + " power / "
+	        + p1Active.getMoveSet().get(x).getHitChance() + " % hitchance");
+
 	    if (!p1Active.getMoveSet().get(x).useable())
 	    {
 	      currPokemonMoves.get(x).setEnabled(false);
@@ -320,6 +325,9 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void p2Turn()
 	{
+	  String iguisetup = "It is now " + p2Name + "'s Turn";
+	  new InstructionsGui(this, iguisetup);
+	  
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
 	  currPlayerActiveImg.setText("<html>" + p2Active.getName() + "<br>" + p2Active.getTypeAsString());
@@ -349,9 +357,18 @@ public class PokemonShowdownMainGui implements ActionListener
     {
       currPokemonMoves.get(x).setEnabled(true);
       currPokemonMoves.get(x).setText("<html>" + p2Active.getMoveSet().get(x).getName());
-	    currPokemonMoves.get(x).setToolTipText("<html>" + p2Active.getMoveSet().get(x).getType() + " attack / " 
-	    	+ p2Active.getMoveSet().get(x).getPower() + " power<br>"
-	        + p2Active.getMoveSet().get(x).getDmgType() + " type");
+      String cPMxsTTT = "<html>" + p2Active.getMoveSet().get(x).getType() + " attack / "
+          + p2Active.getMoveSet().get(x).getDmgType() + " type <br>"
+          + p2Active.getMoveSet().get(x).getPower() + " power / ";
+      if (p2Active.getMoveSet().get(x).getHitChance() == 0)
+      {
+        cPMxsTTT += "cannot miss";
+      }
+      else
+      {
+        cPMxsTTT += p2Active.getMoveSet().get(x).getHitChance() + " % hitchance";
+      }
+      currPokemonMoves.get(x).setToolTipText(cPMxsTTT);
       if (!p2Active.getMoveSet().get(x).useable())
       {
         currPokemonMoves.get(x).setEnabled(false);
@@ -539,6 +556,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  if (player == 1)
 	  {
+	    String iguisetup = p1Name + " must switch pokemon";
+	    new InstructionsGui(this, iguisetup);
 	    switchFaint = 1;
 	    for (int x = 0; x < p1Pokemon.size(); x ++)
 	    {
@@ -553,6 +572,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	  }
 	  else
 	  {
+	    String iguisetup = p2Name + " must switch pokemon";
+	    new InstructionsGui(this, iguisetup);
 	    switchFaint = 2;
 	    for (int x = 0; x < p2Pokemon.size(); x ++)
 	    {
@@ -1101,34 +1122,5 @@ public class PokemonShowdownMainGui implements ActionListener
       }
 	  return ret;
   }
-  
-  
-  
-  
-    
-
+   
 }
-
-
-	 /*  pokemon types by id
-	 * 1 :::::  normal
-	2 :::::  fighting
-	3 :::::  flying
-	4 :::::  poison
-	5 :::::  ground
-	6 :::::  rock
-	7 :::::  bug
-	8 :::::  ghost
-	9 :::::  steel
-	10 :::::  fire
-	11 :::::  water
-	12 :::::  grass
-	13 :::::  electric
-	14 :::::  psychic
-	15 :::::  ice
-	16 :::::  dragon
-	17 :::::  dark
-	18 :::::  fairy
-	10001 :::::  unknown
-	10002 :::::  shadow
-	 */
