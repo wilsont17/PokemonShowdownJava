@@ -166,7 +166,6 @@ public class Move
 	  {
 	    if(m.getMoveID() == ID)
 	    {
-	    	//System.out.println("adding " + new Move(m));
 	    	return new Move(m); // returns a copy of the move found
 	    }
 	  }
