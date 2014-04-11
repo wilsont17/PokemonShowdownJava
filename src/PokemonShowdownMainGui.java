@@ -276,6 +276,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	
 	public void p1Turn()
 	{
+	  String i = "It is now " + p1Name + "'s Turn";
+	  new InstructionsGui(this, i);
+	  
 	  currPlayerAndAllPokemon.setText(p1Name);
 	  opPlayerAndAllPokemon.setText(p2Name);
 	  currPlayerActiveImg.setText("<html>" + p1Active.getName() + "<br>" + p1Active.getTypeAsString());
@@ -347,6 +350,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	
 	public void p2Turn()
 	{
+	  String i = "It is now " + p2Name + "'s Turn";
+    new InstructionsGui(this, i);
+    
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
 	  currPlayerActiveImg.setText("<html>" + p2Active.getName() + "<br>" + p2Active.getTypeAsString());
@@ -577,6 +583,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	  }
 	  if (player == 1)
 	  {
+	    String i = p1Name + " Must Switch Pokemon";
+	    new InstructionsGui(this, i);
+	    
 	    switchFaint = 1;
 	    for (int x = 0; x < p1Pokemon.size(); x ++)
 	    {
@@ -591,6 +600,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	  }
 	  else
 	  {
+	    String i = p2Name + " Must Switch Pokemon";
+      new InstructionsGui(this, i);
+      
 	    switchFaint = 2;
 	    for (int x = 0; x < p2Pokemon.size(); x ++)
 	    {
