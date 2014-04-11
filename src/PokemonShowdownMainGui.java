@@ -310,11 +310,18 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	    //TODO copy stuff below about currPokemonMoves.get(x).setText() to p2
 	    //TODO also do this for p1 and p2 pokemon switch buttons
 	    currPokemonMoves.get(x).setText("<html>" + p1Active.getMoveSet().get(x).getName());
-	    currPokemonMoves.get(x).setToolTipText("<html>" + p1Active.getMoveSet().get(x).getType() + " attack / "
-	        + p1Active.getMoveSet().get(x).getDmgType() + " type <br>"
-	        + p1Active.getMoveSet().get(x).getPower() + " power / "
-	        + p1Active.getMoveSet().get(x).getHitChance() + " % hitchance");
-
+	    String cPMxsTTT = "<html>" + p1Active.getMoveSet().get(x).getType() + " attack / "
+          + p1Active.getMoveSet().get(x).getDmgType() + " type <br>"
+          + p1Active.getMoveSet().get(x).getPower() + " power / ";
+      if (p1Active.getMoveSet().get(x).getHitChance() == 0)
+      {
+        cPMxsTTT += "cannot miss";
+      }
+      else
+      {
+        cPMxsTTT += p1Active.getMoveSet().get(x).getHitChance() + " % hitchance";
+      }
+      currPokemonMoves.get(x).setToolTipText(cPMxsTTT);
 	    if (!p1Active.getMoveSet().get(x).useable())
 	    {
 	      currPokemonMoves.get(x).setEnabled(false);
