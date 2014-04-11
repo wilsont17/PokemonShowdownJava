@@ -56,22 +56,13 @@ public class PokemonShowdownMainGui implements ActionListener
 		experimentalPokemonDBLoader(); // load all pokemon
 		jfrm.setVisible(true);
 		
-		JPanel prevMoveLog = new JPanel();
-		
-		prevMoveLog.setPreferredSize(new Dimension(300,300));
-		JLabel test = new JLabel("asdsada");
-		test.setSize(new Dimension(100,100));
-		
-		JScrollPane jsp = new JScrollPane();
-		
-		
 		previousMovesLog = new JLabel("<html>");
 		previousMovesLog.setPreferredSize(new Dimension(300,300));
+		JScrollPane jsp = new JScrollPane(previousMovesLog,    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+	            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		jsp.add(previousMovesLog);
-		jsp.add(test);
-
-		prevMoveLog.add(jsp);
+		jsp.setPreferredSize(new Dimension(300,300));
+		
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
 		jfrm.add(jsp, gbc);
