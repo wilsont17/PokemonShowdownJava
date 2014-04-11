@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.*;
 import java.sql.Connection;import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-public class PokemonShowdownMainGui implements ActionListener
+public class PokemonShowdownMainGui implements ActionListener, AdjustmentListener
 {
 	String p1Name, p2Name;
 	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
@@ -51,22 +53,23 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		//weaknessesAndResistances = {}
 
+		JPanel test = new JPanel();
 		
-	
 		experimentalPokemonDBLoader(); // load all pokemon
 		jfrm.setVisible(true);
 		
-		previousMovesLog = new JLabel("<html>");
-		previousMovesLog.setPreferredSize(new Dimension(300,300));
+		previousMovesLog = new JLabel("<html>", SwingConstants.LEFT);
+		//previousMovesLog.setPreferredSize(new Dimension(300,300));
 		JScrollPane jsp = new JScrollPane(previousMovesLog,    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
 		jsp.setPreferredSize(new Dimension(300,300));
+		jsp.getVerticalScrollBar().addAdjustmentListener(this);
 		
+		
+		test.add(jsp);
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
-		jfrm.add(jsp, gbc);
-		
+		jfrm.add(test, gbc);
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -1100,6 +1103,17 @@ public class PokemonShowdownMainGui implements ActionListener
       	  break;
       }
 	  return ret;
+  }
+
+  public void adjustmentValueChanged(AdjustmentEvent e)
+  {
+    System.out.println(e);
+    if(!e.getValueIsAdjusting())
+    {
+      e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
+      
+    }
+    
   }
   
   
