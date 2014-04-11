@@ -1,3 +1,12 @@
+/* Sam Ginzburg and Lang Gao
+ * 
+ * This class contains all of the information pertaining to moves in the game. 
+ * Each move contains information such as its name, description, and other important data.
+ * All of this information is parsed from the sqlite database.
+*/
+
+
+
 import java.util.ArrayList;
 
 

@@ -1,3 +1,12 @@
+/* Sam Ginzburg and Lang Gao
+ * 
+ * This is the Pokemon class, which contains all of the data pertaining to each individial pokemon (ie attack, defense, speed.. etc)
+ * as well as the logic requied to parse the sqlite database containing all of the information relevant to each pokemon (stats, icon)
+*/
+
+
+
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
