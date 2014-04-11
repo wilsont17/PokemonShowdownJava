@@ -298,7 +298,6 @@ public class Pokemon
 	
 	public void addToPossibleMoveSet(Move m)
 	{
-		//System.out.println(m + " :::::  " + this.possibleMoveSet);
 		this.possibleMoveSet.add(m);
 	}
 	
@@ -338,10 +337,8 @@ public class Pokemon
 	{
 	  for(Pokemon p : pokemonPool)
 	  {
-	    //System.out.println("searching " + p);
 	    if(p.getID() == ID) // find the right pokemon, return it
 	    {
-	      //System.out.println("found pokemon with ID     " +p);
 	      return p;
 	    }
 	  }
@@ -379,7 +376,6 @@ public class Pokemon
 		{
 			rand = (int)(Math.random() * p.getPossibleMoveSet().size());
 			Move temp = new Move(p.getPossibleMoveSet().get(rand));
-			//System.out.println(p+ " "+temp);
 			
 			for(Move m : p.moves)
 			{
@@ -398,9 +394,6 @@ public class Pokemon
 				duplicate = false;
 			}
 		}
-		
-		System.out.println(p + "     " + p.moves);
-		
 	}
 	
 	
@@ -448,7 +441,7 @@ public class Pokemon
 	 	      String priority = r2.getString("priority");
 	 	      String damage_class_id = r2.getString("damage_class_id");
 	 	      String effect_id = r2.getString("effect_id");
-	 	      String effect_chance = r2.getString("effect_chance");
+	 	      String effect_chance = r2.getString("effect_chance"); //not used currently
 	 	      String type_id = r2.getString("type_id");
 	 	      String name = r2.getString("identifier");
 	 	      String ID = r2.getString("id");
@@ -485,9 +478,8 @@ public class Pokemon
 	    	//now load description
 	    	query_description = "select * from move_effect_prose where move_effect_id=" + m.getEffectID();
 	    	r3 = stmt.executeQuery(query_description);
-	    	String desc = r3.getString("effect");
+	    	String desc = r3.getString("effect"); //not used, too lengthy
 	    	String short_desc = r3.getString("short_effect");
-	    	//System.out.println(m + " :::: " + short_desc);
 	    	m.setDescription(short_desc);
 	    }
 	

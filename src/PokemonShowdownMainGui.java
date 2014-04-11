@@ -706,7 +706,6 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	  ResultSet r;
 	  Statement stmt;
 	  double avgMultiplier = 1.0;
-	  int count = 0;
 	  try
 	  {
 	      Driver d = (Driver)Class.forName("org.sqlite.JDBC").newInstance();
@@ -875,7 +874,6 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
     ResultSet resStats;
     ResultSet restTypes;
     ResultSet resMoves;
-    ResultSet resMoveData;
     Connection con;
     // this segment of code loads the driver that handles the databse
     try
@@ -893,9 +891,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
       String query_pokemonTypes = "select * from pokemon_types";
       
       String query_pokemonMoves = "select * from pokemon_moves";
-      
-      String query_MoveInfo = "select * from moves where id =";
-      
+         
       stmt = con.createStatement();
       
       resName = stmt.executeQuery(query_pokemon);
@@ -963,7 +959,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
         String typeID = restTypes.getString("type_id");
         //System.out.println(pokeID + " " + typeID);
         //System.out.println(Integer.parseInt(typeID));
-    	//System.out.println("adding to " + Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool));
+        //System.out.println("adding to " + Pokemon.getPokemonByID(Integer.parseInt(pokeID), pokemonPool));
         
         switch(Integer.parseInt(typeID.trim())) 
         {
@@ -1126,34 +1122,6 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
     }
     
   }
-  
-  
-  
-  
-    
 
 }
 
-
-	 /*  pokemon types by id
-	 * 1 :::::  normal
-	2 :::::  fighting
-	3 :::::  flying
-	4 :::::  poison
-	5 :::::  ground
-	6 :::::  rock
-	7 :::::  bug
-	8 :::::  ghost
-	9 :::::  steel
-	10 :::::  fire
-	11 :::::  water
-	12 :::::  grass
-	13 :::::  electric
-	14 :::::  psychic
-	15 :::::  ice
-	16 :::::  dragon
-	17 :::::  dark
-	18 :::::  fairy
-	10001 :::::  unknown
-	10002 :::::  shadow
-	 */
