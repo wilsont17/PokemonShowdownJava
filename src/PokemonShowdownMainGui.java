@@ -156,6 +156,7 @@ public class PokemonShowdownMainGui implements ActionListener
 	{
 		p1Pokemon = new ArrayList<Pokemon>();
 	  	p2Pokemon = new ArrayList<Pokemon>();
+
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
