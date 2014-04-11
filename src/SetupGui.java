@@ -1,3 +1,8 @@
+/* Sam Ginzburg and Lang Gao
+ * 
+ * This class shows the initial setup screen for a game, it allows the user to select their names and the game mode desired.
+*/
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -54,6 +59,7 @@ public class SetupGui implements ActionListener
 				h.createSixVsSix();
 			}
 			h.p1Turn();
+			h.getjfrm().setVisible(true);
 			j.dispose();
 		}
 		
