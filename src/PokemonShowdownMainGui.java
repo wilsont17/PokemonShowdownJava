@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.*;
 import java.sql.Connection;import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-public class PokemonShowdownMainGui implements ActionListener
+public class PokemonShowdownMainGui implements ActionListener, AdjustmentListener
 {
 	String p1Name, p2Name;
 	boolean battleInProgress, whoseTurn;  //whoseTurn = true if p1, false if p2
@@ -51,22 +53,23 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		//weaknessesAndResistances = {}
 
+		JPanel test = new JPanel();
 		
-	
 		experimentalPokemonDBLoader(); // load all pokemon
 		jfrm.setVisible(true);
 		
-		previousMovesLog = new JLabel("<html>");
-		previousMovesLog.setPreferredSize(new Dimension(300,300));
+		previousMovesLog = new JLabel("<html>", SwingConstants.LEFT);
+		//previousMovesLog.setPreferredSize(new Dimension(300,300));
 		JScrollPane jsp = new JScrollPane(previousMovesLog,    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 	            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
 		jsp.setPreferredSize(new Dimension(300,300));
+		jsp.getVerticalScrollBar().addAdjustmentListener(this);
 		
+		
+		test.add(jsp);
 		gbc.gridx = 7; gbc.gridy = 0;
 		gbc.gridheight = 7; gbc.gridwidth = 2;
-		jfrm.add(jsp, gbc);
-		
+		jfrm.add(test, gbc);
 		
 		currPokemonMoves = new ArrayList<JButton>();
 		currSwitchablePokemon = new ArrayList<JButton>();
@@ -170,18 +173,23 @@ public class PokemonShowdownMainGui implements ActionListener
 		Pokemon.loadMoveSet(p1Pokemon.get(0));
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
 		
-		if(p1Pokemon.get(0).getPossibleMoveSet().size() < 4)
-		{
-			p1Pokemon.clear();
-			p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-		}
 		
-		if(p2Pokemon.get(0).getPossibleMoveSet().size() < 4)
-		{
-			p2Pokemon.clear();
-			p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-		}
-		
+    while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
+    {
+      System.out.println("invalid pokemon detected --- regenerating list");
+      p1Pokemon.clear();
+      p2Pokemon.clear();
+      for (int x = 0; x < 6; x ++)
+      {
+        Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+        Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+        Pokemon.loadMoveSet(temp1);
+        Pokemon.loadMoveSet(temp2);
+        p1Pokemon.add(temp1);
+        p2Pokemon.add(temp2);
+      }
+      
+    }
 		
 		
 		p1Active = p1Pokemon.get(0);
@@ -220,15 +228,20 @@ public class PokemonShowdownMainGui implements ActionListener
 		
 		while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
 		{
-			p1Pokemon.clear();
-			p2Pokemon.clear();
+		  System.out.println("invalid pokemon detected --- regenerating list");
 			for (int x = 0; x < 6; x ++)
 			{
-				p1Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
-				p2Pokemon.add((pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone());
+			  Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			  Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			  Pokemon.loadMoveSet(temp1);
+			  Pokemon.loadMoveSet(temp2);
+        p1Pokemon.add(temp1);
+				p2Pokemon.add(temp2);
 			}
 			
 		}
+		
+
     
 	    p1Active = p1Pokemon.get(0);
 	    p2Active = p2Pokemon.get(0);
@@ -1121,6 +1134,15 @@ public class PokemonShowdownMainGui implements ActionListener
       	  break;
       }
 	  return ret;
+  }
+
+  public void adjustmentValueChanged(AdjustmentEvent e)
+  {
+    if(!e.getValueIsAdjusting())
+    {
+      e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
+    }
+    
   }
    
 }
