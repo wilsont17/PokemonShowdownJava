@@ -308,6 +308,23 @@ public class Pokemon
 		return t;
 	}
 	
+	public String getMoveSetAsString()
+	{
+		String t = "";
+		for (int x = 0; x < 4; x ++)
+		{
+			t += moves.get(x).getName() + "<br>";
+		}
+		return t;
+	}
+	
+	public String getStatsAsString()
+	{
+		return getHP() + " HP / " + getAttack() + " PATK / " + getDefense() + " PDEF / " + 
+				getSpAttack() + " SPATK / " + getSpDefense() + " SPDEF / " + getSpeed() + " SPD";
+		
+	}
+	
 	public static Pokemon getPokemonByID(int ID, ArrayList<Pokemon> pokemonPool)
 	{
 	  for(Pokemon p : pokemonPool)

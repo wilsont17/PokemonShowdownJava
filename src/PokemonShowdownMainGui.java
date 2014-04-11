@@ -148,8 +148,8 @@ public class PokemonShowdownMainGui implements ActionListener
 	
 	public void createOneVsOne()
 	{
-	  p1Pokemon = new ArrayList<Pokemon>();
-    p2Pokemon = new ArrayList<Pokemon>();
+		p1Pokemon = new ArrayList<Pokemon>();
+		p2Pokemon = new ArrayList<Pokemon>();
 		p1Move = -1;
 		p2Move = -1;
 		p1Switch = -1;
@@ -260,9 +260,10 @@ public class PokemonShowdownMainGui implements ActionListener
 	    
 	    //TODO copy stuff below about currPokemonMoves.get(x).setText() to p2
 	    //TODO also do this for p1 and p2 pokemon switch buttons
-	    currPokemonMoves.get(x).setText("<html>" + p1Active.getMoveSet().get(x).getName() + "<br>"
-	        + p1Active.getMoveSet().get(x).getType() + " - " 
-	        + p1Active.getMoveSet().get(x).getDmgType());
+	    currPokemonMoves.get(x).setText("<html>" + p1Active.getMoveSet().get(x).getName());
+	    currPokemonMoves.get(x).setToolTipText("<html>" + p1Active.getMoveSet().get(x).getType() + " attack / " 
+	    	+ p1Active.getMoveSet().get(x).getPower() + " power<br>"
+	        + p1Active.getMoveSet().get(x).getDmgType() + " type");
 	    if (!p1Active.getMoveSet().get(x).useable())
 	    {
 	      currPokemonMoves.get(x).setEnabled(false);
@@ -274,6 +275,9 @@ public class PokemonShowdownMainGui implements ActionListener
 	    currSwitchablePokemon.get(x).setEnabled(true);
 	    currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	    currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
+	    currSwitchablePokemon.get(x).setToolTipText("<html>" + p1Pokemon.get(x).getTypeAsString() + "type<br>"
+	    		+ p1Pokemon.get(x).getStatsAsString() + "<br>"
+	    		+ p1Pokemon.get(x).getMoveSetAsString());
 	    if (p1Pokemon.get(x).equals(p1Active) || p1Pokemon.get(x).getHP() < 1)
 	    {
 	      currSwitchablePokemon.get(x).setEnabled(false);
@@ -311,7 +315,10 @@ public class PokemonShowdownMainGui implements ActionListener
     for (int x = 0; x < 4; x ++)
     {
       currPokemonMoves.get(x).setEnabled(true);
-      currPokemonMoves.get(x).setText(p2Active.getMoveSet().get(x).getName());
+      currPokemonMoves.get(x).setText("<html>" + p2Active.getMoveSet().get(x).getName());
+	    currPokemonMoves.get(x).setToolTipText("<html>" + p2Active.getMoveSet().get(x).getType() + " attack / " 
+	    	+ p2Active.getMoveSet().get(x).getPower() + " power<br>"
+	        + p2Active.getMoveSet().get(x).getDmgType() + " type");
       if (!p2Active.getMoveSet().get(x).useable())
       {
         currPokemonMoves.get(x).setEnabled(false);
@@ -322,6 +329,9 @@ public class PokemonShowdownMainGui implements ActionListener
       currSwitchablePokemon.get(x).setEnabled(true);
       currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
       currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
+      currSwitchablePokemon.get(x).setToolTipText("<html>" + p2Pokemon.get(x).getTypeAsString() + "type<br>"
+	    		+ p2Pokemon.get(x).getStatsAsString() + "<br>"
+	    		+ p2Pokemon.get(x).getMoveSetAsString());
       if (p2Pokemon.get(x).equals(p2Active) || p2Pokemon.get(x).getHP() < 1)
       {
         currSwitchablePokemon.get(x).setEnabled(false);
@@ -329,12 +339,12 @@ public class PokemonShowdownMainGui implements ActionListener
     }
   }
 
-	//TODO check status effects - paralyze burn frozen sleep before a pokemon moves
+
 	//TODO check status effects and item effects after both pokemon move
 	public void turnMove()
 	{
-		currTurnEvents.setText("<html>Turn " + turnNum + "<br>-------");
-		previousMovesLog.setText(previousMovesLog.getText() + "<br>Turn " + turnNum + "<br>-------");
+		currTurnEvents.setText("<html>Turn " + turnNum + " -------");
+		previousMovesLog.setText(previousMovesLog.getText() + "<br>Turn " + turnNum + " -------");
 
 		if (p1Switch != -1)  //P1 switches out
 		{
@@ -581,7 +591,6 @@ public class PokemonShowdownMainGui implements ActionListener
 				attacker.getName() + " used " + attack.getName() + "!");
 		
 		
-		//TODO printouts for if defender is immune/resists/weak and actual dmg % done
 		//dmg calcs
 		if (Math.random() < (attack.getHitChance()/100.0) || attack.getHitChance() == 00)
 		{
@@ -624,10 +633,7 @@ public class PokemonShowdownMainGui implements ActionListener
 		  return 0;
 		}	
 		
-		//TODO status effect moves
-		//TODO switch after dmg moves switch part
-		
-		
+		//TODO status effect moves	
 		
 	//http://www.serebii.net/games/damage.shtml
 	}
