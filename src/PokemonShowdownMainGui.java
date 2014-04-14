@@ -575,49 +575,54 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	
 	public void freeSwap (int player)
 	{
-		battleInProgress = false;
-	  for (int x = 0; x < 4; x ++)
+	  battleOver();
+	  if (battleInProgress)
 	  {
-	    currPokemonMoves.get(x).setText("     ");
-	    currPokemonMoves.get(x).setEnabled(false);
-	  }
-	  if (player == 1)
-	  {
-	    String i = p1Name + " Must Switch Pokemon";
-	    new InstructionsGui(this, i);
-	    
-	    switchFaint = 1;
-	    for (int x = 0; x < p1Pokemon.size(); x ++)
+	    battleInProgress = false;
+	    for (int x = 0; x < 4; x ++)
 	    {
-	      currSwitchablePokemon.get(x).setEnabled(true);
-	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
-	      currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
-	      currSwitchablePokemon.get(x).setToolTipText("<html>" + p1Pokemon.get(x).getTypeAsString() + "type<br>"
-	          + p1Pokemon.get(x).getStatsAsString() + "<br>"
-	          + p1Pokemon.get(x).getMoveSetAsString());
-	      if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
+	      currPokemonMoves.get(x).setText("     ");
+	      currPokemonMoves.get(x).setEnabled(false);
+	    }
+	    if (player == 1)
+	    {
+	      String i = p1Name + " Must Switch Pokemon";
+	      new InstructionsGui(this, i);
+	      
+	      switchFaint = 1;
+	      for (int x = 0; x < p1Pokemon.size(); x ++)
 	      {
-	        currSwitchablePokemon.get(x).setEnabled(false);
+	        currSwitchablePokemon.get(x).setEnabled(true);
+	        currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
+	        currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
+	        currSwitchablePokemon.get(x).setToolTipText("<html>" + p1Pokemon.get(x).getTypeAsString() + "type<br>"
+	            + p1Pokemon.get(x).getStatsAsString() + "<br>"
+	            + p1Pokemon.get(x).getMoveSetAsString());
+	        if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
+	        {
+	          currSwitchablePokemon.get(x).setEnabled(false);
+	        }
+	      }
+	    }
+	    else
+	    {
+	      String i = p2Name + " Must Switch Pokemon";
+	      new InstructionsGui(this, i);
+	      
+	      switchFaint = 2;
+	      for (int x = 0; x < p2Pokemon.size(); x ++)
+	      {
+	        currSwitchablePokemon.get(x).setEnabled(true);
+	        currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
+	        currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
+	        if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
+	        {
+	          currSwitchablePokemon.get(x).setEnabled(false);
+	        }
 	      }
 	    }
 	  }
-	  else
-	  {
-	    String i = p2Name + " Must Switch Pokemon";
-      new InstructionsGui(this, i);
-      
-	    switchFaint = 2;
-	    for (int x = 0; x < p2Pokemon.size(); x ++)
-	    {
-	      currSwitchablePokemon.get(x).setEnabled(true);
-	      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
-	      currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
-	      if (x == p2ActiveIndex || p2Pokemon.get(x).getHP() < 1)
-	      {
-	        currSwitchablePokemon.get(x).setEnabled(false);
-	      }
-	    }
-	  }
+		
 	}
 	
 	public int performAttack(Pokemon attacker, Pokemon defender, Move attack)
