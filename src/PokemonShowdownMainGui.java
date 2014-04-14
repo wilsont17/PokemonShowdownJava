@@ -592,6 +592,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	      currSwitchablePokemon.get(x).setEnabled(true);
 	      currSwitchablePokemon.get(x).setText(p1Pokemon.get(x).getName());
 	      currSwitchablePokemon.get(x).setIcon(p1Pokemon.get(x).getImg());
+	      currSwitchablePokemon.get(x).setToolTipText("<html>" + p1Pokemon.get(x).getTypeAsString() + "type<br>"
+	          + p1Pokemon.get(x).getStatsAsString() + "<br>"
+	          + p1Pokemon.get(x).getMoveSetAsString());
 	      if (x == p1ActiveIndex || p1Pokemon.get(x).getHP() < 1)
 	      {
 	        currSwitchablePokemon.get(x).setEnabled(false);
