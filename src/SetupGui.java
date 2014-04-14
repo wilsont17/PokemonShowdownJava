@@ -59,7 +59,6 @@ public class SetupGui implements ActionListener
 				h.createSixVsSix();
 			}
 			h.p1Turn();
-			h.getjfrm().setVisible(true);
 			j.dispose();
 		}
 		
