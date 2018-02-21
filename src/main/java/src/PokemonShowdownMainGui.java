@@ -38,8 +38,12 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	JFrame jfrm;
 	GridBagLayout gb;
 	GridBagConstraints gbc;
-	
-	
+
+	// Constructor for testing
+	PokemonShowdownMainGui(String test)
+	{
+	}
+
 	PokemonShowdownMainGui() throws FileNotFoundException
 	{
 	  
@@ -733,7 +737,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	{
 		for (int x = 0; x < user.getType().size(); x ++)
 		{
-			if (user.getType().get(x).equals(ability.getType()))
+			if (user.getType().get(x).equals(ability.getDmgType()))
 			{
 				return 1.5;
 			}
@@ -782,7 +786,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	    {
 	      e.printStackTrace();
 	    }
-	  
+
 	  if (avgMultiplier == 0)
 	  {
 		  currTurnEvents.setText(currTurnEvents.getText() + "<br>the opposing pokemon is immune!");
@@ -797,7 +801,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	  }
 	   return avgMultiplier;
 	}
-	
+
 	public void battleOver ()
 	{
 		boolean p1Alive = false;
