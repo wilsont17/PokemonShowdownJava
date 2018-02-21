@@ -28,8 +28,11 @@ public class Move
 	private int priority;
 	private int effect_id;
 	private int effect_chance; // this remains null unless specified otherwise
-	
-	
+
+	Move()
+    {
+		this.name = "";
+	}
 	
 	Move(String name, String description, int power, int hitChance)
 	{
@@ -69,10 +72,7 @@ public class Move
 		this.effect_chance = chance;
 	}
 	
-	public int getEffectChance()
-	{
-		return this.getEffectChance();
-	}
+	public int getEffectChance() { return this.effect_chance; }
 	
 	public void setEffectID(int id)
 	{
