@@ -42,7 +42,25 @@ public class Pokemon
 	private String ability;
 	
 	private ImageIcon imgIcon;
-	
+
+	// Default constructor
+	Pokemon()
+	{
+		turnsStatus = 0;
+		patklvl = 0;
+		spatklvl = 0;
+		pdeflvl = 0;
+		spdeflvl = 0;
+		spdlvl = 0;
+		this.statusEffect = "";
+		this.name = "";
+		this.ID = 0;
+		//statusEffects = new ArrayList<String>();
+		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
+		possibleMoveSet = new ArrayList<Move>();
+		buffs = new ArrayList<String>();
+		type = new ArrayList<String>();
+	}
 
 	//For Use with experimental loader
 	Pokemon(String name, int ID)
@@ -63,9 +81,9 @@ public class Pokemon
 	  type = new ArrayList<String>();
 	  loadImageIcon();
 	}
-	
+
 	//clone constructor
-	
+
 	Pokemon(Pokemon p)
 	{
 		this.name = p.getName();
@@ -90,7 +108,6 @@ public class Pokemon
 	    this.possibleMoveSet = p.possibleMoveSet;
 	    loadImageIcon();
 	}
-	
 	
 	public Pokemon clone()
 	{
@@ -248,8 +265,7 @@ public class Pokemon
 	{
 	  return this.ID;
 	}
-	
-	
+
 	public static void setHP(Pokemon p, int hp) // sets current HP
 	{
 	  p.HP = hp;
@@ -309,10 +325,10 @@ public class Pokemon
 	public String getTypeAsString()
 	{
 		String t = "";
-		for (int x = 0; x < type.size(); x ++)
-		{
-			t += type.get(x) + " ";
-		}
+		if (type.size() == 1 && type.get(0) != null)
+			t += type.get(0);
+		if (type.size() == 2 && type.get(1) != null)
+			t += "" + type.get(1);
 		return t;
 	}
 	
