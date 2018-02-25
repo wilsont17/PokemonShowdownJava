@@ -1,4 +1,4 @@
-/* Sam Ginzburg and Lang Gao
+package src;/* Sam Ginzburg and Lang Gao
  * 
  * This is the Pokemon class, which contains all of the data pertaining to each individial pokemon (ie attack, defense, speed.. etc)
  * as well as the logic requied to parse the sqlite database containing all of the information relevant to each pokemon (stats, icon)
@@ -7,15 +7,9 @@
 
 
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.swing.*;
+import java.sql.*;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
 
 public class Pokemon 
 {
@@ -360,7 +354,7 @@ public class Pokemon
 	  }
 	  //else could not find the pokemon
 	  System.out.println("could not find pokemon");
-    return null;
+    	return null;
 	}
 	
 	public void addType(String type)
@@ -479,7 +473,7 @@ public class Pokemon
 	 	      
 	 	      if(accuracy != null)
 	 	    	  m.setAccuracy(Integer.parseInt(accuracy));
-	 	      m.setPower(Integer.parseInt(power));
+				m.setPower(Integer.parseInt(power));
 	 	      m.setEffectID(Integer.parseInt(effect_id));
 	 	      m.setPP(Integer.parseInt(pp));
 	 	      m.setDmgType(Integer.parseInt(type_id));

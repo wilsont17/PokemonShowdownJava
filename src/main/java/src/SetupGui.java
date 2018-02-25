@@ -1,12 +1,15 @@
+package src;
 /* Sam Ginzburg and Lang Gao
  * 
  * This class shows the initial setup screen for a game, it allows the user to select their names and the game mode desired.
 */
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SetupGui implements ActionListener
 {

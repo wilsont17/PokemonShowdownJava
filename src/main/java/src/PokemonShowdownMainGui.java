@@ -1,24 +1,19 @@
-/* Sam Ginzburg and Lang Gao
+package src;/* Sam Ginzburg and Lang Gao
  * 
  * This class loads the GUI for the pokemon showdown, as well as loading the initial lists of all pokemon necessary
  * This class also contains all of the logic for the pokemon battles.
  */
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.io.*;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.*;
-
-import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PokemonShowdownMainGui implements ActionListener, AdjustmentListener
 {
@@ -181,22 +176,22 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		Pokemon.loadMoveSet(p2Pokemon.get(0));
 		
 		
-    while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
-    {
-      System.out.println("invalid pokemon detected --- regenerating list");
-      p1Pokemon.clear();
-      p2Pokemon.clear();
-      for (int x = 0; x < 6; x ++)
-      {
-        Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
-        Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
-        Pokemon.loadMoveSet(temp1);
-        Pokemon.loadMoveSet(temp2);
-        p1Pokemon.add(temp1);
-        p2Pokemon.add(temp2);
-      }
-      
-    }
+		while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
+		{
+		  System.out.println("invalid pokemon detected --- regenerating list");
+		  p1Pokemon.clear();
+		  p2Pokemon.clear();
+		  for (int x = 0; x < 6; x ++)
+		  {
+			Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+			Pokemon.loadMoveSet(temp1);
+			Pokemon.loadMoveSet(temp2);
+			p1Pokemon.add(temp1);
+			p2Pokemon.add(temp2);
+		  }
+
+		}
 		
 		
 		p1Active = p1Pokemon.get(0);
@@ -242,7 +237,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 			  Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
 			  Pokemon.loadMoveSet(temp1);
 			  Pokemon.loadMoveSet(temp2);
-        p1Pokemon.add(temp1);
+        		p1Pokemon.add(temp1);
 				p2Pokemon.add(temp2);
 			}
 			
@@ -355,7 +350,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	public void p2Turn()
 	{
 	  String i = "It is now " + p2Name + "'s Turn";
-    new InstructionsGui(this, i);
+		new InstructionsGui(this, i);
     
 	  currPlayerAndAllPokemon.setText(p2Name);
 	  opPlayerAndAllPokemon.setText(p1Name);
@@ -382,43 +377,43 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		  opPlayerPokemonStatusEffects.setText(opPlayerPokemonStatusEffects.getText() + " " + p1Active.getBuffs().get(x));
 	  }
     
-    for (int x = 0; x < 4; x ++)
-    {
-      currPokemonMoves.get(x).setEnabled(true);
-      currPokemonMoves.get(x).setText("<html>" + p2Active.getMoveSet().get(x).getName());
-      
-      String cPMxsTTT = "<html>" + p2Active.getMoveSet().get(x).getType() + " attack / "
-          + p2Active.getMoveSet().get(x).getDmgType() + " type <br>"
-          + p2Active.getMoveSet().get(x).getPower() + " power / ";
-      if (p2Active.getMoveSet().get(x).getHitChance() == 0)
-      {
-        cPMxsTTT += "cannot miss";
-      }
-      else
-      {
-        cPMxsTTT += p2Active.getMoveSet().get(x).getHitChance() + " % hitchance";
-      }
-      currPokemonMoves.get(x).setToolTipText(cPMxsTTT);
-      
-      if (!p2Active.getMoveSet().get(x).useable())
-      {
-        currPokemonMoves.get(x).setEnabled(false);
-      }
-    }
-    for (int x = 0; x < p2Pokemon.size(); x ++)
-    {
-      currSwitchablePokemon.get(x).setEnabled(true);
-      currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
-      currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
-      currSwitchablePokemon.get(x).setToolTipText("<html>" + p2Pokemon.get(x).getTypeAsString() + "type<br>"
-	    		+ p2Pokemon.get(x).getStatsAsString() + "<br>"
-	    		+ p2Pokemon.get(x).getMoveSetAsString());
-      if (p2Pokemon.get(x).equals(p2Active) || p2Pokemon.get(x).getHP() < 1)
-      {
-        currSwitchablePokemon.get(x).setEnabled(false);
-      }
-    }
-  }
+		for (int x = 0; x < 4; x ++)
+		{
+		  currPokemonMoves.get(x).setEnabled(true);
+		  currPokemonMoves.get(x).setText("<html>" + p2Active.getMoveSet().get(x).getName());
+
+		  String cPMxsTTT = "<html>" + p2Active.getMoveSet().get(x).getType() + " attack / "
+			  + p2Active.getMoveSet().get(x).getDmgType() + " type <br>"
+			  + p2Active.getMoveSet().get(x).getPower() + " power / ";
+		  if (p2Active.getMoveSet().get(x).getHitChance() == 0)
+		  {
+			cPMxsTTT += "cannot miss";
+		  }
+		  else
+		  {
+			cPMxsTTT += p2Active.getMoveSet().get(x).getHitChance() + " % hitchance";
+		  }
+		  currPokemonMoves.get(x).setToolTipText(cPMxsTTT);
+
+		  if (!p2Active.getMoveSet().get(x).useable())
+		  {
+			currPokemonMoves.get(x).setEnabled(false);
+		  }
+		}
+		for (int x = 0; x < p2Pokemon.size(); x ++)
+		{
+		  currSwitchablePokemon.get(x).setEnabled(true);
+		  currSwitchablePokemon.get(x).setText(p2Pokemon.get(x).getName());
+		  currSwitchablePokemon.get(x).setIcon(p2Pokemon.get(x).getImg());
+		  currSwitchablePokemon.get(x).setToolTipText("<html>" + p2Pokemon.get(x).getTypeAsString() + "type<br>"
+					+ p2Pokemon.get(x).getStatsAsString() + "<br>"
+					+ p2Pokemon.get(x).getMoveSetAsString());
+		  if (p2Pokemon.get(x).equals(p2Active) || p2Pokemon.get(x).getHP() < 1)
+		  {
+			currSwitchablePokemon.get(x).setEnabled(false);
+		  }
+		}
+	  }
 
 
 	//TODO check status effects and item effects after both pokemon move
@@ -513,6 +508,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		    	  Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
 		      }
 		    }
+		    //p2 higher priority
 		    else
 		    {
 		        Pokemon.setHP(p1Active, p1Active.getHP() - performAttack(p2Active, p1Active, p2Active.getMoveSet().get(p2Move)));
@@ -525,9 +521,9 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		}
 		
 		currPlayerPokemonHP.setValue((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()));
-    currPlayerPokemonHP.setString((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()) + "%");
-    opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
-    opPlayerPokemonHP.setString((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()) + "%");
+		currPlayerPokemonHP.setString((int)(p2Active.getHP() * 100 / p2Active.getMaxHP()) + "%");
+		opPlayerPokemonHP.setValue((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()));
+		opPlayerPokemonHP.setString((int)(p1Active.getHP() * 100 / p1Active.getMaxHP()) + "%");
     
 		  battleOver();
 		  
@@ -577,7 +573,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		
 	}
 	
-	public void freeSwap (int player)
+	public void freeSwap(int player)
 	{
 	  battleOver();
 	  if (battleInProgress)
@@ -693,7 +689,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		  if (attack.getType().equals("p"))
 		  {
 			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
-					  / defender.getDefense()) / 50 + 2) * stabResult(attacker, attack) * 
+					  / defender.getDefense()) / 50 + 2 ) * stabResult(attacker, attack) *
 					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 			  if (attacker.getStatusEffect().equals("BRN"))
 			  {
@@ -703,7 +699,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		  else if (attack.getType().equals("s"))
 		  {
 			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
-					  / defender.getSpDefense()) / 50) + 2 * stabResult(attacker, attack) *
+					  / defender.getSpDefense()) / 50 + 2 ) * stabResult(attacker, attack) *
 					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
 		  }
 		  //Status effect
@@ -746,7 +742,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		
 	}
 	
-	public double weakResist(Pokemon defender, Move ability)
+	public double weakResist(Pokemon defender, Move move)
 	{
 	  Connection con;
 	  ResultSet r;
@@ -773,7 +769,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	        String targetType = r.getString("target_type_id");
 	        for(String type : defender.getType())
 	        {
-	        	if(type.equals(getType(Integer.parseInt(targetType))) && ability.getDmgType().equals(getType(Integer.parseInt(dmgType))))
+	        	if(type.equals(getType(Integer.parseInt(targetType))) && move.getDmgType().equals(getType(Integer.parseInt(dmgType))))
 	        	{
 	        		avgMultiplier *= r.getDouble("damage_factor")/100;
 		        }
@@ -1077,7 +1073,8 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
       
       while(resMoves.next())
       {
-    	  Move.addToMovePool(new Move(Integer.parseInt(restTypes.getString("pokemon_id")), Integer.parseInt(restTypes.getString("move_id"))));
+    	  Move.addToMovePool(new Move(Integer.parseInt(restTypes.getString("pokemon_id")),
+				  Integer.parseInt(restTypes.getString("move_id"))));
       }
 
     }

@@ -1,12 +1,12 @@
-/* Sam Ginzburg and Lang Gao
+package src;/* Sam Ginzburg and Lang Gao
  * 
  * This class helps the users play the game, as well as guide them.
 */
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
-import javax.swing.*;
 
 
 public class InstructionsGui implements ActionListener
