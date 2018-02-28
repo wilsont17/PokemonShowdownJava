@@ -40,6 +40,7 @@ public class InstructionsGui implements ActionListener
     if (ae.getSource() == done)
     {
       host.getjfrm().setVisible(true);
+	  f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
       f.dispose();
     }
     

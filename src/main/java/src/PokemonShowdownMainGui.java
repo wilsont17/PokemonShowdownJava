@@ -690,24 +690,11 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		if (Math.random() < (attack.getHitChance()/100.0) || attack.getHitChance() == 00)
 		{
 		  int dmg = 0;
-		  if (attack.getType().equals("p"))
-		  {
-			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower() 
-					  / defender.getDefense()) / 50 + 2) * stabResult(attacker, attack) * 
-					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-			  if (attacker.getStatusEffect().equals("BRN"))
-			  {
-				  dmg *= .5;
-			  }
-		  }
-		  else if (attack.getType().equals("s"))
-		  {
-			  dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower() 
-					  / defender.getSpDefense()) / 50) + 2 * stabResult(attacker, attack) *
-					  weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
-		  }
+		  if (attack.getType().equals("p") || attack.getType().equals("s"))
+		  	dmg = calculateDamage(attacker, defender, attack);
 		  //Status effect
 		  else if (attack.getType().equals("e"))
+
 		  {
 			  System.out.println("Status Effect Used");
 		  }
@@ -716,7 +703,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		      + (int)(dmg * 100 / defender.getMaxHP()) + "% of its HP!");
 		  previousMovesLog.setText(previousMovesLog.getText() +"<br>The opponent's " + defender.getName() + " lost "
 		      + (int)(dmg * 100 / defender.getMaxHP()) + "% of its HP!" );
-		  
+
 		  return dmg;
 		}
 		else
@@ -726,13 +713,34 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		  previousMovesLog.setText(previousMovesLog.getText() + "<br>The opponent's " + defender.getName() +
 			      " dodged the attack!");
 		  return 0;
-		}	
-		
+		}
+
 		//TODO status effect moves	
 		
 	//http://www.serebii.net/games/damage.shtml
 	}
-	
+
+	public int calculateDamage(Pokemon attacker, Pokemon defender, Move attack) {
+		int dmg = 0;
+		if (attack.getType().equals("p"))
+		{
+			dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getAttack() * attack.getPower()
+					/ defender.getDefense()) / 50 + 2) * stabResult(attacker, attack) *
+					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+			if (attacker.getStatusEffect().equals("BRN"))
+			{
+				dmg *= .5;
+			}
+		}
+		else if (attack.getType().equals("s"))
+		{
+			dmg = (int)((((2 *  attacker.getLevel() / 5 + 2 ) * attacker.getSpAttack() * attack.getPower()
+					/ defender.getSpDefense()) / 50 + 2) * stabResult(attacker, attack) *
+					weakResist(defender, attack) * ((int)(Math.random() * 16) + 85) / 100 );
+		}
+		return dmg;
+	}
+
 	public double stabResult(Pokemon user, Move ability)
 	{
 		for (int x = 0; x < user.getType().size(); x ++)
