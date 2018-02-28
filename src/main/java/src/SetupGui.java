@@ -1,4 +1,3 @@
-package src;
 /* Sam Ginzburg and Lang Gao
  * 
  * This class shows the initial setup screen for a game, it allows the user to select their names and the game mode desired.

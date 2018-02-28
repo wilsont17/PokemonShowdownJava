@@ -1,4 +1,4 @@
-package src;/* Sam Ginzburg and Lang Gao
+/* Sam Ginzburg and Lang Gao
  * 
  * This class loads the GUI for the pokemon showdown, as well as loading the initial lists of all pokemon necessary
  * This class also contains all of the logic for the pokemon battles.
