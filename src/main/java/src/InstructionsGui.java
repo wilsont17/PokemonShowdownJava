@@ -1,4 +1,4 @@
-package src;/* Sam Ginzburg and Lang Gao
+/* Sam Ginzburg and Lang Gao
  * 
  * This class helps the users play the game, as well as guide them.
 */

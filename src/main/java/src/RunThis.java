@@ -1,4 +1,4 @@
-package src;/* Sam Ginzburg and Lang Gao
+/* Sam Ginzburg and Lang Gao
  * 
  * This class is the class that runs the entire game on a new thread, if the GUI cannot be initialized the program exits.
 */
