@@ -43,6 +43,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	{
 	  
 		jfrm = new JFrame("Pokemon Showdown");
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gb = new GridBagLayout();
 		gbc = new GridBagConstraints();
 		jfrm.setLayout(gb);

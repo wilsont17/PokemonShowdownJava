@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class SetupGui implements ActionListener
-{
-	JFrame j;
+public class SetupGui implements ActionListener{
+
+		JFrame j;
 	JLabel p1NameDesc, p2NameDesc;
 	JButton start;
 	JComboBox<String> gameModes;
@@ -30,6 +30,12 @@ public class SetupGui implements ActionListener
 		
 		p1NameDesc = new JLabel("Enter P1 Name Below");
 		p1NameInput = new JTextField(15);
+		p1NameInput.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+				start.doClick();
+			}}});
 		p2NameDesc = new JLabel("Enter P2 Name Below");
 		p2NameInput = new JTextField(15);
 		p2NameInput.addKeyListener(new KeyAdapter() {
