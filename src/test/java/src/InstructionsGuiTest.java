@@ -11,7 +11,7 @@ public class InstructionsGuiTest {
     static {
         System.setProperty("java.awt.headless", "false");
         System.out.println(java.awt.GraphicsEnvironment.isHeadless());
-    }
+}
     static PokemonShowdownMainGui h;
     static InstructionsGui s;
     Robot r;
