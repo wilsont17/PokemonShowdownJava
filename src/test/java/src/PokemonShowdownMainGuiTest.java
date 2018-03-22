@@ -9,6 +9,7 @@ public class PokemonShowdownMainGuiTest {
    static PokemonShowdownMainGui h;
     @BeforeClass
     public static void initializeGameValues() {
+        System.setProperty("java.awt.headless", "true");
         try {
             h = new PokemonShowdownMainGui();
         } catch (FileNotFoundException e) {

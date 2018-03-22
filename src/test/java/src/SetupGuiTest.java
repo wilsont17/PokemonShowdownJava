@@ -9,11 +9,13 @@ import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
 public class SetupGuiTest {
+
     static PokemonShowdownMainGui h;
     static SetupGui s;
     Robot r;
     @BeforeClass
     public static void initializeGameValues() {
+        System.setProperty("java.awt.headless", "true");
         try {
             h = new PokemonShowdownMainGui();
         } catch (FileNotFoundException e) {

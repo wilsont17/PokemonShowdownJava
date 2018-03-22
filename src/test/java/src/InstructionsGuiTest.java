@@ -13,6 +13,7 @@ public class InstructionsGuiTest {
     Robot r;
     @BeforeClass
     public static void initializeGameGui() {
+        System.setProperty("java.awt.headless", "true");
         try {
             h = new PokemonShowdownMainGui();
         } catch (FileNotFoundException e) {
