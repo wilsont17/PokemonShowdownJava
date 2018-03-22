@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SetupGuiTest {
     static {
-        System.setProperty("java.awt.headless", "true");
+        System.setProperty("java.awt.headless", "false");
         System.out.println(java.awt.GraphicsEnvironment.isHeadless());
     }
     static PokemonShowdownMainGui h;
