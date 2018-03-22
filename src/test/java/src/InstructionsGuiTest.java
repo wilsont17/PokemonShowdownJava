@@ -8,12 +8,15 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 
 public class InstructionsGuiTest {
+    static {
+        System.setProperty("java.awt.headless", "true");
+        System.out.println(java.awt.GraphicsEnvironment.isHeadless());
+    }
     static PokemonShowdownMainGui h;
     static InstructionsGui s;
     Robot r;
     @BeforeClass
     public static void initializeGameGui() {
-        System.setProperty("java.awt.headless", "true");
         try {
             h = new PokemonShowdownMainGui();
         } catch (FileNotFoundException e) {
