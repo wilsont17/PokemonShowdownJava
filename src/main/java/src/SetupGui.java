@@ -43,7 +43,7 @@ public class SetupGui implements ActionListener
 		j.add(p2NameDesc);
 		j.add(p2NameInput);
 		
-		String[] gameOptions = {"1v1", "6v6"};	
+		String[] gameOptions = {"1v1 Random", "6v6", "1v1 NonRandom"};
 		gameModes = new JComboBox<String>(gameOptions);
 		gameModes.addKeyListener(new KeyAdapter() {
 	        @Override
@@ -65,11 +65,15 @@ public class SetupGui implements ActionListener
 			h.addNames(p1NameInput.getText(), p2NameInput.getText());
 			if (gameModes.getSelectedIndex() == 0)  //JComboBox selects 1v1
 			{
-				h.createOneVsOne();
+				h.createOneVsOneRandom();
 			}
 			else if (gameModes.getSelectedIndex() == 1)  //JComboBox selects 6v6
 			{
 				h.createSixVsSix();
+			}
+			else if (gameModes.getSelectedIndex() == 2)  //JComboBox selects 1v1
+			{
+				h.createOneVsOneNonRandom();
 			}
 			h.p1Turn();
 			j.dispose();
