@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="PokemonShowdownJava1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/distributions/PokemonShowdownJava.zip!/" />
+      <root url="jar://$PROJECT_DIR$/build/libs/PokemonShowdownJava.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
