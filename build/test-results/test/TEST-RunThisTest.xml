@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RunThisTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-03-28T22:59:11" hostname="DESKTOP-L3PCOHT" time="0.001">
+  <properties/>
+  <testcase name="testBuild" classname="RunThisTest" time="0.001"/>
+  <system-out><![CDATA[false
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

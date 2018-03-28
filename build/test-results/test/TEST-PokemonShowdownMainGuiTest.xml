@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PokemonShowdownMainGuiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-03-28T22:59:11" hostname="DESKTOP-L3PCOHT" time="0.0">
+  <properties/>
+  <testcase name="testDefaultCloseOperation" classname="PokemonShowdownMainGuiTest" time="0.0"/>
+  <testcase name="stabResult_test" classname="PokemonShowdownMainGuiTest" time="0.0"/>
+  <system-out><![CDATA[false
+ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

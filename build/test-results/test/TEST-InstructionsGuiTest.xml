@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="InstructionsGuiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-03-28T22:59:11" hostname="DESKTOP-L3PCOHT" time="0.001">
+  <properties/>
+  <testcase name="testEnterFunctionality" classname="InstructionsGuiTest" time="0.001"/>
+  <testcase name="testExitClause" classname="InstructionsGuiTest" time="0.0"/>
+  <system-out><![CDATA[false
+ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
