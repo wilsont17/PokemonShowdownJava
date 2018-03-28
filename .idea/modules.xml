@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PokemonShowdownJava.iml" filepath="$PROJECT_DIR$/.idea/modules/PokemonShowdownJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PokemonShowdownJava_main.iml" filepath="$PROJECT_DIR$/.idea/modules/PokemonShowdownJava_main.iml" group="PokemonShowdownJava" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PokemonShowdownJava_test.iml" filepath="$PROJECT_DIR$/.idea/modules/PokemonShowdownJava_test.iml" group="PokemonShowdownJava" />
       <module fileurl="file://$PROJECT_DIR$/src/main/java/main.iml" filepath="$PROJECT_DIR$/src/main/java/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/test/java/test.iml" filepath="$PROJECT_DIR$/src/test/java/test.iml" />
     </modules>
