@@ -1,7 +1,4 @@
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -54,5 +51,10 @@ public class SetupGuiTest {
     public void testDefaultCloseOperation(){
         Assert.assertEquals(3, h.jfrm.getDefaultCloseOperation());
 
+    }
+    @AfterClass
+    public static void tearDown() {
+        s = null;
+        h = null;
     }
 }
