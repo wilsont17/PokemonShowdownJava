@@ -22,8 +22,7 @@ public class InstructionsGuiTest {
     }
     @Test
     public void testEnterFunctionality() throws AWTException {
-        r = new Robot();
-        r.keyPress(KeyEvent.VK_ENTER);
+        s.done.doClick();
     }
     @Test
     public void testExitClause() {

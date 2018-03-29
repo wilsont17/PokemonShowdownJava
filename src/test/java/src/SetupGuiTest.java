@@ -47,6 +47,15 @@ public class SetupGuiTest {
         Assert.assertEquals(3, h.jfrm.getDefaultCloseOperation());
 
     }
+    @Test
+    public void
+    givenNonRandom1v1_whenGivenPokemonIndexOf24_PokemonIsPikachu() throws AWTException {
+        s = new SetupGui(h);
+        s.gameModes.setSelectedIndex(2);
+        s.start.doClick();
+        Assert.assertEquals("pikachu", h.p1Pokemon.get(0).getName());
+    }
+
     @AfterClass
     public static void tearDown() {
         s = null;
