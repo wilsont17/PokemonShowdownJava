@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
 public class SetupGuiTest {
-
+    static {
+        System.setProperty("java.awt.headless", "false");
+        System.out.println(java.awt.GraphicsEnvironment.isHeadless());
+    }
     static PokemonShowdownMainGui h;
     static SetupGui s;
     Robot r;
