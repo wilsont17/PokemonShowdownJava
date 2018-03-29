@@ -44,6 +44,7 @@ jobs:
           
         
       # run tests!
-      - run: gradle test --info
-        command: |
+      - run:
+          name: gradle test
+          command: |
             export DISPLAY=:99
