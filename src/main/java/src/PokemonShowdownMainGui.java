@@ -148,7 +148,7 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 	
 	//Mechanics
 	
-	public void createOneVsOne()
+	public void createOneVsOneRandom()
 	{
 		p1Pokemon = new ArrayList<Pokemon>();
 	  	p2Pokemon = new ArrayList<Pokemon>();
@@ -198,6 +198,60 @@ public class PokemonShowdownMainGui implements ActionListener, AdjustmentListene
 		p2Active = p2Pokemon.get(0);
 		
 		
+		p1ActiveIndex = 0;
+		p2ActiveIndex = 0;
+	}
+
+	public void createOneVsOneNonRandom()
+	{
+		p1Pokemon = new ArrayList<Pokemon>();
+		p2Pokemon = new ArrayList<Pokemon>();
+
+		p1Move = -1;
+		p2Move = -1;
+		p1Switch = -1;
+		p2Switch = -1;
+		switchFaint = -1;
+		previousMovesLog.setText("<html>");
+		currTurnEvents.setText("<html>");
+		battleInProgress = true;
+		whoseTurn = true;
+		turnNum = 1;
+
+		p1Pokemon.add((pokemonPool.get(24)).clone());
+		p2Pokemon.add((pokemonPool.get(24)).clone());
+
+		for (int x = 1; x < 6; x ++)
+		{
+			currSwitchablePokemon.get(x).setEnabled(false);
+		}
+
+		Pokemon.loadMoveSet(p1Pokemon.get(0));
+		Pokemon.loadMoveSet(p2Pokemon.get(0));
+
+
+		while(!pokemonHelper(p1Pokemon) && !pokemonHelper(p1Pokemon))
+		{
+			System.out.println("invalid pokemon detected --- regenerating list");
+			p1Pokemon.clear();
+			p2Pokemon.clear();
+			for (int x = 0; x < 6; x ++)
+			{
+				Pokemon temp1 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+				Pokemon temp2 =  (pokemonPool.get((int)(Math.random()* pokemonPool.size()))).clone();
+				Pokemon.loadMoveSet(temp1);
+				Pokemon.loadMoveSet(temp2);
+				p1Pokemon.add(temp1);
+				p2Pokemon.add(temp2);
+			}
+
+		}
+
+
+		p1Active = p1Pokemon.get(0);
+		p2Active = p2Pokemon.get(0);
+
+
 		p1ActiveIndex = 0;
 		p2ActiveIndex = 0;
 	}
