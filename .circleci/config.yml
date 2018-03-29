@@ -22,9 +22,6 @@ jobs:
       TERM: dumb
   
     steps:
-       before_script:
-     - "Xvfb :99 &"
-     - "export DISPLAY=:99"
       - checkout
 
       # Download and cache dependencies
