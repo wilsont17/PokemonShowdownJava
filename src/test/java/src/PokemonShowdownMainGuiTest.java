@@ -6,10 +6,7 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 
 public class PokemonShowdownMainGuiTest {
-    static {
-        System.setProperty("java.awt.headless", "false");
-        System.out.println(java.awt.GraphicsEnvironment.isHeadless());
-    }
+
    static PokemonShowdownMainGui h;
     @BeforeClass
     public static void initializeGameValues() {
