@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static org.junit.Assert.*;
+import org.junit.Assert.*;
 
 public class PokemonShowdownMainGuiTest {
 
@@ -25,6 +25,6 @@ public class PokemonShowdownMainGuiTest {
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.delay(5000);
-        assertEquals("pikachu", RunThis.gui.p1Pokemon.get(0).getName());
+        Assert.assertEquals("pikachu", RunThis.gui.p1Pokemon.get(0).getName());
     }
 }
