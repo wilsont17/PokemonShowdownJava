@@ -20,9 +20,13 @@ jobs:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
       TERM: dumb
-    
+  
     steps:
       - checkout
+      - run:
+          name: Running X virtual framebuffer
+          command: Xvfb -ac :99 -screen 0 1280x1024x16 +extension RANDR > /dev/null 2>&1
+          background: true
 
       # Download and cache dependencies
       - restore_cache:
@@ -37,6 +41,11 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+          
         
       # run tests!
-      - run: gradle test --info
+      - run:
+          name: Run Tests
+          command: |
+            export DISPLAY=:99
+            gradle test --info

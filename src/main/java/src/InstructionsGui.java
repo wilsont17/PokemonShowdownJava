@@ -22,6 +22,7 @@ public class InstructionsGui implements ActionListener
     info = i;
     
     f = new JFrame("ACHTUNG");
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     f.setSize(400,400);
     f.setLayout(new FlowLayout());
     f.setVisible(true);
