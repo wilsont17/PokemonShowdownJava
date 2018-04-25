@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MoveTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-03-29T00:08:39" hostname="DESKTOP-L3PCOHT" time="0.001">
+<testsuite name="MoveTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-04-25T16:57:38" hostname="DESKTOP-VL941T0" time="0.0">
   <properties/>
-  <testcase name="get_move_effect_chance_test" classname="MoveTest" time="0.001"/>
+  <testcase name="get_move_effect_chance_test" classname="MoveTest" time="0.0"/>
   <testcase name="create_move_test" classname="MoveTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -22,8 +22,6 @@ public class Pokemon
 	private int spDefense;
 	private int speed;
 	private int ID;
-	private int accuracy; //do these later
-	private int evasion; // 
 	private String name;
 	private String statusEffect; //SLP, PSN, PAR, BRN, FRZ
 	private int turnsStatus;
@@ -31,9 +29,11 @@ public class Pokemon
 	private ArrayList<Move> moves;
 	private ArrayList<Move> possibleMoveSet;
 	private ArrayList<String> type;
-	private int patklvl, spatklvl, pdeflvl, spdeflvl, spdlvl;
-	private String item;
-	private String ability;
+	private int patklvl;
+	private int spatklvl;
+	private int pdeflvl;
+	private int spdeflvl;
+	private int spdlvl;
 	
 	private ImageIcon imgIcon;
 
@@ -49,11 +49,10 @@ public class Pokemon
 		this.statusEffect = "";
 		this.name = "";
 		this.ID = 0;
-		//statusEffects = new ArrayList<String>();
-		moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
-		possibleMoveSet = new ArrayList<Move>();
-		buffs = new ArrayList<String>();
-		type = new ArrayList<String>();
+		moves = new ArrayList<>();  //load in moves when pokemon class is updated
+		possibleMoveSet = new ArrayList<>();
+		buffs = new ArrayList<>();
+		type = new ArrayList<>();
 	}
 
 	//For Use with experimental loader
@@ -69,10 +68,10 @@ public class Pokemon
 	  this.name = name;
 	  this.ID = ID;
 	  //statusEffects = new ArrayList<String>();
-	  moves = new ArrayList<Move>();  //load in moves when pokemon class is updated
-	  possibleMoveSet = new ArrayList<Move>();
-	  buffs = new ArrayList<String>();
-	  type = new ArrayList<String>();
+	  moves = new ArrayList<>();  //load in moves when pokemon class is updated
+	  possibleMoveSet = new ArrayList<>();
+	  buffs = new ArrayList<>();
+	  type = new ArrayList<>();
 	  loadImageIcon();
 	}
 
@@ -380,6 +379,7 @@ public class Pokemon
 	private static void randomMoveSelectionFromPool(Pokemon p)
 	{
 		int rand;
+
 		boolean duplicate = false;
 		
 		while(p.moves.size() != 4 && p.getPossibleMoveSet().size() >= 4)
@@ -422,43 +422,41 @@ public class Pokemon
 	    String url = "jdbc:sqlite:resources/pokemon-database.sqlite";
 	    con = DriverManager.getConnection(url);
 	    
-	    String query_moveList = "select * from pokemon_moves where pokemon_id =" + p.getID();
-	    String query_MoveInfo = "select * from moves where id =";
-	    String query_description = "select * from move_effect_prose where id=";
-	    String moveID = "";
+	    String queryMoveList = "select * from pokemon_moves where pokemon_id =" + p.getID();
+	    String queryMoveInfo;
+	    String queryDescription;
+	    String moveID;
 	    stmt = con.createStatement();
-	    
-	    
+
+
       //load moves corresponding to pokemon
-	    r1 = stmt.executeQuery(query_moveList);
+	    r1 = stmt.executeQuery(queryMoveList);
 	    while(r1.next())
 	    {
 	    	moveID = r1.getString("move_id");
 	     	p.addToPossibleMoveSet(Move.getMoveByID(Integer.parseInt(moveID)));
 	    }
-	    
-	  
+
+
 	     //do this for each element of the moveset
 	    for(Move m : p.getPossibleMoveSet())
 	    {
-	    	query_MoveInfo = "select * from moves where id =" + m.getMoveID();
-	    	r2 = stmt.executeQuery(query_MoveInfo);
+	    	queryMoveInfo = "select * from moves where id =" + m.getMoveID();
+	    	r2 = stmt.executeQuery(queryMoveInfo);
 	    	while(r2.next())
 	 	    {
 	 	      String power = r2.getString("power");
 	 	      String pp = r2.getString("pp");
 	 	      String accuracy = r2.getString("accuracy");
 	 	      String priority = r2.getString("priority");
-	 	      String damage_class_id = r2.getString("damage_class_id");
-	 	      String effect_id = r2.getString("effect_id");
-	 	      String effect_chance = r2.getString("effect_chance"); //not used currently
-	 	      String type_id = r2.getString("type_id");
+	 	      String damageClassID = r2.getString("damage_class_id");
+	 	      String effectID = r2.getString("effect_id");
+	 	      String typeID = r2.getString("type_id");
 	 	      String name = r2.getString("identifier");
-	 	      String ID = r2.getString("id");
-	 	      
-	 	      m.setType(damage_class_id);
-	 	      
-	 	      switch(Integer.parseInt(damage_class_id))
+
+	 	      m.setType(damageClassID);
+
+	 	      switch(Integer.parseInt(damageClassID))
 	 	      {
 		 	      case 1:
 		 	    	  m.setType("e");
@@ -469,26 +467,27 @@ public class Pokemon
 		 	      case 3:
 		 	    	  m.setType("s");
 		 	    	  break;
+				  default:
+				  	  break;
 	 	      }
-	 	      
+
 	 	      if(accuracy != null)
 	 	    	  m.setAccuracy(Integer.parseInt(accuracy));
 				m.setPower(Integer.parseInt(power));
-	 	      m.setEffectID(Integer.parseInt(effect_id));
+	 	      m.setEffectID(Integer.parseInt(effectID));
 	 	      m.setPP(Integer.parseInt(pp));
-	 	      m.setDmgType(Integer.parseInt(type_id));
+	 	      m.setDmgType(Integer.parseInt(typeID));
 	 	      m.setName(name);
 	 	      m.setPriority(Integer.parseInt(priority));
 	 	     }
-	    
+
 	    }
-	    
+
 	    for(Move m : p.getPossibleMoveSet())
 	    {
 	    	//now load description
-	    	query_description = "select * from move_effect_prose where move_effect_id=" + m.getEffectID();
-	    	r3 = stmt.executeQuery(query_description);
-	    	String desc = r3.getString("effect"); //not used, too lengthy
+	    	queryDescription = "select * from move_effect_prose where move_effect_id=" + m.getEffectID();
+	    	r3 = stmt.executeQuery(queryDescription);
 	    	String short_desc = r3.getString("short_effect");
 	    	m.setDescription(short_desc);
 	    }

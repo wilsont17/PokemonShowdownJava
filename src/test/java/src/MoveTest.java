@@ -10,6 +10,6 @@ public class MoveTest {
     public void get_move_effect_chance_test() {
         Move move = new Move();
         move.setEffectChance(50);
-        Assert.assertEquals(move.getEffectChance(), 50);
+        Assert.assertEquals(50, move.getEffectChance());
     }
 }

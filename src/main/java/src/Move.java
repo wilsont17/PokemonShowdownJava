@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Move
 {
-	private static ArrayList<Move> movePool = new ArrayList<Move>(); // the list of all moves loaded
+	private static ArrayList<Move> movePool = new ArrayList<>(); // the list of all moves loaded
 	
 	
 	private String name;
@@ -26,8 +26,8 @@ public class Move
 	private int moveID;
 	private int pokemonID; // this identifies the pokemon that can use this move
 	private int priority;
-	private int effect_id;
-	private int effect_chance; // this remains null unless specified otherwise
+	private int effectID;
+	private int effectChance; // this remains null unless specified otherwise
 
 	Move()
     {
@@ -63,25 +63,25 @@ public class Move
 		this.moveID = m.moveID;
 		this.pokemonID = m.pokemonID;
 		this.priority = m.priority;
-		this.effect_id  = m.effect_id;
+		this.effectID  = m.effectID;
 		
 	}
 	
 	public void setEffectChance(int chance)
 	{
-		this.effect_chance = chance;
+		this.effectChance = chance;
 	}
 	
-	public int getEffectChance() { return this.effect_chance; }
+	public int getEffectChance() { return this.effectChance; }
 	
 	public void setEffectID(int id)
 	{
-		this.effect_id = id;
+		this.effectID = id;
 	}
 	
 	public int getEffectID()
 	{
-		return this.effect_id;
+		return this.effectID;
 	}
 	
 	
@@ -160,11 +160,11 @@ public class Move
 		this.power = power;
 	}
 	
-	public static Move getMoveByID(int ID)
+	public static Move getMoveByID(int id)
 	{
 	  for(Move m : movePool)
 	  {
-	    if(m.getMoveID() == ID)
+	    if(m.getMoveID() == id)
 	    {
 	    	return new Move(m); // returns a copy of the move found
 	    }
@@ -260,6 +260,9 @@ public class Move
 	          case 10002:
 	        	  this.dmgType = "shadow";
 	        	  break;
+			  default:
+			  	  break;
+
 	        }
 	}
 	
@@ -277,11 +280,4 @@ public class Move
 	{
 		return movePool;
 	}
-	
-	public void movePerformMove(Pokemon defender)
-	{
-	  
-	}
-
-	
 }

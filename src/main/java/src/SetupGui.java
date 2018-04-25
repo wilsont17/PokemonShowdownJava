@@ -13,10 +13,12 @@ import java.awt.event.KeyEvent;
 public class SetupGui implements ActionListener
 {
 	JFrame j;
-	JLabel p1NameDesc, p2NameDesc;
+	JLabel p1NameDesc;
+	JLabel p2NameDesc;
 	JButton start;
 	JComboBox<String> gameModes;
-	JTextField p1NameInput, p2NameInput;
+	JTextField p1NameInput;
+	JTextField p2NameInput;
 	PokemonShowdownMainGui h;
 
 	public SetupGui(PokemonShowdownMainGui host)
@@ -44,7 +46,7 @@ public class SetupGui implements ActionListener
 		j.add(p2NameInput);
 
 		String[] gameOptions = {"1v1 Random", "6v6", "1v1 NonRandom"};
-		gameModes = new JComboBox<String>(gameOptions);
+		gameModes = new JComboBox<>(gameOptions);
 		gameModes.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {

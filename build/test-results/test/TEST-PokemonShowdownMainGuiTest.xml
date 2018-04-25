@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PokemonShowdownMainGuiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-03-29T00:08:40" hostname="DESKTOP-L3PCOHT" time="0.0">
+<testsuite name="PokemonShowdownMainGuiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-04-25T16:57:39" hostname="DESKTOP-VL941T0" time="0.0">
   <properties/>
   <testcase name="testDefaultCloseOperation" classname="PokemonShowdownMainGuiTest" time="0.0"/>
   <testcase name="stabResult_test" classname="PokemonShowdownMainGuiTest" time="0.0"/>
-  <system-out><![CDATA[false
-ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
+  <system-out><![CDATA[ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

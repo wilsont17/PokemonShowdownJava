@@ -1,0 +1,6 @@
+projectKey=PokemonShowdownJava
+serverUrl=http://localhost:9000
+serverVersion=6.7.2.37468
+dashboardUrl=http://localhost:9000/dashboard/index/PokemonShowdownJava
+ceTaskId=AWK2tsuuliJMp7wCQoSv
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWK2tsuuliJMp7wCQoSv

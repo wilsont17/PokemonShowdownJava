@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SetupGuiTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-03-29T00:08:41" hostname="DESKTOP-L3PCOHT" time="1.285">
+<testsuite name="SetupGuiTest" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="DESKTOP-VL941T0" time="0.0">
   <properties/>
-  <testcase name="test1v1" classname="SetupGuiTest" time="0.29"/>
-  <testcase name="test6v6" classname="SetupGuiTest" time="0.979"/>
-  <testcase name="testDefaultCloseOperation" classname="SetupGuiTest" time="0.0"/>
-  <testcase name="testEntertoStart" classname="SetupGuiTest" time="0.014"/>
-  <system-out><![CDATA[false
-ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
+  <system-out><![CDATA[ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
 ALL POKEMON LOADED :: NOW LOADING POKEMON MOVES
 
 
-
-1v1 successfully Created!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6v6 successfully Created!
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
